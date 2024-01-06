@@ -79,13 +79,17 @@ extension KYPhotoLibrary {
   /// Load one image w/ specific asset local identifier
   ///
   /// - Parameters:
-  ///   - assetIdentifier: Asset unique identifier
-  ///   - expectedSize: The expected size of image to be returned
-  ///   - completion: A block to execute when complete
+  ///   - assetIdentifier: The asset unique identifier used in Photo Library.
+  ///   - expectedSize: The expected size of image to be returned, default: zero.
+  ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
+  ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
+  ///   - completion: A block to execute when complete.
   ///
   public static func loadImage(
     with assetIdentifier: String,
-    expectedSize: CGSize,
+    expectedSize: CGSize = .zero,
+    deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
+    resizeMode: PHImageRequestOptionsResizeMode = .exact,
     completion: @escaping (_ image: UIImage?) -> Void
   ) {
     guard let asset: PHAsset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject else {
@@ -98,7 +102,8 @@ extension KYPhotoLibrary {
                       : expectedSize)
 
     let options = PHImageRequestOptions()
-    options.deliveryMode = .fastFormat
+    options.deliveryMode = deliveryMode
+    options.resizeMode = resizeMode
 
     let imageManager: PHImageManager = PHCachingImageManager.default()
     imageManager.requestImage(for: asset,
@@ -111,18 +116,21 @@ extension KYPhotoLibrary {
 
   /// Load multiple images from an album
   ///
-  /// discussion
   /// If need to update UI in completion block, you need to do related tasks in main thread manually.
   ///
   /// - Parameters:
-  ///   - albumName: Custom album name
-  ///   - expectedSize: The expected size of image to be returned
-  ///   - limit: The maximum number of images to fetch at one time
-  ///   - completion: A block to execute when complete
+  ///   - albumName: Custom album name.
+  ///   - expectedSize: The expected size of image to be returned.
+  ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
+  ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
+  ///   - limit: The maximum number of images to fetch at one time.
+  ///   - completion: A block to execute when complete.
   ///
   public static func loadImages(
     fromAlbum albumName: String,
-    expectedSize: CGSize,
+    expectedSize: CGSize = .zero,
+    deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
+    resizeMode: PHImageRequestOptionsResizeMode = .exact,
     limit: Int,
     completion: (_ images: [UIImage]?) -> Void
   ) {
@@ -136,7 +144,8 @@ extension KYPhotoLibrary {
     let imageManager: PHImageManager = PHCachingImageManager.default()
 
     let options = PHImageRequestOptions()
-    options.deliveryMode = .fastFormat
+    options.deliveryMode = deliveryMode
+    options.resizeMode = resizeMode
 
     loadAssets(of: .image, fromAlbum: albumName, limit: limit) { assets in
       guard let assets, assets.count > 0 else {
