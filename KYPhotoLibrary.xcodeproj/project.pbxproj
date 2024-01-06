@@ -118,6 +118,7 @@
 				7F1FF0642B343E2500B50B81 /* Sources */,
 				7F1FF0652B343E2500B50B81 /* Frameworks */,
 				7F1FF0662B343E2500B50B81 /* Resources */,
+				7F8830322B495F0300FA03FB /* Run Script (Swift Lint) */,
 			);
 			buildRules = (
 			);
@@ -201,6 +202,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7F8830322B495F0300FA03FB /* Run Script (Swift Lint) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script (Swift Lint)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n  exit\nfi\n\nSCRIPT_PATH=\"../scripts-xcode\"\nif [ -e $SCRIPT_PATH/swiftlint.sh ]; then\n  $SCRIPT_PATH/swiftlint.sh $SCRIPT_PATH\nelse\n  echo \"File not found for Run Script (Swift Lint).\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7F1FF0642B343E2500B50B81 /* Sources */ = {
