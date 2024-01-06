@@ -1,0 +1,756 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7F882FA52B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F882FA42B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift */; };
+		7F882FA72B4949A800FA03FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F882FA62B4949A800FA03FB /* ContentView.swift */; };
+		7F882FA92B4949AA00FA03FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F882FA82B4949AA00FA03FB /* Assets.xcassets */; };
+		7F882FAC2B4949AA00FA03FB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F882FAB2B4949AA00FA03FB /* Preview Assets.xcassets */; };
+		7F882FB62B4949AB00FA03FB /* KYPhotoLibraryDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F882FB52B4949AB00FA03FB /* KYPhotoLibraryDemoTests.swift */; };
+		7F882FC02B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F882FBF2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.swift */; };
+		7F882FC22B4949AB00FA03FB /* KYPhotoLibraryDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F882FC12B4949AB00FA03FB /* KYPhotoLibraryDemoUITestsLaunchTests.swift */; };
+		7F882FDF2B494AC000FA03FB /* KYPhotoLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 7F882FDE2B494AC000FA03FB /* KYPhotoLibrary */; };
+		7F8830262B494CFF00FA03FB /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8830252B494CFF00FA03FB /* ContentViewModel.swift */; };
+		7F88302E2B4952FF00FA03FB /* DemoImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */; };
+		7F8830302B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */; };
+		7F88303A2B49798B00FA03FB /* PhotoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8830392B49798B00FA03FB /* PhotoPreviewView.swift */; };
+		7F88303C2B497AB600FA03FB /* ContentViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88303B2B497AB600FA03FB /* ContentViewModelError.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7F882FB22B4949AB00FA03FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F882F992B4949A800FA03FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F882FA02B4949A800FA03FB;
+			remoteInfo = KYPhotoLibraryDemo;
+		};
+		7F882FBC2B4949AB00FA03FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F882F992B4949A800FA03FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F882FA02B4949A800FA03FB;
+			remoteInfo = KYPhotoLibraryDemo;
+		};
+		7F882FD72B494AA700FA03FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F882FD22B494AA700FA03FB /* KYPhotoLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F1FF0682B343E2500B50B81;
+			remoteInfo = KYPhotoLibrary;
+		};
+		7F882FD92B494AA700FA03FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F882FD22B494AA700FA03FB /* KYPhotoLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F1FF0702B343E2500B50B81;
+			remoteInfo = KYPhotoLibraryTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7F882FA12B4949A800FA03FB /* KYPhotoLibraryDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KYPhotoLibraryDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F882FA42B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryDemoApp.swift; sourceTree = "<group>"; };
+		7F882FA62B4949A800FA03FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7F882FA82B4949AA00FA03FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7F882FAB2B4949AA00FA03FB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7F882FB12B4949AB00FA03FB /* KYPhotoLibraryDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYPhotoLibraryDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F882FB52B4949AB00FA03FB /* KYPhotoLibraryDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryDemoTests.swift; sourceTree = "<group>"; };
+		7F882FBB2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYPhotoLibraryDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F882FBF2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryDemoUITests.swift; sourceTree = "<group>"; };
+		7F882FC12B4949AB00FA03FB /* KYPhotoLibraryDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7F882FD22B494AA700FA03FB /* KYPhotoLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KYPhotoLibrary.xcodeproj; path = ../../KYPhotoLibrary.xcodeproj; sourceTree = "<group>"; };
+		7F882FDB2B494AAF00FA03FB /* KYPhotoLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KYPhotoLibrary; path = ../..; sourceTree = "<group>"; };
+		7F8830252B494CFF00FA03FB /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoImagePicker.swift; sourceTree = "<group>"; };
+		7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = KYPhotoLibraryDemo.xcconfig; sourceTree = "<group>"; };
+		7F8830392B49798B00FA03FB /* PhotoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewView.swift; sourceTree = "<group>"; };
+		7F88303B2B497AB600FA03FB /* ContentViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModelError.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7F882F9E2B4949A800FA03FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F882FDF2B494AC000FA03FB /* KYPhotoLibrary in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F882FAE2B4949AB00FA03FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F882FB82B4949AB00FA03FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7F882F982B4949A800FA03FB = {
+			isa = PBXGroup;
+			children = (
+				7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */,
+				7F882FA32B4949A800FA03FB /* KYPhotoLibraryDemo */,
+				7F882FCE2B494A0200FA03FB /* Libs */,
+				7F882FB42B4949AB00FA03FB /* KYPhotoLibraryDemoTests */,
+				7F882FBE2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests */,
+				7F882FA22B4949A800FA03FB /* Products */,
+				7F882FDD2B494AC000FA03FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7F882FA22B4949A800FA03FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FA12B4949A800FA03FB /* KYPhotoLibraryDemo.app */,
+				7F882FB12B4949AB00FA03FB /* KYPhotoLibraryDemoTests.xctest */,
+				7F882FBB2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7F882FA32B4949A800FA03FB /* KYPhotoLibraryDemo */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FA42B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift */,
+				7F8830232B494C7C00FA03FB /* Views */,
+				7F88302C2B4952ED00FA03FB /* DemoImagePicker */,
+				7F882FCF2B494A3B00FA03FB /* Resources */,
+				7F882FAA2B4949AA00FA03FB /* PreviewContent */,
+			);
+			path = KYPhotoLibraryDemo;
+			sourceTree = "<group>";
+		};
+		7F882FAA2B4949AA00FA03FB /* PreviewContent */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FAB2B4949AA00FA03FB /* Preview Assets.xcassets */,
+			);
+			path = PreviewContent;
+			sourceTree = "<group>";
+		};
+		7F882FB42B4949AB00FA03FB /* KYPhotoLibraryDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FB52B4949AB00FA03FB /* KYPhotoLibraryDemoTests.swift */,
+			);
+			path = KYPhotoLibraryDemoTests;
+			sourceTree = "<group>";
+		};
+		7F882FBE2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FBF2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.swift */,
+				7F882FC12B4949AB00FA03FB /* KYPhotoLibraryDemoUITestsLaunchTests.swift */,
+			);
+			path = KYPhotoLibraryDemoUITests;
+			sourceTree = "<group>";
+		};
+		7F882FCE2B494A0200FA03FB /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FD22B494AA700FA03FB /* KYPhotoLibrary.xcodeproj */,
+				7F882FDB2B494AAF00FA03FB /* KYPhotoLibrary */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		7F882FCF2B494A3B00FA03FB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FA82B4949AA00FA03FB /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7F882FD32B494AA700FA03FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FD82B494AA700FA03FB /* KYPhotoLibrary.framework */,
+				7F882FDA2B494AA700FA03FB /* KYPhotoLibraryTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7F882FDD2B494AC000FA03FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F8830232B494C7C00FA03FB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7F8830242B494CF600FA03FB /* ContentView */,
+				7F8830362B49796900FA03FB /* PhotoPreviewView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7F8830242B494CF600FA03FB /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				7F882FA62B4949A800FA03FB /* ContentView.swift */,
+				7F8830252B494CFF00FA03FB /* ContentViewModel.swift */,
+				7F88303B2B497AB600FA03FB /* ContentViewModelError.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
+		7F88302C2B4952ED00FA03FB /* DemoImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */,
+			);
+			path = DemoImagePicker;
+			sourceTree = "<group>";
+		};
+		7F8830362B49796900FA03FB /* PhotoPreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				7F8830392B49798B00FA03FB /* PhotoPreviewView.swift */,
+			);
+			path = PhotoPreviewView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7F882FA02B4949A800FA03FB /* KYPhotoLibraryDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F882FC52B4949AB00FA03FB /* Build configuration list for PBXNativeTarget "KYPhotoLibraryDemo" */;
+			buildPhases = (
+				7F882F9D2B4949A800FA03FB /* Sources */,
+				7F882F9E2B4949A800FA03FB /* Frameworks */,
+				7F882F9F2B4949A800FA03FB /* Resources */,
+				7F8830312B495EF900FA03FB /* Run Script (Swift Lint) */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KYPhotoLibraryDemo;
+			packageProductDependencies = (
+				7F882FDE2B494AC000FA03FB /* KYPhotoLibrary */,
+			);
+			productName = KYPhotoLibraryDemo;
+			productReference = 7F882FA12B4949A800FA03FB /* KYPhotoLibraryDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7F882FB02B4949AB00FA03FB /* KYPhotoLibraryDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F882FC82B4949AB00FA03FB /* Build configuration list for PBXNativeTarget "KYPhotoLibraryDemoTests" */;
+			buildPhases = (
+				7F882FAD2B4949AB00FA03FB /* Sources */,
+				7F882FAE2B4949AB00FA03FB /* Frameworks */,
+				7F882FAF2B4949AB00FA03FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7F882FB32B4949AB00FA03FB /* PBXTargetDependency */,
+			);
+			name = KYPhotoLibraryDemoTests;
+			productName = KYPhotoLibraryDemoTests;
+			productReference = 7F882FB12B4949AB00FA03FB /* KYPhotoLibraryDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7F882FBA2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F882FCB2B4949AB00FA03FB /* Build configuration list for PBXNativeTarget "KYPhotoLibraryDemoUITests" */;
+			buildPhases = (
+				7F882FB72B4949AB00FA03FB /* Sources */,
+				7F882FB82B4949AB00FA03FB /* Frameworks */,
+				7F882FB92B4949AB00FA03FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7F882FBD2B4949AB00FA03FB /* PBXTargetDependency */,
+			);
+			name = KYPhotoLibraryDemoUITests;
+			productName = KYPhotoLibraryDemoUITests;
+			productReference = 7F882FBB2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7F882F992B4949A800FA03FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = "Kaijie Yu";
+				TargetAttributes = {
+					7F882FA02B4949A800FA03FB = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					7F882FB02B4949AB00FA03FB = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 7F882FA02B4949A800FA03FB;
+					};
+					7F882FBA2B4949AB00FA03FB = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 7F882FA02B4949A800FA03FB;
+					};
+				};
+			};
+			buildConfigurationList = 7F882F9C2B4949A800FA03FB /* Build configuration list for PBXProject "KYPhotoLibraryDemo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7F882F982B4949A800FA03FB;
+			productRefGroup = 7F882FA22B4949A800FA03FB /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7F882FD32B494AA700FA03FB /* Products */;
+					ProjectRef = 7F882FD22B494AA700FA03FB /* KYPhotoLibrary.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				7F882FA02B4949A800FA03FB /* KYPhotoLibraryDemo */,
+				7F882FB02B4949AB00FA03FB /* KYPhotoLibraryDemoTests */,
+				7F882FBA2B4949AB00FA03FB /* KYPhotoLibraryDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7F882FD82B494AA700FA03FB /* KYPhotoLibrary.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KYPhotoLibrary.framework;
+			remoteRef = 7F882FD72B494AA700FA03FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7F882FDA2B494AA700FA03FB /* KYPhotoLibraryTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KYPhotoLibraryTests.xctest;
+			remoteRef = 7F882FD92B494AA700FA03FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7F882F9F2B4949A800FA03FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F882FAC2B4949AA00FA03FB /* Preview Assets.xcassets in Resources */,
+				7F882FA92B4949AA00FA03FB /* Assets.xcassets in Resources */,
+				7F8830302B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F882FAF2B4949AB00FA03FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F882FB92B4949AB00FA03FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7F8830312B495EF900FA03FB /* Run Script (Swift Lint) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script (Swift Lint)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n  exit\nfi\n\nSCRIPT_PATH=\"../../scripts-xcode\"\nif [ -e $SCRIPT_PATH/swiftlint.sh ]; then\n  $SCRIPT_PATH/swiftlint.sh $SCRIPT_PATH\nelse\n  echo \"File not found for Run Script (Swift Lint).\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7F882F9D2B4949A800FA03FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F88302E2B4952FF00FA03FB /* DemoImagePicker.swift in Sources */,
+				7F88303C2B497AB600FA03FB /* ContentViewModelError.swift in Sources */,
+				7F882FA72B4949A800FA03FB /* ContentView.swift in Sources */,
+				7F882FA52B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift in Sources */,
+				7F88303A2B49798B00FA03FB /* PhotoPreviewView.swift in Sources */,
+				7F8830262B494CFF00FA03FB /* ContentViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F882FAD2B4949AB00FA03FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F882FB62B4949AB00FA03FB /* KYPhotoLibraryDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F882FB72B4949AB00FA03FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F882FC22B4949AB00FA03FB /* KYPhotoLibraryDemoUITestsLaunchTests.swift in Sources */,
+				7F882FC02B4949AB00FA03FB /* KYPhotoLibraryDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7F882FB32B4949AB00FA03FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F882FA02B4949A800FA03FB /* KYPhotoLibraryDemo */;
+			targetProxy = 7F882FB22B4949AB00FA03FB /* PBXContainerItemProxy */;
+		};
+		7F882FBD2B4949AB00FA03FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F882FA02B4949A800FA03FB /* KYPhotoLibraryDemo */;
+			targetProxy = 7F882FBC2B4949AB00FA03FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7F882FC32B4949AB00FA03FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7F882FC42B4949AB00FA03FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7F882FC62B4949AB00FA03FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"KYPhotoLibraryDemo/PreviewContent\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "${PRODUCT_NAME} uses camera to take photo.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "${PRODUCT_NAME} uses Photos Library to list and save photos.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kjuly.KYPhotoLibraryDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7F882FC72B4949AB00FA03FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"KYPhotoLibraryDemo/PreviewContent\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "${PRODUCT_NAME} uses camera to take photo.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "${PRODUCT_NAME} uses Photos Library to list and save photos.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kjuly.KYPhotoLibraryDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7F882FC92B4949AB00FA03FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kjuly.KYPhotoLibraryDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KYPhotoLibraryDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KYPhotoLibraryDemo";
+			};
+			name = Debug;
+		};
+		7F882FCA2B4949AB00FA03FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kjuly.KYPhotoLibraryDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KYPhotoLibraryDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KYPhotoLibraryDemo";
+			};
+			name = Release;
+		};
+		7F882FCC2B4949AB00FA03FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kjuly.KYPhotoLibraryDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KYPhotoLibraryDemo;
+			};
+			name = Debug;
+		};
+		7F882FCD2B4949AB00FA03FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kjuly.KYPhotoLibraryDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KYPhotoLibraryDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7F882F9C2B4949A800FA03FB /* Build configuration list for PBXProject "KYPhotoLibraryDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F882FC32B4949AB00FA03FB /* Debug */,
+				7F882FC42B4949AB00FA03FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7F882FC52B4949AB00FA03FB /* Build configuration list for PBXNativeTarget "KYPhotoLibraryDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F882FC62B4949AB00FA03FB /* Debug */,
+				7F882FC72B4949AB00FA03FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7F882FC82B4949AB00FA03FB /* Build configuration list for PBXNativeTarget "KYPhotoLibraryDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F882FC92B4949AB00FA03FB /* Debug */,
+				7F882FCA2B4949AB00FA03FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7F882FCB2B4949AB00FA03FB /* Build configuration list for PBXNativeTarget "KYPhotoLibraryDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F882FCC2B4949AB00FA03FB /* Debug */,
+				7F882FCD2B4949AB00FA03FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7F882FDE2B494AC000FA03FB /* KYPhotoLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KYPhotoLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7F882F992B4949A800FA03FB /* Project object */;
+}

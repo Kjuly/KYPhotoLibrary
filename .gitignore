@@ -34,3 +34,6 @@ Carthage
 xcuserdata/
 build
 
+# Xcode Config
+KYPhotoLibraryDemo/KYPhotoLibraryDemo.xcconfig
+
