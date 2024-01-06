@@ -1,0 +1,7 @@
+
+excluded:
+  - build
+  - .build 
+  - .swiftpm
+  - .github
+
