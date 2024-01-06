@@ -54,7 +54,7 @@ public class KYPhotoLibrary {
   ///   - limit: The maximum number of assets to fetch at one time
   ///   - completion: A block to execute when complete
   ///
-  static func loadAssets(
+  public static func loadAssets(
     of mediaType: PHAssetMediaType,
     fromAlbum albumName: String,
     limit: Int,
@@ -97,7 +97,7 @@ public class KYPhotoLibrary {
   ///   - limit: The maximum number of assets to fetch at one time
   ///   - completion: A block to execute when complete
   ///
-  static func loadAssetIdentifiers(
+  public static func loadAssetIdentifiers(
     of mediaType: PHAssetMediaType,
     fromAlbum albumName: String,
     limit: Int,
