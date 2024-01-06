@@ -1,72 +1,11 @@
-ALAssetsLibrary-CustomPhotoAlbum
-================================
+KYPhotoLibrary
+===
 
-A nice ALAssetsLibrary category for saving images into custom photo album by @MarinTodorov.
+A Photo Library extension for saving images or videos to custom photo albums.
 
-# Usage
+The repo was formerly known as ALAssetsLibrary-CustomPhotoAlbum ([Archive](https://github.com/Kjuly/ALAssetsLibrary-CustomPhotoAlbum)).
 
-    //      |image|: The target image to be saved
-    //  |albumName|: Custom album name
-    // |completion|: Block to be executed when succeed to write the image data
-    //               to the assets library (camera roll)
-    //    |failure|: Block to be executed when failed to add the asset to the
-    //               custom photo album
-    - (void)saveImage:(UIImage *)image
-              toAlbum:(NSString *)albumName
-           completion:(ALAssetsLibraryWriteImageCompletionBlock)completion
-              failure:(ALAssetsLibraryAccessFailureBlock)failure;
+![iOS][iOS-Badge]  
 
-And for video:
+[iOS-Badge]: https://img.shields.io/badge/iOS-15.5%2B-blue?labelColor=00367A&color=3081D0
 
-    //   |videoUrl|: The target video to be saved
-    //  |albumName|: Custom album name
-    // |completion|: Block to be executed when succeed to write the image data
-    //               to the assets library (camera roll)
-    //    |failure|: Block to be executed when failed to add the asset to the
-    //               custom photo album
-    - (void)saveVideo:(NSURL *)videoUrl
-              toAlbum:(NSString *)albumName
-           completion:(ALAssetsLibraryWriteImageCompletionBlock)completion
-              failure:(ALAssetsLibraryAccessFailureBlock)failure;
-
-Write the image data with meta data to the assets library (camera roll).
-    
-    //  |imageData|: The image data to be saved
-    //  |albumName|: Custom album name
-    //   |metadata|: Meta data for image
-    // |completion|: Block to be executed when succeed to write the image data
-    //    |failure|: block to be executed when failed to add the asset to the custom photo album
-    - (void)saveImageData:(NSData *)imageData
-                  toAlbum:(NSString *)albumName
-                 metadata:(NSDictionary *)metadata
-               completion:(ALAssetsLibraryWriteImageCompletionBlock)completion
-                  failure:(ALAssetsLibraryAccessFailureBlock)failure;
-
-# Dependence
-
-  1. AssetsLibrary.framework
-  2. MobileCoreServices.framework
-  3. Photos.framework (for iOS 8+ projects)
-
-
-# REFERENCE
-
-- [ALAssetsLibrary Class Reference][1]  
-- [iOS5: Saving photos in custom photo album][2]
-
-
-# Contributors
-
-[@MarinTodorov](http://www.touch-code-magazine.com/about/)  
-[@Kjuly](https://github.com/Kjuly)  
-[@coryjthompson](https://github.com/coryjthompson)  
-[@speedyapocalypse](https://github.com/speedyapocalypse)  
-[@blazingpair](https://github.com/blazingpair) ([@paulz](https://github.com/paulz))  
-[@ajcollins](https://github.com/ajcollins)  
-[@wka](https://github.com/wka)  
-[@NSFish](https://github.com/NSFish)  
-[@michaelcameron](https://github.com/michaelcameron)  
-
-
-[1]: http://developer.apple.com/library/ios/#documentation/AssetsLibrary/Reference/ALAssetsLibrary_Class/Reference/Reference.html#//apple_ref/occ/instm/ALAssetsLibrary/addAssetsGroupAlbumWithName:resultBlock:failureBlock:
-[2]: http://www.touch-code-magazine.com/ios5-saving-photos-in-custom-photo-album-category-for-download/
