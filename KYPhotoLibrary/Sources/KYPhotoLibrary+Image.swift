@@ -67,6 +67,13 @@ extension KYPhotoLibrary {
 
   /// Load an image with a specific asset local identifier.
   ///
+  /// If you need to cancel the request before it completes, pass this identifier to the
+  ///   static `KYPhotoLibrary.cancelAssetRequest(_:)` method, e.g.,
+  /// ```swift
+  /// let requestID: PHImageRequestID? = KYPhotoLibrary.loadVideo(...)
+  /// KYPhotoLibrary.cancelAssetRequest(requestID)
+  /// ```
+  ///
   /// - Parameters:
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
   ///   - expectedSize: The expected size of the image to be returned, default: zero.
@@ -74,16 +81,19 @@ extension KYPhotoLibrary {
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
   ///   - completion: The block to execute on completion.
   ///
+  /// - Returns: A numeric identifier for the video request.
+  ///
   public static func loadImage(
     with assetIdentifier: String,
     expectedSize: CGSize = .zero,
     deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
     resizeMode: PHImageRequestOptionsResizeMode = .exact,
     completion: @escaping (_ image: UIImage?) -> Void
-  ) {
+  ) -> PHImageRequestID? {
+
     guard let asset: PHAsset = assetFromIdentifier(assetIdentifier, for: .image) else {
       completion(nil)
-      return
+      return nil
     }
 
     let targetSize = (CGSizeEqualToSize(expectedSize, .zero)
@@ -94,11 +104,12 @@ extension KYPhotoLibrary {
     options.deliveryMode = deliveryMode
     options.resizeMode = resizeMode
 
-    let imageManager: PHImageManager = PHCachingImageManager.default()
-    imageManager.requestImage(for: asset,
-                              targetSize: targetSize,
-                              contentMode: .aspectFit,
-                              options: options) { result, _ in
+    return PHCachingImageManager.default().requestImage(
+      for: asset,
+      targetSize: targetSize,
+      contentMode: .aspectFit,
+      options: options
+    ) { result, _ in
       completion(result)
     }
   }
@@ -121,6 +132,7 @@ extension KYPhotoLibrary {
     limit: Int,
     completion: (_ images: [UIImage]?) -> Void
   ) {
+
     if albumName.isEmpty {
       completion(nil)
       return
