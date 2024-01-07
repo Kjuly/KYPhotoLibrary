@@ -1,5 +1,5 @@
 //
-//  PhotoPreviewView.swift
+//  PhotoDetailsView.swift
 //  KYPhotoLibraryDemo
 //
 //  Created by Kjuly on 6/1/2024.
@@ -9,20 +9,21 @@
 import SwiftUI
 import KYPhotoLibrary
 
-struct PhotoPreviewView: View {
+struct PhotoDetailsView: View {
 
   var assetIdentifier: String
-
-  @State private var isLoading: Bool = true
-  @State private var loadedImage: UIImage?
+  @StateObject private var viewModel = PhotoDetailsViewModel()
 
   var body: some View {
-    if self.isLoading {
+    if self.viewModel.isLoading {
       Text("Loading...")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onAppear(perform: _loadImage)
+        .onAppear(perform: {
+          self.viewModel.loadAsset(with: self.assetIdentifier)
+        })
+        .onDisappear(perform: self.viewModel.terminateAssetLoading)
     }
-    else if let image = self.loadedImage {
+    else if let image = self.viewModel.loadedImage {
       Image(uiImage: image)
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -31,17 +32,6 @@ struct PhotoPreviewView: View {
         .font(.title)
         .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-  }
-
-  private func _loadImage() {
-    KYPhotoLibrary.loadImage(with: self.assetIdentifier) { image in
-      if let image {
-        self.loadedImage = image
-      } else {
-        self.loadedImage = nil
-      }
-      self.isLoading = false
     }
   }
 }

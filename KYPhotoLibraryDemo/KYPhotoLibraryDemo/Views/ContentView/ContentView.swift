@@ -7,11 +7,18 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct ContentView: View {
 
+  let type: DemoMediaType
+
   @StateObject private var viewModel = ContentViewModel()
   @State private var isPresntingImagePicker = false
+
+  init(for type: DemoMediaType) {
+    self.type = type
+  }
 
   var body: some View {
     ZStack {
@@ -22,10 +29,10 @@ struct ContentView: View {
     }
     .navigationTitle("KYPhotoLibrary Demo")
     .navigationBarTitleDisplayMode(.inline)
-    .safeAreaInset(edge: .bottom, alignment: .center, content: _takePhotoButton)
+    .safeAreaInset(edge: .bottom, alignment: .center, content: _pickMediaButton)
     .fullScreenCover(isPresented: $isPresntingImagePicker) {
-      DemoImagePicker(for: .camera) { pickedImage in
-        self.viewModel.didFinishPicking(pickedImage)
+      DemoImagePicker(for: self.type) { image, videoURL in
+        self.viewModel.didFinishPicking(with: image, or: videoURL)
         self.isPresntingImagePicker = false
       }
     }
@@ -55,13 +62,13 @@ struct ContentView: View {
       .redacted(reason: .placeholder)
       .onAppear(perform: {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-          self.viewModel.loadFilesFromCustomPhotoAlbum()
+          self.viewModel.loadFilesFromCustomPhotoAlbum(for: self.type)
         }
       })
 
     } else if self.viewModel.assetIdentifiers.isEmpty {
       VStack(alignment: .center) {
-        Text("No Photos")
+        Text(self.type.noMediaText)
           .font(.title)
           .foregroundColor(.secondary)
       }
@@ -78,7 +85,11 @@ struct ContentView: View {
       Section("Asset Identifiers") {
         ForEach(self.viewModel.assetIdentifiers, id: \.self) { assetIdentifier in
           NavigationLink {
-            PhotoPreviewView(assetIdentifier: assetIdentifier)
+            if self.type == .videos {
+              VideoDetailsView(assetIdentifier: assetIdentifier)
+            } else {
+              PhotoDetailsView(assetIdentifier: assetIdentifier)
+            }
           } label: {
             Text(assetIdentifier)
           }
@@ -88,9 +99,9 @@ struct ContentView: View {
   }
 
   @ViewBuilder
-  private func _takePhotoButton() -> some View {
-    Button(action: _takePhoto) {
-      Text("Take Photo")
+  private func _pickMediaButton() -> some View {
+    Button(action: _pickMedia) {
+      Text(self.type.pickMediaText)
         .font(.body.bold())
         .frame(maxWidth: .infinity)
     }
@@ -99,7 +110,7 @@ struct ContentView: View {
     .padding()
   }
 
-  private func _takePhoto() {
+  private func _pickMedia() {
     self.viewModel.reqeustCameraAuthorization { authorized in
       if authorized {
         self.isPresntingImagePicker = true

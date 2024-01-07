@@ -15,10 +15,21 @@ struct KYPhotoLibraryDemoApp: App {
 
   var body: some Scene {
     WindowGroup {
-      NavigationView {
-        ContentView()
+      TabView {
+        _view(for: .photos)
+        _view(for: .videos)
       }
-      .navigationViewStyle(.stack)
+    }
+  }
+
+  @ViewBuilder
+  private func _view(for type: DemoMediaType) -> some View {
+    NavigationView {
+      ContentView(for: type)
+    }
+    .navigationViewStyle(.stack)
+    .tabItem {
+      Label(type.tabText, systemImage: type.tabIconName)
     }
   }
 }

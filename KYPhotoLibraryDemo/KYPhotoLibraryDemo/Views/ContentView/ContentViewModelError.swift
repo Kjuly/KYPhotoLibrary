@@ -8,11 +8,14 @@
 
 import Foundation
 
-enum ContentViewModelError: LocalizedError {
-
+enum ContentViewModelError: Error {
   case cameraUnavailable
   case failedToAccessCamera
+  case failedToSaveAsset(String)
   case unknown
+}
+
+extension ContentViewModelError: LocalizedError {
 
   var errorDescription: String? {
     switch self {
@@ -20,6 +23,8 @@ enum ContentViewModelError: LocalizedError {
       return "Camera Unavailable"
     case .failedToAccessCamera:
       return "Unable to access the Camera."
+    case .failedToSaveAsset(let errorMessage):
+      return "Failed to save asset.\n\(errorMessage)"
     case .unknown:
       return "Unknown Error"
     }

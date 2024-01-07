@@ -8,19 +8,19 @@
 
 import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
 
 struct DemoImagePicker: UIViewControllerRepresentable {
 
-  private var sourceType: UIImagePickerController.SourceType = .photoLibrary
-  private var didFinishPicking: ((_ pickedImage: UIImage) -> Void)
+  typealias Completion = (_ image: UIImage?, _ videoURL: URL?) -> Void
+
+  private var type: DemoMediaType
+  private var didFinishPicking: Completion
 
   // MARK: - Init
 
-  init(
-    for sourceType: UIImagePickerController.SourceType,
-    didFinishPicking: @escaping (_ pickedImage: UIImage) -> Void
-  ) {
-    self.sourceType = sourceType
+  init(for type: DemoMediaType, didFinishPicking: @escaping Completion) {
+    self.type = type
     self.didFinishPicking = didFinishPicking
   }
 
@@ -29,7 +29,8 @@ struct DemoImagePicker: UIViewControllerRepresentable {
   func makeUIViewController(context: UIViewControllerRepresentableContext<DemoImagePicker>) -> UIImagePickerController {
     let controller = UIImagePickerController()
     controller.allowsEditing = false
-    controller.sourceType = self.sourceType
+    controller.sourceType = .camera
+    controller.mediaTypes = (self.type == .videos ? [UTType.movie.identifier] : [UTType.image.identifier])
     controller.delegate = context.coordinator
     return controller
   }
@@ -46,15 +47,31 @@ struct DemoImagePicker: UIViewControllerRepresentable {
 
   final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    private var didFinishPicking: ((_ pickedImage: UIImage) -> Void)
+    private var didFinishPicking: Completion
 
-    init(didFinishPicking: @escaping (_ pickedImage: UIImage) -> Void) {
+    init(didFinishPicking: @escaping Completion) {
       self.didFinishPicking = didFinishPicking
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-      if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-        self.didFinishPicking(image)
+      guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String else {
+        return
+      }
+
+      if mediaType == UTType.image.identifier {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+          return
+        }
+        self.didFinishPicking(image, nil)
+
+      } else if mediaType == UTType.movie.identifier {
+        guard let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL else {
+          return
+        }
+        self.didFinishPicking(nil, videoURL)
+
+      } else {
+        self.didFinishPicking(nil, nil)
       }
     }
   }

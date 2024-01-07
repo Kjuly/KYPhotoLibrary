@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 import KYPhotoLibrary
 
 @MainActor
@@ -24,9 +25,10 @@ class ContentViewModel: ObservableObject {
 
   // MARK: - Action
 
-  func loadFilesFromCustomPhotoAlbum() {
+  func loadFilesFromCustomPhotoAlbum(for type: DemoMediaType) {
+    let mediaType: PHAssetMediaType = (type == .videos ? .video : .image)
     KYPhotoLibrary.loadAssetIdentifiers(
-      of: .image,
+      of: mediaType,
       fromAlbum: self.customPhotoAlbumName,
       limit: 0) { assetIdentifiers in
         DispatchQueue.main.async {
@@ -62,16 +64,21 @@ class ContentViewModel: ObservableObject {
     }
   }
 
-  func didFinishPicking(_ image: UIImage) {
-    KYPhotoLibrary.save(
-      image: image,
-      toAlbum: self.customPhotoAlbumName) { localIdentifier, _, _ in
-        guard let localIdentifier else {
-          return
-        }
+  func didFinishPicking(with image: UIImage?, or videoURL: URL?) {
+    let completion: KYPhotoLibrary.AssetSavingCompletion = { localIdentifier, error in
+      if let localIdentifier {
         DispatchQueue.main.async {
           self.assetIdentifiers.append(localIdentifier)
         }
+      } else if let error {
+        self.error = .failedToSaveAsset(error.localizedDescription)
       }
+    }
+
+    if let image {
+      KYPhotoLibrary.saveImage(image, toAlbum: self.customPhotoAlbumName, completion: completion)
+    } else if let videoURL {
+      KYPhotoLibrary.saveVideo(with: videoURL, toAlbum: self.customPhotoAlbumName, completion: completion)
+    }
   }
 }

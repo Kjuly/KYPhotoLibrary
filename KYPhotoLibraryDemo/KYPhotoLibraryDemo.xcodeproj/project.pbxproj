@@ -18,8 +18,13 @@
 		7F8830262B494CFF00FA03FB /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8830252B494CFF00FA03FB /* ContentViewModel.swift */; };
 		7F88302E2B4952FF00FA03FB /* DemoImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */; };
 		7F8830302B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */; };
-		7F88303A2B49798B00FA03FB /* PhotoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8830392B49798B00FA03FB /* PhotoPreviewView.swift */; };
 		7F88303C2B497AB600FA03FB /* ContentViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88303B2B497AB600FA03FB /* ContentViewModelError.swift */; };
+		7F94BB042B4A882B0055FD76 /* VideoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB032B4A882B0055FD76 /* VideoDetailsView.swift */; };
+		7F94BB062B4A8ADF0055FD76 /* VideoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB052B4A8ADF0055FD76 /* VideoDetailsViewModel.swift */; };
+		7F94BB0A2B4A8E7A0055FD76 /* DemoMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB092B4A8E7A0055FD76 /* DemoMediaType.swift */; };
+		7F94BB0C2B4A93390055FD76 /* PhotoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB0B2B4A93390055FD76 /* PhotoDetailsViewModel.swift */; };
+		7F94BB0F2B4A94380055FD76 /* PhotoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB0E2B4A94380055FD76 /* PhotoDetailsView.swift */; };
+		7F94BB112B4A94820055FD76 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB102B4A94820055FD76 /* DetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +74,13 @@
 		7F8830252B494CFF00FA03FB /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoImagePicker.swift; sourceTree = "<group>"; };
 		7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = KYPhotoLibraryDemo.xcconfig; sourceTree = "<group>"; };
-		7F8830392B49798B00FA03FB /* PhotoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewView.swift; sourceTree = "<group>"; };
 		7F88303B2B497AB600FA03FB /* ContentViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModelError.swift; sourceTree = "<group>"; };
+		7F94BB032B4A882B0055FD76 /* VideoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsView.swift; sourceTree = "<group>"; };
+		7F94BB052B4A8ADF0055FD76 /* VideoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewModel.swift; sourceTree = "<group>"; };
+		7F94BB092B4A8E7A0055FD76 /* DemoMediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoMediaType.swift; sourceTree = "<group>"; };
+		7F94BB0B2B4A93390055FD76 /* PhotoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewModel.swift; sourceTree = "<group>"; };
+		7F94BB0E2B4A94380055FD76 /* PhotoDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsView.swift; sourceTree = "<group>"; };
+		7F94BB102B4A94820055FD76 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				7F882FA42B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift */,
+				7F94BB092B4A8E7A0055FD76 /* DemoMediaType.swift */,
 				7F8830232B494C7C00FA03FB /* Views */,
 				7F88302C2B4952ED00FA03FB /* DemoImagePicker */,
 				7F882FCF2B494A3B00FA03FB /* Resources */,
@@ -196,7 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				7F8830242B494CF600FA03FB /* ContentView */,
-				7F8830362B49796900FA03FB /* PhotoPreviewView */,
+				7F94BB0D2B4A93E20055FD76 /* DetailsView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,12 +230,32 @@
 			path = DemoImagePicker;
 			sourceTree = "<group>";
 		};
-		7F8830362B49796900FA03FB /* PhotoPreviewView */ = {
+		7F8830362B49796900FA03FB /* PhotoDetailsView */ = {
 			isa = PBXGroup;
 			children = (
-				7F8830392B49798B00FA03FB /* PhotoPreviewView.swift */,
+				7F94BB0E2B4A94380055FD76 /* PhotoDetailsView.swift */,
+				7F94BB0B2B4A93390055FD76 /* PhotoDetailsViewModel.swift */,
 			);
-			path = PhotoPreviewView;
+			path = PhotoDetailsView;
+			sourceTree = "<group>";
+		};
+		7F94BB022B4A88170055FD76 /* VideoDetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				7F94BB032B4A882B0055FD76 /* VideoDetailsView.swift */,
+				7F94BB052B4A8ADF0055FD76 /* VideoDetailsViewModel.swift */,
+			);
+			path = VideoDetailsView;
+			sourceTree = "<group>";
+		};
+		7F94BB0D2B4A93E20055FD76 /* DetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				7F94BB102B4A94820055FD76 /* DetailsViewModel.swift */,
+				7F8830362B49796900FA03FB /* PhotoDetailsView */,
+				7F94BB022B4A88170055FD76 /* VideoDetailsView */,
+			);
+			path = DetailsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,11 +438,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F94BB0F2B4A94380055FD76 /* PhotoDetailsView.swift in Sources */,
+				7F94BB112B4A94820055FD76 /* DetailsViewModel.swift in Sources */,
 				7F88302E2B4952FF00FA03FB /* DemoImagePicker.swift in Sources */,
 				7F88303C2B497AB600FA03FB /* ContentViewModelError.swift in Sources */,
+				7F94BB0A2B4A8E7A0055FD76 /* DemoMediaType.swift in Sources */,
 				7F882FA72B4949A800FA03FB /* ContentView.swift in Sources */,
+				7F94BB0C2B4A93390055FD76 /* PhotoDetailsViewModel.swift in Sources */,
 				7F882FA52B4949A800FA03FB /* KYPhotoLibraryDemoApp.swift in Sources */,
-				7F88303A2B49798B00FA03FB /* PhotoPreviewView.swift in Sources */,
+				7F94BB062B4A8ADF0055FD76 /* VideoDetailsViewModel.swift in Sources */,
+				7F94BB042B4A882B0055FD76 /* VideoDetailsView.swift in Sources */,
 				7F8830262B494CFF00FA03FB /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,8 +617,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"KYPhotoLibraryDemo/PreviewContent\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "${PRODUCT_NAME} uses camera to take photo.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "${PRODUCT_NAME} uses Photos Library to list and save photos.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "KYPhotoLibraryDemo uses camera to take photo.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KYPhotoLibraryDemo uses Microphone during the video recording.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KYPhotoLibraryDemo uses Photos Library to list and save photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -612,8 +649,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"KYPhotoLibraryDemo/PreviewContent\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "${PRODUCT_NAME} uses camera to take photo.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "${PRODUCT_NAME} uses Photos Library to list and save photos.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "KYPhotoLibraryDemo uses camera to take photo.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KYPhotoLibraryDemo uses Microphone during the video recording.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KYPhotoLibraryDemo uses Photos Library to list and save photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
