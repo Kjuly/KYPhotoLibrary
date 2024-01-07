@@ -11,37 +11,26 @@ import Photos
 
 extension KYPhotoLibrary {
 
-  /// Save image to a custom album
+  /// Save an image to custom album.
   ///
-  /// If need to update UI in completion block, you need to do related tasks in main thread manually.
+  /// If you need to update the UI in the completion block, you'd better to perform the relevant tasks in the main thread.
   ///
   /// - Parameters:
-  ///   - image: Image to save
-  ///   - albumName: Custom album name
-  ///   - completion: A block to execute when complete
+  ///   - image: The image to save.
+  ///   - albumName: Custom album name.
+  ///   - completion: The block to execute on completion.
   ///
-  public static func save(
-    image: UIImage,
+  public static func saveImage(
+    _ image: UIImage,
     toAlbum albumName: String,
-    completion: ((_ localIdentifier: String?, _ image: UIImage, _ error: Error?) -> Void)?
+    completion: AssetSavingCompletion?
   ) {
     assert(!albumName.isEmpty)
 
-    let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
-    var matchedAssetCollection: PHAssetCollection?
-    NSLog("Looking for Album: \"\(albumName)\"...")
-    albums.enumerateObjects { (album, _, stop) in
-      NSLog("Found Album: \(album.localIdentifier).")
-      if album.localizedTitle == albumName {
-        matchedAssetCollection = album
-        stop.pointee = true
-      }
-    }
-
-    let saveImageToAlbum = { (assetCollection: PHAssetCollection?, albumCreationError: Error?) in
+    let saveImageToAlbum: AlbumCreationCompletion = { (assetCollection: PHAssetCollection?, albumCreationError: Error?) in
       guard let assetCollection else {
         if let completion {
-          completion(nil, image, albumCreationError)
+          completion(nil, albumCreationError)
         }
         return
       }
@@ -62,28 +51,28 @@ extension KYPhotoLibrary {
         } else {
           NSLog("Add Photo Failed: \(performChangesError?.localizedDescription ?? "")")
         }
-#endif // END #if DEBUG
+#endif
         if let completion {
-          completion(assetPlaceholder?.localIdentifier, image, performChangesError)
+          completion(assetPlaceholder?.localIdentifier, performChangesError)
         }
       }
     }
 
-    if let matchedAssetCollection {
-      saveImageToAlbum(matchedAssetCollection, nil)
+    if let album: PHAssetCollection = getAlbum(with: albumName) {
+      saveImageToAlbum(album, nil)
     } else {
       createAlbum(with: albumName, completion: saveImageToAlbum)
     }
   }
 
-  /// Load one image w/ specific asset local identifier
+  /// Load an image with a specific asset local identifier.
   ///
   /// - Parameters:
-  ///   - assetIdentifier: The asset unique identifier used in Photo Library.
-  ///   - expectedSize: The expected size of image to be returned, default: zero.
+  ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
+  ///   - expectedSize: The expected size of the image to be returned, default: zero.
   ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
-  ///   - completion: A block to execute when complete.
+  ///   - completion: The block to execute on completion.
   ///
   public static func loadImage(
     with assetIdentifier: String,
@@ -114,17 +103,15 @@ extension KYPhotoLibrary {
     }
   }
 
-  /// Load multiple images from an album
-  ///
-  /// If need to update UI in completion block, you need to do related tasks in main thread manually.
+  /// Load multiple images from an album.
   ///
   /// - Parameters:
   ///   - albumName: Custom album name.
-  ///   - expectedSize: The expected size of image to be returned.
+  ///   - expectedSize: The expected size of the image to be returned, default: zero.
   ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
   ///   - limit: The maximum number of images to fetch at one time.
-  ///   - completion: A block to execute when complete.
+  ///   - completion: The block to execute on completion.
   ///
   public static func loadImages(
     fromAlbum albumName: String,

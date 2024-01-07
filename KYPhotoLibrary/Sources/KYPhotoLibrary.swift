@@ -12,6 +12,7 @@ import Photos
 public class KYPhotoLibrary {
 
   public typealias AlbumCreationCompletion = (_ assetCollection: PHAssetCollection?, _ error: Error?) -> Void
+  public typealias AssetSavingCompletion = (_ localIdentifier: String?, _ error: Error?) -> Void
 
   /// Get a custom album with a specific name, if it exists.
   ///
@@ -33,11 +34,11 @@ public class KYPhotoLibrary {
     return matchedAssetCollection
   }
 
-  /// Create new album w/ the specific name
+  /// Create a new album with a specific name.
   ///
   /// - Parameters:
-  ///   - albumName: New album name
-  ///   - completion: A block to execute when complete
+  ///   - albumName: The new album name.
+  ///   - completion: The block to execute on completion.
   ///
   public static func createAlbum(
     with albumName: String,
@@ -71,10 +72,10 @@ public class KYPhotoLibrary {
   /// Load assets of a type from an album.
   ///
   /// - Parameters:
-  ///   - mediaType: Expected media type for asset
-  ///   - albumName: Album name
-  ///   - limit: The maximum number of assets to fetch at one time
-  ///   - completion: A block to execute when complete
+  ///   - mediaType: The expected media type of the assets.
+  ///   - albumName: The album name.
+  ///   - limit: The maximum number of assets to fetch at one time.
+  ///   - completion: The block to execute on completion.
   ///
   public static func loadAssets(
     of mediaType: PHAssetMediaType,
@@ -114,10 +115,10 @@ public class KYPhotoLibrary {
   /// Load asset identifiers of a type from an album.
   ///
   /// - Parameters:
-  ///   - mediaType: Expected media type for asset
-  ///   - albumName: Album name
-  ///   - limit: The maximum number of assets to fetch at one time
-  ///   - completion: A block to execute when complete
+  ///   - mediaType: The expected media type of the assets.
+  ///   - albumName: The album name.
+  ///   - limit: The maximum number of assets to fetch at one time.
+  ///   - completion: The block to execute on completion.
   ///
   public static func loadAssetIdentifiers(
     of mediaType: PHAssetMediaType,
