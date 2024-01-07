@@ -12,6 +12,7 @@
 		7F1FF0772B343E2500B50B81 /* KYPhotoLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F1FF06B2B343E2500B50B81 /* KYPhotoLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F1FF0832B3441B700B50B81 /* KYPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1FF0812B3441B700B50B81 /* KYPhotoLibrary.swift */; };
 		7F1FF0842B3441B700B50B81 /* KYPhotoLibrary+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */; };
+		7F94BAFE2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		7F1FF0752B343E2500B50B81 /* KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
 		7F1FF0812B3441B700B50B81 /* KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibrary.swift; sourceTree = "<group>"; };
 		7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Image.swift"; sourceTree = "<group>"; };
+		7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Video.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				7F1FF0812B3441B700B50B81 /* KYPhotoLibrary.swift */,
 				7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */,
+				7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			files = (
 				7F1FF0842B3441B700B50B81 /* KYPhotoLibrary+Image.swift in Sources */,
 				7F1FF0832B3441B700B50B81 /* KYPhotoLibrary.swift in Sources */,
+				7F94BAFE2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
