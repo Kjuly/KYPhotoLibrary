@@ -14,6 +14,8 @@ public class KYPhotoLibrary {
   public typealias AlbumCreationCompletion = (_ assetCollection: PHAssetCollection?, _ error: Error?) -> Void
   public typealias AssetSavingCompletion = (_ localIdentifier: String?, _ error: Error?) -> Void
 
+  // MARK: - Custom Album
+
   /// Get a custom album with a specific name, if it exists.
   ///
   /// - Parameters:
@@ -68,6 +70,8 @@ public class KYPhotoLibrary {
       }
     }
   }
+
+  // MARK: - Load Assets
 
   /// Load assets of a type from an album.
   ///
@@ -143,5 +147,42 @@ public class KYPhotoLibrary {
       }
       completion(assetIdentifiers)
     }
+  }
+
+  /// Cancels an asynchronous asset request.
+  ///
+  /// - Parameter requestID: The numeric identifier of the request to be canceled.
+  ///
+  public static func cancelAssetRequest(_ requestID: PHImageRequestID?) {
+    if let requestID {
+      PHCachingImageManager.default().cancelImageRequest(requestID)
+    }
+  }
+
+  // MARK: - PHAsset from Asset Identifier
+
+  /// Get PHAsset instance from an asset identifier.
+  ///
+  /// - Parameters:
+  ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
+  ///   - mediaType: The expected media type of the asset.
+  ///
+  public static func assetFromIdentifier(_ assetIdentifier: String, for mediaType: PHAssetMediaType) -> PHAsset? {
+    let fetchOptions = PHFetchOptions()
+    fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
+    fetchOptions.fetchLimit = 1
+    return PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: fetchOptions).firstObject
+  }
+
+  /// Get PHAsset instances from an asset identifier array.
+  ///
+  /// - Parameters:
+  ///   - assetIdentifiers: An array of the asset's unique identifier used in the Photo Library.
+  ///   - mediaType: The expected media type of the asset.
+  ///
+  public static func assetsFromIdentifier(_ assetIdentifiers: [String], for mediaType: PHAssetMediaType) -> PHFetchResult<PHAsset> {
+    let fetchOptions = PHFetchOptions()
+    fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
+    return PHAsset.fetchAssets(withLocalIdentifiers: assetIdentifiers, options: fetchOptions)
   }
 }

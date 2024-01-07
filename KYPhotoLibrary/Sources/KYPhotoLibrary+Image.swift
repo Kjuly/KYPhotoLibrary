@@ -81,7 +81,7 @@ extension KYPhotoLibrary {
     resizeMode: PHImageRequestOptionsResizeMode = .exact,
     completion: @escaping (_ image: UIImage?) -> Void
   ) {
-    guard let asset: PHAsset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject else {
+    guard let asset: PHAsset = assetFromIdentifier(assetIdentifier, for: .image) else {
       completion(nil)
       return
     }
