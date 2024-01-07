@@ -11,6 +11,28 @@ import Photos
 
 public class KYPhotoLibrary {
 
+  public typealias AlbumCreationCompletion = (_ assetCollection: PHAssetCollection?, _ error: Error?) -> Void
+
+  /// Get a custom album with a specific name, if it exists.
+  ///
+  /// - Parameters:
+  ///   - albumName: The album name
+  ///
+  public static func getAlbum(with albumName: String) -> PHAssetCollection? {
+    let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
+    var matchedAssetCollection: PHAssetCollection?
+    NSLog("Looking for Album: \"\(albumName)\"...")
+
+    albums.enumerateObjects { (album, _, stop) in
+      NSLog("Found Album: \(album.localIdentifier).")
+      if album.localizedTitle == albumName {
+        matchedAssetCollection = album
+        stop.pointee = true
+      }
+    }
+    return matchedAssetCollection
+  }
+
   /// Create new album w/ the specific name
   ///
   /// - Parameters:
@@ -19,7 +41,7 @@ public class KYPhotoLibrary {
   ///
   public static func createAlbum(
     with albumName: String,
-    completion: ((_ assetCollection: PHAssetCollection?, _ error: Error?) -> Void)?
+    completion: AlbumCreationCompletion?
   ) {
     var albumPlaceholder: PHObjectPlaceholder?
 
