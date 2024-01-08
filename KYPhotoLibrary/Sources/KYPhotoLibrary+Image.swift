@@ -1,6 +1,6 @@
 //
 //  KYPhotoLibrary+Image.swift
-//  KYPhotoPicker
+//  KYPhotoLibrary
 //
 //  Created by Kjuly on 30/6/2016.
 //  Copyright © 2016 Kaijie Yu. All rights reserved.
