@@ -34,6 +34,7 @@
 		7F1FF0812B3441B700B50B81 /* KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibrary.swift; sourceTree = "<group>"; };
 		7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Image.swift"; sourceTree = "<group>"; };
 		7F723AA82B4ADF40000C92E3 /* KYPhotoLibraryLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryLogger.swift; sourceTree = "<group>"; };
+		7F723ADC2B4BE3FA000C92E3 /* KYPhotoLibrary.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = KYPhotoLibrary.xctestplan; sourceTree = "<group>"; };
 		7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Video.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +60,7 @@
 		7F1FF05E2B343E2500B50B81 = {
 			isa = PBXGroup;
 			children = (
+				7F723ADC2B4BE3FA000C92E3 /* KYPhotoLibrary.xctestplan */,
 				7F1FF06A2B343E2500B50B81 /* KYPhotoLibrary */,
 				7F1FF0742B343E2500B50B81 /* KYPhotoLibraryTests */,
 				7F1FF0692B343E2500B50B81 /* Products */,

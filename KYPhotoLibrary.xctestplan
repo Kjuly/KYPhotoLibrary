@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "FA897389-78CB-4B69-894F-9F283042E0B5",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:KYPhotoLibrary.xcodeproj",
+          "identifier" : "7F1FF0672B343E2500B50B81",
+          "name" : "KYPhotoLibrary"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:KYPhotoLibrary.xcodeproj",
+        "identifier" : "7F1FF06F2B343E2500B50B81",
+        "name" : "KYPhotoLibraryTests"
+      }
+    }
+  ],
+  "version" : 1
+}
