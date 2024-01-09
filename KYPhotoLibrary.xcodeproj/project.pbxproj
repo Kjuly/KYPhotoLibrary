@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F1E16E12B4D522500B05FF4 /* KYUnitTestResourceManager in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E16E02B4D522500B05FF4 /* KYUnitTestResourceManager */; };
 		7F1FF0712B343E2500B50B81 /* KYPhotoLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1FF0682B343E2500B50B81 /* KYPhotoLibrary.framework */; };
 		7F1FF0762B343E2500B50B81 /* KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1FF0752B343E2500B50B81 /* KYPhotoLibraryTests.swift */; };
 		7F1FF0772B343E2500B50B81 /* KYPhotoLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F1FF06B2B343E2500B50B81 /* KYPhotoLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F1E16E12B4D522500B05FF4 /* KYUnitTestResourceManager in Frameworks */,
 				7F1FF0712B343E2500B50B81 /* KYPhotoLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,12 +67,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F1E16EF2B4D534500B05FF4 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
 		7F1FF05E2B343E2500B50B81 = {
 			isa = PBXGroup;
 			children = (
 				7F723ADC2B4BE3FA000C92E3 /* KYPhotoLibrary.xctestplan */,
 				7F1FF06A2B343E2500B50B81 /* KYPhotoLibrary */,
 				7F1FF0742B343E2500B50B81 /* KYPhotoLibraryTests */,
+				7F1E16EF2B4D534500B05FF4 /* Libs */,
 				7F1FF0692B343E2500B50B81 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -187,6 +197,9 @@
 				7F1FF0732B343E2500B50B81 /* PBXTargetDependency */,
 			);
 			name = KYPhotoLibraryTests;
+			packageProductDependencies = (
+				7F1E16E02B4D522500B05FF4 /* KYUnitTestResourceManager */,
+			);
 			productName = KYPhotoLibraryTests;
 			productReference = 7F1FF0702B343E2500B50B81 /* KYPhotoLibraryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -220,6 +233,9 @@
 				Base,
 			);
 			mainGroup = 7F1FF05E2B343E2500B50B81;
+			packageReferences = (
+				7F1E16DF2B4D522400B05FF4 /* XCRemoteSwiftPackageReference "KYUnitTestResourceManager" */,
+			);
 			productRefGroup = 7F1FF0692B343E2500B50B81 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -553,6 +569,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7F1E16DF2B4D522400B05FF4 /* XCRemoteSwiftPackageReference "KYUnitTestResourceManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kjuly/KYUnitTestResourceManager.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7F1E16E02B4D522500B05FF4 /* KYUnitTestResourceManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F1E16DF2B4D522400B05FF4 /* XCRemoteSwiftPackageReference "KYUnitTestResourceManager" */;
+			productName = KYUnitTestResourceManager;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7F1FF05F2B343E2500B50B81 /* Project object */;
 }
