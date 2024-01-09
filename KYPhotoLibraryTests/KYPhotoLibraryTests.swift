@@ -6,6 +6,7 @@
 //  Copyright © 2023 Kaijie Yu. All rights reserved.
 //
 
+/*
 import XCTest
 @testable import KYPhotoLibrary
 
@@ -33,4 +34,4 @@ final class KYPhotoLibraryTests: XCTestCase {
       // Put the code you want to measure the time of here.
     }
   }
-}
+}*/

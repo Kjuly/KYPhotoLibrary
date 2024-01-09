@@ -48,7 +48,8 @@ final class URL_KYPhotoLibraryTests: XCTestCase {
     XCTAssertEqual(try localFileURL_video_02.ky_getExistingFileExtension(), nil)
 
     // Get the testable file.
-    var testableFileURL: URL = try await KYUnitTestResourceManager.getTestableFileURL(for: .video, with: filename_video_01)
+    var testableFileURL: URL?
+    testableFileURL = try await KYUnitTestResourceManager.getTestableFileURL(for: .video, with: filename_video_01)
     XCTAssertEqual(testableFileURL, localFileURL_video_01)
     XCTAssertEqual(fileManager.fileExists(atPath: localFileURL_video_01.path), true)
     XCTAssertEqual(try localFileURL_video_01.ky_getExistingFileExtension(), "mov")

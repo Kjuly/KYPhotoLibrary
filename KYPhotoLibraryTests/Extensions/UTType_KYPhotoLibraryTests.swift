@@ -64,7 +64,7 @@ final class UTType_KYPhotoLibraryTests: XCTestCase {
     XCTAssertEqual(UTType.ky_getFileExtensionFromURL(localFileURL_image_01_withoutExtension), nil)
 
     // Get the testable file.
-    let testableFileURL: URL = try await KYUnitTestResourceManager.getTestableFileURL(for: .image, with: filename_image_01)
+    let testableFileURL: URL? = try await KYUnitTestResourceManager.getTestableFileURL(for: .image, with: filename_image_01)
     XCTAssertEqual(testableFileURL, localFileURL_image_01)
     XCTAssertEqual(fileManager.fileExists(atPath: localFileURL_image_01.path), true)
 
@@ -119,7 +119,7 @@ final class UTType_KYPhotoLibraryTests: XCTestCase {
     XCTAssertEqual(UTType.ky_getFileExtensionFromURL(localFileURL_video_01_withoutExtension), nil)
 
     // Get the testable file.
-    let testableFileURL: URL = try await KYUnitTestResourceManager.getTestableFileURL(for: .image, with: filename_video_01)
+    let testableFileURL: URL? = try await KYUnitTestResourceManager.getTestableFileURL(for: .image, with: filename_video_01)
     XCTAssertEqual(testableFileURL, localFileURL_video_01)
     XCTAssertEqual(fileManager.fileExists(atPath: localFileURL_video_01.path), true)
 
