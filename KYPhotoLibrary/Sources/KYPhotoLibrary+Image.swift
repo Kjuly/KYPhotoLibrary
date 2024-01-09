@@ -47,9 +47,9 @@ extension KYPhotoLibrary {
       } completionHandler: { (success: Bool, performChangesError: Error?) in
 #if DEBUG
         if success {
-          NSLog("Add Photo Succeeded: \(assetPlaceholder?.localIdentifier ?? "")")
+          KYPhotoLibraryLog("Add Photo Succeeded: \(assetPlaceholder?.localIdentifier ?? "")")
         } else {
-          NSLog("Add Photo Failed: \(performChangesError?.localizedDescription ?? "")")
+          KYPhotoLibraryLog("Add Photo Failed: \(performChangesError?.localizedDescription ?? "")")
         }
 #endif
         if let completion {

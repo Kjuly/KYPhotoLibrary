@@ -24,10 +24,10 @@ public class KYPhotoLibrary {
   public static func getAlbum(with albumName: String) -> PHAssetCollection? {
     let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
     var matchedAssetCollection: PHAssetCollection?
-    NSLog("Looking for Album: \"\(albumName)\"...")
+    KYPhotoLibraryLog("Looking for Album: \"\(albumName)\"...")
 
     albums.enumerateObjects { (album, _, stop) in
-      NSLog("Found Album: \(album.localIdentifier).")
+      KYPhotoLibraryLog("Found Album: \(album.localIdentifier).")
       if album.localizedTitle == albumName {
         matchedAssetCollection = album
         stop.pointee = true
@@ -55,14 +55,14 @@ public class KYPhotoLibrary {
     } completionHandler: { (success: Bool, error: Error?) in
       var assetCollection: PHAssetCollection?
       if success {
-        NSLog("Create Album: \"\(albumName)\" Photo Succeed.")
+        KYPhotoLibraryLog("Create Album: \"\(albumName)\" Photo Succeed.")
 
         if let localIdentifier = albumPlaceholder?.localIdentifier {
           assetCollection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [localIdentifier],
                                                                     options: nil).firstObject
         }
       } else {
-        NSLog("Create Album: \"\(albumName)\" Failed: \(error?.localizedDescription ?? "")")
+        KYPhotoLibraryLog("Create Album: \"\(albumName)\" Failed: \(error?.localizedDescription ?? "")")
       }
 
       if let completion {
