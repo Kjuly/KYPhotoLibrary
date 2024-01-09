@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7F1E16E12B4D522500B05FF4 /* KYUnitTestResourceManager in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E16E02B4D522500B05FF4 /* KYUnitTestResourceManager */; };
+		7F1E16FE2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */; };
+		7F1E17002B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */; };
 		7F1FF0712B343E2500B50B81 /* KYPhotoLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1FF0682B343E2500B50B81 /* KYPhotoLibrary.framework */; };
 		7F1FF0762B343E2500B50B81 /* KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1FF0752B343E2500B50B81 /* KYPhotoLibraryTests.swift */; };
 		7F1FF0772B343E2500B50B81 /* KYPhotoLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F1FF06B2B343E2500B50B81 /* KYPhotoLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,6 +24,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7F1E16F52B4D539C00B05FF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7FCAC7962B4D4AFA00C72C5E;
+			remoteInfo = KYUnitTestResourceManager;
+		};
+		7F1E16F72B4D539C00B05FF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7FCAC79E2B4D4AFA00C72C5E;
+			remoteInfo = KYUnitTestResourceManagerTests;
+		};
 		7F1FF0722B343E2500B50B81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F1FF05F2B343E2500B50B81 /* Project object */;
@@ -32,6 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KYUnitTestResourceManager.xcodeproj; path = ../../KYUnitTestResourceManager/KYUnitTestResourceManager.xcodeproj; sourceTree = "<group>"; };
+		7F1E16F92B4D53A800B05FF4 /* KYUnitTestResourceManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KYUnitTestResourceManager; path = ../../KYUnitTestResourceManager; sourceTree = "<group>"; };
+		7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL_KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
+		7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+KYPhotoLibrary.swift"; sourceTree = "<group>"; };
 		7F1FF0682B343E2500B50B81 /* KYPhotoLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KYPhotoLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1FF06B2B343E2500B50B81 /* KYPhotoLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KYPhotoLibrary.h; sourceTree = "<group>"; };
 		7F1FF0702B343E2500B50B81 /* KYPhotoLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYPhotoLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,8 +90,19 @@
 		7F1E16EF2B4D534500B05FF4 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */,
+				7F1E16F92B4D53A800B05FF4 /* KYUnitTestResourceManager */,
 			);
 			path = Libs;
+			sourceTree = "<group>";
+		};
+		7F1E16F12B4D539C00B05FF4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7F1E16F62B4D539C00B05FF4 /* KYUnitTestResourceManager.framework */,
+				7F1E16F82B4D539C00B05FF4 /* KYUnitTestResourceManagerTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7F1FF05E2B343E2500B50B81 = {
@@ -135,6 +166,7 @@
 		7F723ADE2B4BE44D000C92E3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */,
 				7F723AE02B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift */,
 				7F723ADF2B4BE44D000C92E3 /* AVFileType+KYPhotoLibrary.swift */,
 			);
@@ -144,6 +176,7 @@
 		7F723AE42B4BE456000C92E3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */,
 				7F723AE52B4BE456000C92E3 /* UTType_KYPhotoLibraryTests.swift */,
 				7F723AE62B4BE456000C92E3 /* AVFileType_KYPhotoLibraryTests.swift */,
 			);
@@ -238,6 +271,12 @@
 			);
 			productRefGroup = 7F1FF0692B343E2500B50B81 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7F1E16F12B4D539C00B05FF4 /* Products */;
+					ProjectRef = 7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7F1FF0672B343E2500B50B81 /* KYPhotoLibrary */,
@@ -245,6 +284,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7F1E16F62B4D539C00B05FF4 /* KYUnitTestResourceManager.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KYUnitTestResourceManager.framework;
+			remoteRef = 7F1E16F52B4D539C00B05FF4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7F1E16F82B4D539C00B05FF4 /* KYUnitTestResourceManagerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KYUnitTestResourceManagerTests.xctest;
+			remoteRef = 7F1E16F72B4D539C00B05FF4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7F1FF0662B343E2500B50B81 /* Resources */ = {
@@ -291,6 +347,7 @@
 			files = (
 				7F723AE32B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift in Sources */,
 				7F1FF0842B3441B700B50B81 /* KYPhotoLibrary+Image.swift in Sources */,
+				7F1E17002B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift in Sources */,
 				7F1FF0832B3441B700B50B81 /* KYPhotoLibrary.swift in Sources */,
 				7F94BAFE2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift in Sources */,
 				7F723AE22B4BE44D000C92E3 /* AVFileType+KYPhotoLibrary.swift in Sources */,
@@ -302,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F1E16FE2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift in Sources */,
 				7F723AE72B4BE456000C92E3 /* UTType_KYPhotoLibraryTests.swift in Sources */,
 				7F1FF0762B343E2500B50B81 /* KYPhotoLibraryTests.swift in Sources */,
 				7F723AE82B4BE456000C92E3 /* AVFileType_KYPhotoLibraryTests.swift in Sources */,

@@ -20,10 +20,12 @@ final class AVFileType_KYPhotoLibraryTests: XCTestCase {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
 
+  // MARK: - Tests - Creation
+
   //
   // static AVFileType.ky_fromFileExtension(_:)
   //
-  func testFromFileExtension() throws {
+  func testCreationFromFileExtension() throws {
     XCTAssertEqual(AVFileType.ky_fromFileExtension("MOV"), .mov)
     XCTAssertEqual(AVFileType.ky_fromFileExtension("mov"), .mov)
 

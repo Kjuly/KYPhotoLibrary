@@ -12,6 +12,8 @@ import UniformTypeIdentifiers
 
 extension AVFileType {
 
+  // MARK: - Creation
+
   static func ky_fromFileExtension(_ fileExtension: String) -> AVFileType? {
     if fileExtension.isEmpty {
       return nil

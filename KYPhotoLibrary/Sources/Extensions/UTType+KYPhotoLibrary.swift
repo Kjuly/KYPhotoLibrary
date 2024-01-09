@@ -11,10 +11,39 @@ import UniformTypeIdentifiers
 
 extension UTType {
 
+  // MARK: - Creation
+
   public static func ky_fromFile(with fileURL: URL) -> UTType? {
-    let fileExtension: String = (fileURL.lastPathComponent as NSString).pathExtension
-    return UTType(filenameExtension: fileExtension)
+    if let fileExtension: String = ky_getFileExtensionFromURL(fileURL) {
+      return UTType(filenameExtension: fileExtension)
+    } else {
+      return nil
+    }
   }
+
+  // MARK: - Get File Extension
+
+  public static func ky_getFileExtensionFromURL(_ fileURL: URL) -> String? {
+    let fileExtension: String = fileURL.pathExtension
+    if fileExtension.isEmpty {
+      return try? fileURL.ky_getExistingFileExtension()
+    } else {
+      return fileExtension
+    }
+  }
+
+  public static func ky_getFileExtensionFromUniformTypeIdentifier(_ identifier: String) -> String? {
+    guard let type = UTType(identifier) else {
+      return nil
+    }
+    return type.ky_getFileExtension()
+  }
+
+  public func ky_getFileExtension() -> String? {
+    return self.preferredFilenameExtension ?? self.tags[UTTagClass.filenameExtension]?.first
+  }
+
+  // MARK: - File Type Checking
 
   public func ky_isPhotoFileType() -> Bool {
     return conforms(to: .image)
