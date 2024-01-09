@@ -10,7 +10,9 @@ import Foundation
 import Photos
 
 extension KYPhotoLibrary {
-  
+
+  // MARK: - Save/Load Video from Photo Library
+
   /// Save a video to custom album.
   ///
   /// If you need to update the UI in the completion block, you'd better to perform the relevant tasks in the main thread.
@@ -47,9 +49,9 @@ extension KYPhotoLibrary {
       } completionHandler: { (success: Bool, performChangesError: Error?) in
 #if DEBUG
         if success {
-          NSLog("Add Video Succeeded: \(assetPlaceholder?.localIdentifier ?? "")")
+          KYPhotoLibraryLog("Add Video Succeeded: \(assetPlaceholder?.localIdentifier ?? "")")
         } else {
-          NSLog("Add Video Failed: \(performChangesError?.localizedDescription ?? "")")
+          KYPhotoLibraryLog("Add Video Failed: \(performChangesError?.localizedDescription ?? "")")
         }
 #endif
         if let completion {
@@ -76,14 +78,14 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
-  ///   - deliveryMode: A mode specifying the requested video quality and delivery priority, default: automatic.
+  ///   - options: Options specifying how Photos should handle the request and notify your app of progress or errors.
   ///   - completion: The block to execute on completion.
   ///
   /// - Returns: A numeric identifier for the video request.
   ///
   public static func loadVideo(
     with assetIdentifier: String,
-    deliveryMode: PHVideoRequestOptionsDeliveryMode = .automatic,
+    options: PHVideoRequestOptions? = nil,
     completion: @escaping (_ videoAsset: AVAsset?) -> Void
   ) -> PHImageRequestID? {
 
@@ -92,14 +94,7 @@ extension KYPhotoLibrary {
       return nil
     }
 
-    let options = PHVideoRequestOptions()
-    options.deliveryMode = deliveryMode
-
-    return PHCachingImageManager.default().requestAVAsset(
-      forVideo: asset,
-      options: options
-    ) { (asset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable: Any]?) in
-
+    return PHCachingImageManager.default().requestAVAsset(forVideo: asset, options: options) { asset, _, _ in
       DispatchQueue.main.async {
         completion(asset)
       }
