@@ -92,7 +92,7 @@ struct AssetDetailsView: View {
         .font(.title)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-      Button(action: self.viewModel.terminateAssetLoading) {
+      Button(action: self.viewModel.terminateCurrentProcessing) {
         Text("Terminate")
           .font(.body.bold())
           .frame(maxWidth: .infinity)
