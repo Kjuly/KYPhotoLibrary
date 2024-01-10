@@ -12,6 +12,22 @@ import AVFoundation
 
 extension KYPhotoLibrary {
 
+  // MARK: - Error
+
+  public enum VideoExportError: Error, LocalizedError {
+    case assetNotFound(String)
+    case failedToPrepareExportSession
+
+    public var errorDescription: String? {
+      switch self {
+      case .assetNotFound(let assetIdentifier):
+        return "Asset with identifier: \"\(assetIdentifier)\" not found."
+      case .failedToPrepareExportSession:
+        return "Failed to prepare export session."
+      }
+    }
+  }
+
   // MARK: - Export Video from Photo Library to App
 
   /// Export a video from the Photo Library to the app's destination folder asynchronously.
@@ -48,7 +64,7 @@ extension KYPhotoLibrary {
   ) async throws -> URL? {
 
     guard let asset: PHAsset = assetFromIdentifier(assetIdentifier, for: .video) else {
-      throw KYPhotoLibraryError.assetNotFound(assetIdentifier)
+      throw VideoExportError.assetNotFound(assetIdentifier)
     }
     //
     // Request a video export session.
@@ -147,7 +163,7 @@ private actor VideoExportSessionRequestActor {
         if let exportSession {
           continuation.resume(returning: exportSession)
         } else {
-          continuation.resume(throwing: KYPhotoLibraryError.failedToPrepareExportSession)
+          continuation.resume(throwing: KYPhotoLibrary.VideoExportError.failedToPrepareExportSession)
         }
       }
     }
