@@ -23,15 +23,4 @@ extension AssetDetailsViewModelError: LocalizedError {
       return "Unknown Error"
     }
   }
-
-//  var recoverySuggestion: String? {
-//    switch self {
-//    case .cameraUnavailable:
-//      return "Sorry, the Camera is unavailable on the current device."
-//    case .failedToAccessCamera:
-//      return "Please go to Settings > Privacy > Camera and turn on Camera access for this demo."
-//    default:
-//      return nil
-//    }
-//  }
 }
