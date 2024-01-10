@@ -18,7 +18,8 @@ class AssetDetailsViewModel: ObservableObject {
   @Published var processing: DemoAssetProcessing = .load
   @Published var loadedAsset: AnyObject?
 
-  var requestID: PHImageRequestID?
+  private var requestID: PHImageRequestID?
+  private var assetCachingTask: Task<Void, Error>?
 
   @Published var error: AssetDetailsViewModelError?
 
@@ -72,7 +73,10 @@ class AssetDetailsViewModel: ObservableObject {
   // MARK: - Processing
 
   func cacheAsset() {
-    guard self.type == .video else {
+    guard
+      self.type == .video,
+      self.assetCachingTask == nil
+    else {
       return
     }
     self.processing = .cache
@@ -82,19 +86,30 @@ class AssetDetailsViewModel: ObservableObject {
       filename: nil,
       shouldRemoveDuplicates: false)
 
-    self.requestID = KYPhotoLibrary.exportVideoFromPhotoLibrary(
-      with: self.assetIdentifier,
-      requestOptions: nil,
-      exportOptions: exportOptions
-    ) { [weak self] cachedVideoURL, error in
-
-      if let cachedVideoURL {
-        NSLog("Cached video at \(cachedVideoURL)")
-      } else if let error {
-        self?.error = .failedToCacheAsset(error.localizedDescription)
+    self.assetCachingTask = Task {
+      defer {
+        DispatchQueue.main.async {
+          self.assetCachingTask = nil
+          self.processing = .none
+        }
       }
-      self?.requestID = nil
-      self?.processing = .none
+
+      do {
+        let cachedAssetURL: URL? =
+        try await KYPhotoLibrary.exportVideoFromPhotoLibrary(
+          with: self.assetIdentifier,
+          requestOptions: nil,
+          exportOptions: exportOptions)
+
+        if let cachedAssetURL {
+          NSLog("Cached asset at \(cachedAssetURL)")
+        } else {
+          NSLog("Failed to Cached asset")
+        }
+
+      } catch {
+        NSLog("Failed to Cached asset, error: \(error.localizedDescription)")
+      }
     }
   }
 
@@ -109,6 +124,13 @@ class AssetDetailsViewModel: ObservableObject {
   // MARK: - Terminate Processing
 
   func terminateCurrentProcessing() {
+    if self.assetCachingTask != nil {
+      self.assetCachingTask?.cancel()
+      self.assetCachingTask = nil
+    }
 
+    if self.processing == .cache {
+      self.processing = .none
+    }
   }
 }
