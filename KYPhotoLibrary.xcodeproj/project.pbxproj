@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				7F1FF0752B343E2500B50B81 /* KYPhotoLibraryTests.swift */,
-				7F723AE42B4BE456000C92E3 /* Extensions */,
+				7F723AE42B4BE456000C92E3 /* GenericExtensions */,
 			);
 			path = KYPhotoLibraryTests;
 			sourceTree = "<group>";
@@ -164,7 +164,7 @@
 				7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift */,
 				7F1E17212B4E82F100B05FF4 /* KYPhotoLibraryAssetExportActor.swift */,
 				7F1E171F2B4E787C00B05FF4 /* KYPhotoLibraryError.swift */,
-				7F723ADE2B4BE44D000C92E3 /* Extensions */,
+				7F723ADE2B4BE44D000C92E3 /* GenericExtensions */,
 				7F723AA72B4ADF40000C92E3 /* Debug */,
 			);
 			path = Sources;
@@ -178,24 +178,24 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
-		7F723ADE2B4BE44D000C92E3 /* Extensions */ = {
+		7F723ADE2B4BE44D000C92E3 /* GenericExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */,
 				7F723AE02B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift */,
 				7F723ADF2B4BE44D000C92E3 /* AVFileType+KYPhotoLibrary.swift */,
 			);
-			path = Extensions;
+			path = GenericExtensions;
 			sourceTree = "<group>";
 		};
-		7F723AE42B4BE456000C92E3 /* Extensions */ = {
+		7F723AE42B4BE456000C92E3 /* GenericExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */,
 				7F723AE52B4BE456000C92E3 /* UTType_KYPhotoLibraryTests.swift */,
 				7F723AE62B4BE456000C92E3 /* AVFileType_KYPhotoLibraryTests.swift */,
 			);
-			path = Extensions;
+			path = GenericExtensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
