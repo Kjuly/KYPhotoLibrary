@@ -50,7 +50,7 @@ extension KYPhotoLibrary {
     guard let asset: PHAsset = assetFromIdentifier(assetIdentifier, for: .video) else {
       throw KYPhotoLibraryError.assetNotFound(assetIdentifier)
     }
-
+    //
     // Request a video export session.
     let exportSessionRequestActor = VideoExportSessionRequestActor()
     let session: AVAssetExportSession = try await withTaskCancellationHandler {
@@ -71,12 +71,13 @@ extension KYPhotoLibrary {
       try await Task.sleep(nanoseconds: 3_000_000_000)
     }
 #endif
-    try Task.checkCancellation()
-
+    //
     // Export video w/ the session prepared.
+    try Task.checkCancellation()
     session.outputFileType = exportOptions.outputFileType
-    session.outputURL = exportOptions.prepareUniqueDestinationURL(for: asset)
+    session.outputURL = await exportOptions.prepareUniqueDestinationURL(for: asset)
 
+    try Task.checkCancellation()
     return try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session...")
       return try await _exportVideo(with: session)
@@ -121,10 +122,6 @@ extension KYPhotoLibrary {
 private actor VideoExportSessionRequestActor {
 
   var requestID: PHImageRequestID?
-
-  init() {
-
-  }
 
   func requestSession(
     asset: PHAsset,
