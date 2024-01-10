@@ -115,6 +115,41 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7F1E17302B4ED09A00B05FF4 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		7F1E17312B4ED0AD00B05FF4 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		7F1E17322B4ED0C100B05FF4 /* VideoExport */ = {
+			isa = PBXGroup;
+			children = (
+				7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift */,
+				7F1E17272B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift */,
+				7F1E172E2B4EC95400B05FF4 /* KYPhotoLibrary+VideoExport_Legacy.swift */,
+				7F1E17212B4E82F100B05FF4 /* KYPhotoLibraryAssetExportActor.swift */,
+			);
+			path = VideoExport;
+			sourceTree = "<group>";
+		};
+		7F1E17332B4ED0DC00B05FF4 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				7F1E171F2B4E787C00B05FF4 /* KYPhotoLibraryError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		7F1FF05E2B343E2500B50B81 = {
 			isa = PBXGroup;
 			children = (
@@ -157,14 +192,11 @@
 			isa = PBXGroup;
 			children = (
 				7F1FF0812B3441B700B50B81 /* KYPhotoLibrary.swift */,
-				7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */,
-				7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */,
-				7F1E17272B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift */,
-				7F1E172E2B4EC95400B05FF4 /* KYPhotoLibrary+VideoExport_Legacy.swift */,
-				7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift */,
-				7F1E17212B4E82F100B05FF4 /* KYPhotoLibraryAssetExportActor.swift */,
-				7F1E171F2B4E787C00B05FF4 /* KYPhotoLibraryError.swift */,
+				7F1E17302B4ED09A00B05FF4 /* Image */,
+				7F1E17312B4ED0AD00B05FF4 /* Video */,
+				7F1E17322B4ED0C100B05FF4 /* VideoExport */,
 				7F723ADE2B4BE44D000C92E3 /* GenericExtensions */,
+				7F1E17332B4ED0DC00B05FF4 /* Error */,
 				7F723AA72B4ADF40000C92E3 /* Debug */,
 			);
 			path = Sources;
