@@ -51,18 +51,18 @@ extension KYPhotoLibrary {
       throw KYPhotoLibraryError.assetNotFound(assetIdentifier)
     }
 
-    // Request an export session.
-    let assetExportActor = KYPhotoLibraryAssetExportActor()
+    // Request a video export session.
+    let exportSessionRequestActor = VideoExportSessionRequestActor()
     let session: AVAssetExportSession = try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session Request...")
-      return try await assetExportActor.requestExportSession(
+      return try await exportSessionRequestActor.requestSession(
         asset: asset,
         requestOptions: requestOptions,
         exportOptions: exportOptions)
     } onCancel: {
       Task {
         KYPhotoLibraryLog("Cancel Export Session Request...")
-        await assetExportActor.cancelRequst()
+        await exportSessionRequestActor.cancelRequst()
       }
     }
 
@@ -113,5 +113,54 @@ extension KYPhotoLibrary {
       KYPhotoLibraryLog("Export Session - Other Status: \(session.status)")
       return nil
     }
+  }
+}
+
+// MARK: - Video Export Session Request Actor
+
+private actor VideoExportSessionRequestActor {
+
+  var requestID: PHImageRequestID?
+
+  init() {
+
+  }
+
+  func requestSession(
+    asset: PHAsset,
+    requestOptions: PHVideoRequestOptions?,
+    exportOptions: KYPhotoLibraryVideoExportOptions
+  ) async throws -> AVAssetExportSession {
+
+    return try await withCheckedThrowingContinuation { continuation in
+      self.requestID = PHImageManager.default().requestExportSession(
+        forVideo: asset,
+        options: requestOptions,
+        exportPreset: exportOptions.exportPreset
+      ) { exportSession, _ in
+#if DEBUG
+        if KYPhotoLibrary.debug_shouldSimulateWaitingDuringAssetExport {
+          Task {
+            try await Task.sleep(nanoseconds: 3_000_000_000)
+          }
+        }
+#endif
+        self.requestID = nil
+
+        if let exportSession {
+          continuation.resume(returning: exportSession)
+        } else {
+          continuation.resume(throwing: KYPhotoLibraryError.failedToPrepareExportSession)
+        }
+      }
+    }
+  }
+
+  func cancelRequst() async {
+    guard let requestID = self.requestID else {
+      return
+    }
+    PHImageManager.default().cancelImageRequest(requestID)
+    self.requestID = nil
   }
 }
