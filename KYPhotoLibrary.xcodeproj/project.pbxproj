@@ -10,6 +10,7 @@
 		7F1E16E12B4D522500B05FF4 /* KYUnitTestResourceManager in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E16E02B4D522500B05FF4 /* KYUnitTestResourceManager */; };
 		7F1E16FE2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */; };
 		7F1E17002B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */; };
+		7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift */; };
 		7F1FF0712B343E2500B50B81 /* KYPhotoLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1FF0682B343E2500B50B81 /* KYPhotoLibrary.framework */; };
 		7F1FF0762B343E2500B50B81 /* KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1FF0752B343E2500B50B81 /* KYPhotoLibraryTests.swift */; };
 		7F1FF0772B343E2500B50B81 /* KYPhotoLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F1FF06B2B343E2500B50B81 /* KYPhotoLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,6 +53,7 @@
 		7F1E16F92B4D53A800B05FF4 /* KYUnitTestResourceManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KYUnitTestResourceManager; path = ../../KYUnitTestResourceManager; sourceTree = "<group>"; };
 		7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL_KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
 		7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+KYPhotoLibrary.swift"; sourceTree = "<group>"; };
+		7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryVideoExportOptions.swift; sourceTree = "<group>"; };
 		7F1FF0682B343E2500B50B81 /* KYPhotoLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KYPhotoLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1FF06B2B343E2500B50B81 /* KYPhotoLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KYPhotoLibrary.h; sourceTree = "<group>"; };
 		7F1FF0702B343E2500B50B81 /* KYPhotoLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYPhotoLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 				7F1FF0812B3441B700B50B81 /* KYPhotoLibrary.swift */,
 				7F1FF0822B3441B700B50B81 /* KYPhotoLibrary+Image.swift */,
 				7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */,
+				7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift */,
 				7F723ADE2B4BE44D000C92E3 /* Extensions */,
 				7F723AA72B4ADF40000C92E3 /* Debug */,
 			);
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F723AE32B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift in Sources */,
+				7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryVideoExportOptions.swift in Sources */,
 				7F1FF0842B3441B700B50B81 /* KYPhotoLibrary+Image.swift in Sources */,
 				7F1E17002B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift in Sources */,
 				7F1FF0832B3441B700B50B81 /* KYPhotoLibrary.swift in Sources */,
