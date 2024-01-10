@@ -1,5 +1,5 @@
 //
-//  ContentViewModel.swift
+//  AssetsViewModel.swift
 //  KYPhotoLibraryDemo
 //
 //  Created by Kjuly on 6/1/2024.
@@ -12,7 +12,7 @@ import Photos
 import KYPhotoLibrary
 
 @MainActor
-class ContentViewModel: ObservableObject {
+class AssetsViewModel: ObservableObject {
 
   private var customPhotoAlbumName: String {
     return KYPhotoLibraryDemoApp.customPhotoAlbumName
@@ -21,21 +21,21 @@ class ContentViewModel: ObservableObject {
   @Published var isLoading: Bool = true
   @Published var assetIdentifiers: [String] = []
 
-  @Published var error: ContentViewModelError?
+  @Published var error: AssetsViewModelError?
 
   // MARK: - Action
 
-  func loadFilesFromCustomPhotoAlbum(for type: DemoMediaType) {
-    let mediaType: PHAssetMediaType = (type == .videos ? .video : .image)
+  func loadFilesFromCustomPhotoAlbum(for type: DemoAssetType) {
     KYPhotoLibrary.loadAssetIdentifiers(
-      of: mediaType,
+      of: (type == .video ? .video : .image),
       fromAlbum: self.customPhotoAlbumName,
-      limit: 0) { assetIdentifiers in
-        DispatchQueue.main.async {
-          self.assetIdentifiers = assetIdentifiers ?? []
-          self.isLoading = false
-        }
+      limit: 0
+    ) { assetIdentifiers in
+      DispatchQueue.main.async {
+        self.assetIdentifiers = assetIdentifiers ?? []
+        self.isLoading = false
       }
+    }
   }
 
   func reqeustCameraAuthorization(completion: @escaping (_ authorized: Bool) -> Void) {

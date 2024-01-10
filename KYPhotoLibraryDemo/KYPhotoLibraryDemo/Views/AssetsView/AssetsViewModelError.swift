@@ -1,5 +1,5 @@
 //
-//  ContentViewModelError.swift
+//  AssetsViewModelError.swift
 //  KYPhotoLibraryDemo
 //
 //  Created by Kjuly on 6/1/2024.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum ContentViewModelError: Error {
+enum AssetsViewModelError: Error {
   case cameraUnavailable
   case failedToAccessCamera
   case failedToSaveAsset(String)
   case unknown
 }
 
-extension ContentViewModelError: LocalizedError {
+extension AssetsViewModelError: LocalizedError {
 
   var errorDescription: String? {
     switch self {

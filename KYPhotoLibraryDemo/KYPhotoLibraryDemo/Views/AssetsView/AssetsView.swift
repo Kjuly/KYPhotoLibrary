@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  AssetsView.swift
 //  KYPhotoLibraryDemo
 //
 //  Created by Kjuly on 6/1/2024.
@@ -9,27 +9,36 @@
 import SwiftUI
 import AVKit
 
-struct ContentView: View {
+struct AssetsView: View {
 
-  let type: DemoMediaType
+  private let type: DemoAssetType
 
-  @StateObject private var viewModel = ContentViewModel()
+  @StateObject private var viewModel = AssetsViewModel()
   @State private var isPresntingImagePicker = false
 
-  init(for type: DemoMediaType) {
+  // MARK: - Init
+
+  init(for type: DemoAssetType) {
     self.type = type
   }
+
+  // MARK: - View Body
 
   var body: some View {
     ZStack {
       Color(uiColor: .systemGroupedBackground)
         .ignoresSafeArea()
 
-      _contentView()
+      _assetsView()
     }
     .navigationTitle("KYPhotoLibrary Demo")
     .navigationBarTitleDisplayMode(.inline)
     .safeAreaInset(edge: .bottom, alignment: .center, content: _pickMediaButton)
+    .onAppear(perform: {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        self.viewModel.loadFilesFromCustomPhotoAlbum(for: self.type)
+      }
+    })
     .fullScreenCover(isPresented: $isPresntingImagePicker) {
       DemoImagePicker(for: self.type) { image, videoURL in
         self.viewModel.didFinishPicking(with: image, or: videoURL)
@@ -51,20 +60,19 @@ struct ContentView: View {
       })
   }
 
+  // MARK: - Private
+
   @ViewBuilder
-  private func _contentView() -> some View {
+  private func _assetsView() -> some View {
     if self.viewModel.isLoading {
       List {
-        Text("Filename A")
-        Text("Filename B")
-        Text("Filename C")
+        Section(self.type.tabText) {
+          Text("Filename A")
+          Text("Filename B")
+          Text("Filename C")
+        }
       }
       .redacted(reason: .placeholder)
-      .onAppear(perform: {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-          self.viewModel.loadFilesFromCustomPhotoAlbum(for: self.type)
-        }
-      })
 
     } else if self.viewModel.assetIdentifiers.isEmpty {
       VStack(alignment: .center) {
@@ -82,14 +90,10 @@ struct ContentView: View {
   @ViewBuilder
   private func _assetIdentifiersList() -> some View {
     List {
-      Section("Asset Identifiers") {
+      Section(self.type.tabText) {
         ForEach(self.viewModel.assetIdentifiers, id: \.self) { assetIdentifier in
           NavigationLink {
-            if self.type == .videos {
-              VideoDetailsView(assetIdentifier: assetIdentifier)
-            } else {
-              PhotoDetailsView(assetIdentifier: assetIdentifier)
-            }
+            AssetDetailsView(viewModel: .init(for: self.type, with: assetIdentifier))
           } label: {
             Text(assetIdentifier)
           }

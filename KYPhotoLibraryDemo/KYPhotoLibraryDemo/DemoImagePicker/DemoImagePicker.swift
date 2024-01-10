@@ -14,12 +14,12 @@ struct DemoImagePicker: UIViewControllerRepresentable {
 
   typealias Completion = (_ image: UIImage?, _ videoURL: URL?) -> Void
 
-  private var type: DemoMediaType
+  private var type: DemoAssetType
   private var didFinishPicking: Completion
 
   // MARK: - Init
 
-  init(for type: DemoMediaType, didFinishPicking: @escaping Completion) {
+  init(for type: DemoAssetType, didFinishPicking: @escaping Completion) {
     self.type = type
     self.didFinishPicking = didFinishPicking
   }
@@ -30,7 +30,7 @@ struct DemoImagePicker: UIViewControllerRepresentable {
     let controller = UIImagePickerController()
     controller.allowsEditing = false
     controller.sourceType = .camera
-    controller.mediaTypes = (self.type == .videos ? [UTType.movie.identifier] : [UTType.image.identifier])
+    controller.mediaTypes = (self.type == .video ? [UTType.movie.identifier] : [UTType.image.identifier])
     controller.delegate = context.coordinator
     return controller
   }

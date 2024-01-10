@@ -13,23 +13,40 @@ struct KYPhotoLibraryDemoApp: App {
 
   static let customPhotoAlbumName = "KYPhotoLibrary Demo"
 
+  static let docURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+  static let archivesFolderURL: URL = docURL.appendingPathComponent("archives")
+
+  @State private var selectedTab: DemoAssetType = .photo
+
+  // MARK: - Init
+
+  init() {
+    NSLog("App Document Directory: \(KYPhotoLibraryDemoApp.docURL)")
+  }
+
   var body: some Scene {
     WindowGroup {
-      TabView {
-        _view(for: .photos)
-        _view(for: .videos)
+      TabView(selection: $selectedTab) {
+        _view(for: .archive)
+        _view(for: .photo)
+        _view(for: .video)
       }
     }
   }
 
   @ViewBuilder
-  private func _view(for type: DemoMediaType) -> some View {
+  private func _view(for type: DemoAssetType) -> some View {
     NavigationView {
-      ContentView(for: type)
+      if type == .archive {
+        ArchivesView()
+      } else {
+        AssetsView(for: type)
+      }
     }
     .navigationViewStyle(.stack)
     .tabItem {
       Label(type.tabText, systemImage: type.tabIconName)
     }
+    .tag(type)
   }
 }
