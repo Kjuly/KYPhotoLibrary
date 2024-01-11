@@ -25,17 +25,17 @@ class AssetsViewModel: ObservableObject {
 
   // MARK: - Action
 
-  func loadFilesFromCustomPhotoAlbum(for type: DemoAssetType) {
-    KYPhotoLibrary.loadAssetIdentifiers(
-      of: (type == .video ? .video : .image),
-      fromAlbum: self.customPhotoAlbumName,
-      limit: 0
-    ) { assetIdentifiers in
-      DispatchQueue.main.async {
-        self.assetIdentifiers = assetIdentifiers ?? []
-        self.isLoading = false
-      }
+  func loadFilesFromCustomPhotoAlbum(for type: DemoAssetType) async {
+    do {
+      self.assetIdentifiers = try await KYPhotoLibrary.loadAssetIdentifiers(
+        of: (type == .video ? .video : .image),
+        fromAlbum: self.customPhotoAlbumName,
+        limit: 0)
+    } catch {
+      NSLog("Faield to load assets of \(type.tabText), error: \(error.localizedDescription)")
+      self.assetIdentifiers = []
     }
+    self.isLoading = false
   }
 
   func reqeustCameraAuthorization(completion: @escaping (_ authorized: Bool) -> Void) {
@@ -64,21 +64,21 @@ class AssetsViewModel: ObservableObject {
     }
   }
 
-  func didFinishPicking(with image: UIImage?, or videoURL: URL?) {
-    let completion: KYPhotoLibrary.AssetSavingCompletion = { localIdentifier, error in
-      if let localIdentifier {
-        DispatchQueue.main.async {
-          self.assetIdentifiers.append(localIdentifier)
-        }
-      } else if let error {
-        self.error = .failedToSaveAsset(error.localizedDescription)
+  func didFinishPicking(with image: UIImage?, or videoURL: URL?) async {
+    do {
+      var localIdentifier: String?
+      if let image {
+        localIdentifier = try await KYPhotoLibrary.saveImage(image, toAlbum: self.customPhotoAlbumName)
+      } else if let videoURL {
+        localIdentifier = try await KYPhotoLibrary.saveVideo(with: videoURL, toAlbum: self.customPhotoAlbumName)
       }
-    }
 
-    if let image {
-      KYPhotoLibrary.saveImage(image, toAlbum: self.customPhotoAlbumName, completion: completion)
-    } else if let videoURL {
-      KYPhotoLibrary.saveVideo(with: videoURL, toAlbum: self.customPhotoAlbumName, completion: completion)
+      if let localIdentifier {
+        self.assetIdentifiers.append(localIdentifier)
+      }
+
+    } catch {
+      self.error = .failedToSaveAsset(error.localizedDescription)
     }
   }
 }

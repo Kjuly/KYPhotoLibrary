@@ -17,54 +17,52 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - albumName: The album name
+  ///   - createIfNotFound: Whether need to create the album if it's not found, default: true.
   ///
-  public static func getAlbum(with albumName: String) -> PHAssetCollection? {
+  /// - Returns: Asset collection for the found album.
+  ///
+  public static func getAlbum(with albumName: String, createIfNotFound: Bool = true) async throws -> PHAssetCollection {
     let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
     var matchedAssetCollection: PHAssetCollection?
     KYPhotoLibraryLog("Looking for Album: \"\(albumName)\"...")
 
     albums.enumerateObjects { (album, _, stop) in
-      KYPhotoLibraryLog("Found Album: \(album.localIdentifier).")
-      if album.localizedTitle == albumName {
-        matchedAssetCollection = album
-        stop.pointee = true
+      guard album.localizedTitle == albumName else {
+        return
       }
+      KYPhotoLibraryLog("Found Album: \(album.localIdentifier).")
+      matchedAssetCollection = album
+      stop.pointee = true
     }
-    return matchedAssetCollection
+
+    if let matchedAssetCollection {
+      return matchedAssetCollection
+    } else {
+      return try await createAlbum(with: albumName)
+    }
   }
 
   /// Create a new album with a specific name.
   ///
-  /// - Parameters:
-  ///   - albumName: The new album name.
-  ///   - completion: The block to execute on completion.
+  /// - Parameter albumName: The new album name.
   ///
-  public static func createAlbum(
-    with albumName: String,
-    completion: AlbumCreationCompletion?
-  ) {
-    var albumPlaceholder: PHObjectPlaceholder?
-
-    PHPhotoLibrary.shared().performChanges {
-      let collectionChangeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
-      albumPlaceholder = collectionChangeRequest.placeholderForCreatedAssetCollection
-
-    } completionHandler: { (success: Bool, error: Error?) in
-      var assetCollection: PHAssetCollection?
-      if success {
-        KYPhotoLibraryLog("Create Album: \"\(albumName)\" Photo Succeed.")
-
-        if let localIdentifier = albumPlaceholder?.localIdentifier {
-          assetCollection = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [localIdentifier],
-                                                                    options: nil).firstObject
-        }
-      } else {
-        KYPhotoLibraryLog("Create Album: \"\(albumName)\" Failed: \(error?.localizedDescription ?? "")")
-      }
-
-      if let completion {
-        completion(assetCollection, error)
+  /// - Returns: Asset collection for the created album.
+  ///
+  public static func createAlbum(with albumName: String) async throws -> PHAssetCollection {
+    let albumPlaceholder: PHObjectPlaceholder = try await withCheckedThrowingContinuation { continuation in
+      PHPhotoLibrary.shared().performChanges {
+        let collectionChangeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
+        continuation.resume(returning: collectionChangeRequest.placeholderForCreatedAssetCollection)
       }
     }
+    KYPhotoLibraryLog("Create album \"\(albumName)\" succeeded.")
+
+    guard let assetCollection: PHAssetCollection = PHAssetCollection.fetchAssetCollections(
+      withLocalIdentifiers: [albumPlaceholder.localIdentifier],
+      options: nil
+    ).firstObject else {
+      throw CommonError.assetBelongedAlbumNotFound(albumPlaceholder.localIdentifier)
+    }
+    return assetCollection
   }
 }

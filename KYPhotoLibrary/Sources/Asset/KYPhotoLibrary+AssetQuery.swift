@@ -19,17 +19,17 @@ extension KYPhotoLibrary {
   ///   - mediaType: The expected media type of the assets.
   ///   - albumName: The album name.
   ///   - limit: The maximum number of assets to fetch at one time.
-  ///   - completion: The block to execute on completion.
+  ///
+  /// - Returns: A fetch result that contains the requested PHAsset objects, or empty if no objects match the request.
   ///
   public static func loadAssets(
     of mediaType: PHAssetMediaType,
     fromAlbum albumName: String,
-    limit: Int,
-    completion: (_ assets: PHFetchResult<PHAsset>?) -> Void
-  ) {
+    limit: Int
+  ) async throws -> PHFetchResult<PHAsset> {
+
     if albumName.isEmpty {
-      completion(nil)
-      return
+      throw CommonError.invalidAlbumName(albumName)
     }
 
     let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
@@ -38,7 +38,7 @@ extension KYPhotoLibrary {
     var assets: PHFetchResult<PHAsset>?
 
     albums.enumerateObjects { (albumCollection, _, stop) in
-      if albumCollection.localizedTitle != albumName {
+      guard albumCollection.localizedTitle == albumName else {
         return
       }
 
@@ -53,7 +53,7 @@ extension KYPhotoLibrary {
       stop.pointee = true
     }
 
-    completion(assets)
+    return assets ?? PHFetchResult<PHAsset>()
   }
 
   /// Load asset identifiers of a type from an album.
@@ -62,31 +62,29 @@ extension KYPhotoLibrary {
   ///   - mediaType: The expected media type of the assets.
   ///   - albumName: The album name.
   ///   - limit: The maximum number of assets to fetch at one time.
-  ///   - completion: The block to execute on completion.
+  ///
+  /// - Returns: An array of asset identifiers, or an empty array if no assets match the request.
   ///
   public static func loadAssetIdentifiers(
     of mediaType: PHAssetMediaType,
     fromAlbum albumName: String,
-    limit: Int,
-    completion: (_ assetIdentifiers: [String]?) -> Void
-  ) {
+    limit: Int
+  ) async throws -> [String] {
+
     if albumName.isEmpty {
-      completion(nil)
-      return
+      throw CommonError.invalidAlbumName(albumName)
     }
 
-    loadAssets(of: mediaType, fromAlbum: albumName, limit: limit) { assets in
-      guard let assets else {
-        completion(nil)
-        return
-      }
-      var assetIdentifiers: [String] = []
-
-      assets.enumerateObjects { (asset, _, _) in
-        assetIdentifiers.append(asset.localIdentifier)
-      }
-      completion(assetIdentifiers)
+    let assets: PHFetchResult<PHAsset> = try await loadAssets(of: mediaType, fromAlbum: albumName, limit: limit)
+    guard assets.firstObject != nil else {
+      return []
     }
+
+    var assetIdentifiers: [String] = []
+    assets.enumerateObjects { (asset, _, _) in
+      assetIdentifiers.append(asset.localIdentifier)
+    }
+    return assetIdentifiers
   }
 
   /// Cancels an asynchronous asset request.
@@ -107,7 +105,7 @@ extension KYPhotoLibrary {
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
   ///   - mediaType: The expected media type of the asset.
   ///
-  public static func assetFromIdentifier(_ assetIdentifier: String, for mediaType: PHAssetMediaType) -> PHAsset? {
+  public static func assetFromIdentifier(_ assetIdentifier: String, for mediaType: PHAssetMediaType) async -> PHAsset? {
     let fetchOptions = PHFetchOptions()
     fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
     fetchOptions.fetchLimit = 1
@@ -120,7 +118,7 @@ extension KYPhotoLibrary {
   ///   - assetIdentifiers: An array of the asset's unique identifier used in the Photo Library.
   ///   - mediaType: The expected media type of the asset.
   ///
-  public static func assetsFromIdentifier(_ assetIdentifiers: [String], for mediaType: PHAssetMediaType) -> PHFetchResult<PHAsset> {
+  public static func assetsFromIdentifier(_ assetIdentifiers: [String], for mediaType: PHAssetMediaType) async -> PHFetchResult<PHAsset> {
     let fetchOptions = PHFetchOptions()
     fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
     return PHAsset.fetchAssets(withLocalIdentifiers: assetIdentifiers, options: fetchOptions)

@@ -14,7 +14,7 @@ extension KYPhotoLibraryVideoExportOptions {
 
   // MARK: - Get Unique Destination URL
 
-  /// Prepare a unique destination URL based on `folderURL` to cache the asset.
+  /// **[PKG Internal Usage Only]** Prepare a unique destination URL based on `folderURL` to cache the asset.
   ///
   /// If `shouldRemoveDuplicates = true`, the duplicated file will be removed; otherwise,
   ///   a unique filename with an index will be created if duplicated.

@@ -34,14 +34,14 @@ struct AssetsView: View {
     .navigationTitle("KYPhotoLibrary Demo")
     .navigationBarTitleDisplayMode(.inline)
     .safeAreaInset(edge: .bottom, alignment: .center, content: _pickMediaButton)
-    .onAppear(perform: {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-        self.viewModel.loadFilesFromCustomPhotoAlbum(for: self.type)
-      }
-    })
+    .task {
+      await self.viewModel.loadFilesFromCustomPhotoAlbum(for: self.type)
+    }
     .fullScreenCover(isPresented: $isPresntingImagePicker) {
       DemoImagePicker(for: self.type) { image, videoURL in
-        self.viewModel.didFinishPicking(with: image, or: videoURL)
+        Task {
+          await self.viewModel.didFinishPicking(with: image, or: videoURL)
+        }
         self.isPresntingImagePicker = false
       }
     }

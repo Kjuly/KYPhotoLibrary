@@ -63,7 +63,7 @@ extension KYPhotoLibrary {
     exportOptions: KYPhotoLibraryVideoExportOptions
   ) async throws -> URL? {
 
-    guard let asset: PHAsset = assetFromIdentifier(assetIdentifier, for: .video) else {
+    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .video) else {
       throw VideoExportError.assetNotFound(assetIdentifier)
     }
     //
@@ -83,9 +83,7 @@ extension KYPhotoLibrary {
     }
 
 #if DEBUG
-    if KYPhotoLibrary.debug_shouldSimulateWaitingDuringAssetExport {
-      try await Task.sleep(nanoseconds: 3_000_000_000)
-    }
+    KYPhotoLibraryDebug.simulateWaiting(.assetExport)
 #endif
     //
     // Export video w/ the session prepared.
@@ -152,11 +150,7 @@ private actor VideoExportSessionRequestActor {
         exportPreset: exportOptions.exportPreset
       ) { exportSession, _ in
 #if DEBUG
-        if KYPhotoLibrary.debug_shouldSimulateWaitingDuringAssetExport {
-          Task {
-            try await Task.sleep(nanoseconds: 3_000_000_000)
-          }
-        }
+        KYPhotoLibraryDebug.simulateWaiting(.assetExport)
 #endif
         self.requestID = nil
 

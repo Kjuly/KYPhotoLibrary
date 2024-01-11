@@ -11,68 +11,24 @@ import Photos
 
 extension KYPhotoLibrary {
 
+  // MARK: - Public - Save Image to Photo Library
+
   /// Save an image to custom album.
-  ///
-  /// If you need to update the UI in the completion block, you'd better to perform the relevant tasks in the main thread.
   ///
   /// - Parameters:
   ///   - image: The image to save.
   ///   - albumName: Custom album name.
   ///   - completion: The block to execute on completion.
   ///
-  public static func saveImage(
-    _ image: UIImage,
-    toAlbum albumName: String,
-    completion: AssetSavingCompletion?
-  ) {
-    assert(!albumName.isEmpty)
-
-    let saveImageToAlbum: AlbumCreationCompletion = { (assetCollection: PHAssetCollection?, albumCreationError: Error?) in
-      guard let assetCollection else {
-        if let completion {
-          completion(nil, albumCreationError)
-        }
-        return
-      }
-
-      var assetPlaceholder: PHObjectPlaceholder?
-
-      PHPhotoLibrary.shared().performChanges {
-        let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-        assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
-
-        let collectionChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection)
-        collectionChangeRequest?.addAssets([assetPlaceholder] as NSFastEnumeration)
-
-      } completionHandler: { (success: Bool, performChangesError: Error?) in
-#if DEBUG
-        if success {
-          KYPhotoLibraryLog("Add Photo Succeeded: \(assetPlaceholder?.localIdentifier ?? "")")
-        } else {
-          KYPhotoLibraryLog("Add Photo Failed: \(performChangesError?.localizedDescription ?? "")")
-        }
-#endif
-        if let completion {
-          completion(assetPlaceholder?.localIdentifier, performChangesError)
-        }
-      }
-    }
-
-    if let album: PHAssetCollection = getAlbum(with: albumName) {
-      saveImageToAlbum(album, nil)
-    } else {
-      createAlbum(with: albumName, completion: saveImageToAlbum)
-    }
+  /// - Returns: Saved image's localIdentifier; nil if failed to save.
+  ///
+  public static func saveImage(_ image: UIImage, toAlbum albumName: String) async throws -> String {
+    return try await asset_save(image: image, videoURL: nil, toAlbum: albumName)
   }
 
+  // MARK: - Public - Load Image from Photo Library
+
   /// Load an image with a specific asset local identifier.
-  ///
-  /// If you need to cancel the request before it completes, pass this identifier to the
-  ///   static `KYPhotoLibrary.cancelAssetRequest(_:)` method, e.g.,
-  /// ```swift
-  /// let requestID: PHImageRequestID? = KYPhotoLibrary.loadVideo(...)
-  /// KYPhotoLibrary.cancelAssetRequest(requestID)
-  /// ```
   ///
   /// - Parameters:
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
@@ -81,37 +37,24 @@ extension KYPhotoLibrary {
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
   ///   - completion: The block to execute on completion.
   ///
-  /// - Returns: A numeric identifier for the video request.
+  /// - Returns: A matched image, nil if not found.
   ///
   public static func loadImage(
     with assetIdentifier: String,
     expectedSize: CGSize = .zero,
     deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
-    resizeMode: PHImageRequestOptionsResizeMode = .exact,
-    completion: @escaping (_ image: UIImage?) -> Void
-  ) -> PHImageRequestID? {
+    resizeMode: PHImageRequestOptionsResizeMode = .exact
+  ) async throws -> UIImage {
 
-    guard let asset: PHAsset = assetFromIdentifier(assetIdentifier, for: .image) else {
-      completion(nil)
-      return nil
+    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
+      throw CommonError.assetNotFound(assetIdentifier)
     }
-
-    let targetSize = (CGSizeEqualToSize(expectedSize, .zero)
-                      ? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
-                      : expectedSize)
+    try Task.checkCancellation()
 
     let options = PHImageRequestOptions()
     options.deliveryMode = deliveryMode
     options.resizeMode = resizeMode
-
-    return PHCachingImageManager.default().requestImage(
-      for: asset,
-      targetSize: targetSize,
-      contentMode: .aspectFit,
-      options: options
-    ) { result, _ in
-      completion(result)
-    }
+    return try await _loadImage(asset, expectedSize: expectedSize, options: options)
   }
 
   /// Load multiple images from an album.
@@ -122,7 +65,10 @@ extension KYPhotoLibrary {
   ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
   ///   - limit: The maximum number of images to fetch at one time.
+  ///   - terminateOnError: Whether to terminate whenever an error occurs with an image, default: false.
   ///   - completion: The block to execute on completion.
+  ///
+  /// - Returns: An array of matched image, or an empty array if no images match the request.
   ///
   public static func loadImages(
     fromAlbum albumName: String,
@@ -130,42 +76,66 @@ extension KYPhotoLibrary {
     deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
     resizeMode: PHImageRequestOptionsResizeMode = .exact,
     limit: Int,
-    completion: (_ images: [UIImage]?) -> Void
-  ) {
+    terminateOnError: Bool = false
+  ) async throws -> [UIImage] {
 
     if albumName.isEmpty {
-      completion(nil)
-      return
+      throw CommonError.invalidAlbumName(albumName)
     }
 
-    var images: [UIImage] = []
+    let assets: PHFetchResult<PHAsset> = try await loadAssets(of: .image, fromAlbum: albumName, limit: limit)
+    guard assets.firstObject != nil else {
+      return []
+    }
 
-    let imageManager: PHImageManager = PHCachingImageManager.default()
+    try Task.checkCancellation()
 
     let options = PHImageRequestOptions()
     options.deliveryMode = deliveryMode
     options.resizeMode = resizeMode
 
-    loadAssets(of: .image, fromAlbum: albumName, limit: limit) { assets in
-      guard let assets, assets.count > 0 else {
-        completion(nil)
-        return
-      }
-      assets.enumerateObjects { asset, _, _ in
-        let targetSize = (CGSizeEqualToSize(expectedSize, .zero)
-                          ? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
-                          : expectedSize)
-        imageManager.requestImage(for: asset,
-                                  targetSize: targetSize,
-                                  contentMode: .aspectFit,
-                                  options: options) { result, _ in
-          if let result {
-            images.append(result)
-          }
+    return try await withThrowingTaskGroup(of: UIImage.self, returning: [UIImage].self) { taskGroup in
+      for i in 0..<assets.count {
+        let isTaskAdded = taskGroup.addTaskUnlessCancelled {
+          try await _loadImage(assets.object(at: i), expectedSize: expectedSize, options: options)
+        }
+        if !isTaskAdded {
+          break
         }
       }
 
-      completion(images)
+      if terminateOnError {
+        var images: [UIImage] = []
+        // Fails the task group if a child task throws an error.
+        while let loadedImage = try await taskGroup.next() {
+          images.append(loadedImage)
+        }
+        return images
+
+      } else {
+        // var images = [UIImage]()
+        // for await result in taskGroup { images.append(result) }
+        // return images
+        return try await taskGroup.reduce(into: [UIImage]()) { partialResult, image in
+          partialResult.append(image)
+        }
+      }
+    }
+  }
+
+  // MARK: - Private - Load Image from Photo Library
+
+  private static func _loadImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions) async throws -> UIImage {
+    let assetRequestActor = AssetRequestActor()
+
+    return try await withTaskCancellationHandler {
+      KYPhotoLibraryLog("Start Image Request...")
+      return try await assetRequestActor.requestImage(asset, expectedSize: expectedSize, options: options)
+    } onCancel: {
+      Task {
+        KYPhotoLibraryLog("Cancel Image Request...")
+        await assetRequestActor.cancelRequst()
+      }
     }
   }
 }

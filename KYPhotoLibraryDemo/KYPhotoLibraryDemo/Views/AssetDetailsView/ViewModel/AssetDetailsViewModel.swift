@@ -18,7 +18,7 @@ class AssetDetailsViewModel: ObservableObject {
   @Published var processing: DemoAssetProcessing = .load
   @Published var loadedAsset: AnyObject?
 
-  private var requestID: PHImageRequestID?
+  private var assetLoadingTask: Task<Void, Error>?
   private var assetCachingTask: Task<Void, Error>?
 
   @Published var error: AssetDetailsViewModelError?
@@ -34,13 +34,13 @@ class AssetDetailsViewModel: ObservableObject {
 
   func startAssetLoading() {
     if self.type == .photo {
-      self.requestID = KYPhotoLibrary.loadImage(with: self.assetIdentifier) { [weak self] image in
-        self?._didFinishAssetLoading(with: image)
+      self.assetLoadingTask = Task {
+        _didFinishAssetLoading(with: try await KYPhotoLibrary.loadImage(with: self.assetIdentifier))
       }
 
     } else if self.type == .video {
-      self.requestID = KYPhotoLibrary.loadVideo(with: self.assetIdentifier) { [weak self] videoAsset in
-        self?._didFinishAssetLoading(with: videoAsset)
+      self.assetLoadingTask = Task {
+        _didFinishAssetLoading(with: try await KYPhotoLibrary.loadVideo(with: self.assetIdentifier))
       }
 
     } else {
@@ -61,12 +61,19 @@ class AssetDetailsViewModel: ObservableObject {
   }
 
   func terminateAssetLoading() {
-    KYPhotoLibrary.cancelAssetRequest(self.requestID)
+    if self.assetLoadingTask != nil {
+      self.assetLoadingTask?.cancel()
+      self.assetLoadingTask = nil
+    }
+
+    if self.processing == .load {
+      self.processing = .none
+    }
   }
 
   private func _didFinishAssetLoading(with loadedAsset: AnyObject?) {
     self.loadedAsset = loadedAsset
-    self.requestID = nil
+    self.assetLoadingTask = nil
     self.processing = .none
   }
 
