@@ -41,10 +41,25 @@ struct AssetDetailsView: View {
       ToolbarItemGroup(placement: .topBarTrailing) {
         if self.viewModel.type == .video && self.viewModel.processing != .load {
           Menu {
-            Button(action: self.viewModel.cacheAsset) { _navigationBarMenuOptionLabel(for: .cache) }
+            Button {
+              self.viewModel.cacheAsset()
+            } label: {
+              _navigationBarMenuOptionLabel(for: .cache)
+            }
+
             Divider()
-            Button(role: .destructive, action: self.viewModel.deleteCachedAsset) { _navigationBarMenuOptionLabel(for: .deleteCache) }
-            Button(role: .destructive, action: self.viewModel.deleteAssetFromPhotoLibrary) { _navigationBarMenuOptionLabel(for: .deleteFile) }
+
+            Button(role: .destructive) {
+              self.viewModel.deleteCachedFiledAsset()
+            } label: {
+              _navigationBarMenuOptionLabel(for: .deleteCachedFile)
+            }
+
+            Button(role: .destructive) {
+              self.viewModel.deleteAssetFromPhotoLibrary()
+            } label: { 
+              _navigationBarMenuOptionLabel(for: .deleteFileFromLibrary)
+            }
           } label: {
             Image(systemName: "ellipsis")
           }
@@ -72,8 +87,9 @@ struct AssetDetailsView: View {
   private func _loadingView() -> some View {
     Text(DemoAssetProcessing.load.inProcessingText)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .onAppear(perform: self.viewModel.startAssetLoading)
-      .onDisappear(perform: self.viewModel.terminateAssetLoading)
+      .task {
+        await self.viewModel.startAssetLoading()
+      }
   }
 
   @ViewBuilder
@@ -92,7 +108,9 @@ struct AssetDetailsView: View {
         .font(.title)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-      Button(action: self.viewModel.terminateCurrentProcessing) {
+      Button {
+        self.viewModel.terminateCurrentProcessing()
+      } label: {
         Text("Terminate")
           .font(.body.bold())
           .frame(maxWidth: .infinity)

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Photos
+import AVFoundation
 import KYPhotoLibrary
 
 class AssetDetailsViewModel: ObservableObject {
@@ -18,7 +19,6 @@ class AssetDetailsViewModel: ObservableObject {
   @Published var processing: DemoAssetProcessing = .load
   @Published var loadedAsset: AnyObject?
 
-  private var assetLoadingTask: Task<Void, Error>?
   private var assetCachingTask: Task<Void, Error>?
 
   @Published var error: AssetDetailsViewModelError?
@@ -32,53 +32,52 @@ class AssetDetailsViewModel: ObservableObject {
 
   // MARK: - Asset Loading
 
-  func startAssetLoading() {
-    if self.type == .photo {
-      self.assetLoadingTask = Task {
-        _didFinishAssetLoading(with: try await KYPhotoLibrary.loadImage(with: self.assetIdentifier))
-      }
+  func startAssetLoading() async {
+    var loadedAsset: AnyObject?
 
-    } else if self.type == .video {
-      self.assetLoadingTask = Task {
-        _didFinishAssetLoading(with: try await KYPhotoLibrary.loadVideo(with: self.assetIdentifier))
+    if self.type == .archive {
+      let fileURL: URL = KYPhotoLibraryDemoApp.archivesFolderURL.appendingPathComponent(self.assetIdentifier)
+      if let fileType = UTType.ky_fromFile(with: fileURL) {
+        if fileType.ky_isPhotoFileType() {
+          loadedAsset = UIImage(contentsOfFile: fileURL.path)
+        } else if fileType.ky_isVideoFileType() {
+          loadedAsset = AVURLAsset(url: fileURL)
+        }
       }
 
     } else {
-      let fileURL: URL = KYPhotoLibraryDemoApp.archivesFolderURL.appendingPathComponent(self.assetIdentifier)
-      guard let fileType = UTType.ky_fromFile(with: fileURL) else {
-        _didFinishAssetLoading(with: nil)
-        return
-      }
-
-      if fileType.ky_isPhotoFileType() {
-        _didFinishAssetLoading(with: UIImage(contentsOfFile: fileURL.path))
-      } else if fileType.ky_isVideoFileType() {
-        _didFinishAssetLoading(with: AVURLAsset(url: fileURL))
-      } else {
-        _didFinishAssetLoading(with: nil)
+      do {
+        if self.type == .photo {
+          loadedAsset = try await KYPhotoLibrary.loadImage(with: self.assetIdentifier)
+        } else {
+          loadedAsset = try await KYPhotoLibrary.loadVideo(with: self.assetIdentifier)
+        }
+      } catch {
+        NSLog("Failed to load asset, error: \(error.localizedDescription).")
       }
     }
+
+    // Make sure to finish asset loading in main thread.
+    //
+    // Or just use the code snippet below:
+    //
+    //   await MainActor.run { [loadedAsset] in
+    //     self.loadedAsset = loadedAsset
+    //     self.processing = .none
+    //   }
+    //
+    await _didFinishAssetLoading(with: loadedAsset)
   }
 
-  func terminateAssetLoading() {
-    if self.assetLoadingTask != nil {
-      self.assetLoadingTask?.cancel()
-      self.assetLoadingTask = nil
-    }
-
-    if self.processing == .load {
-      self.processing = .none
-    }
-  }
-
-  private func _didFinishAssetLoading(with loadedAsset: AnyObject?) {
+  @MainActor
+  private func _didFinishAssetLoading(with loadedAsset: AnyObject?) async {
     self.loadedAsset = loadedAsset
-    self.assetLoadingTask = nil
     self.processing = .none
   }
 
   // MARK: - Processing
 
+  @MainActor
   func cacheAsset() {
     guard
       self.type == .video,
@@ -95,10 +94,7 @@ class AssetDetailsViewModel: ObservableObject {
 
     self.assetCachingTask = Task {
       defer {
-        DispatchQueue.main.async {
-          self.assetCachingTask = nil
-          self.processing = .none
-        }
+        self.assetCachingTask = nil
       }
 
       do {
@@ -117,19 +113,26 @@ class AssetDetailsViewModel: ObservableObject {
       } catch {
         NSLog("Failed to Cached asset, error: \(error.localizedDescription)")
       }
+
+      await MainActor.run {
+        self.processing = .none
+      }
     }
   }
 
+  @MainActor
   func deleteCachedAsset() {
 
   }
 
+  @MainActor
   func deleteAssetFromPhotoLibrary() {
 
   }
 
   // MARK: - Terminate Processing
 
+  @MainActor
   func terminateCurrentProcessing() {
     if self.assetCachingTask != nil {
       self.assetCachingTask?.cancel()
