@@ -85,7 +85,7 @@ class AssetDetailsViewModel: ObservableObject {
     else {
       return
     }
-    self.processing = .cache
+    self.processing = .cacheFile
 
     let exportOptions = KYPhotoLibraryVideoExportOptions(
       folderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
@@ -121,7 +121,7 @@ class AssetDetailsViewModel: ObservableObject {
   }
 
   @MainActor
-  func deleteCachedAsset() {
+  func deleteCachedFiledAsset() {
 
   }
 
@@ -139,7 +139,7 @@ class AssetDetailsViewModel: ObservableObject {
       self.assetCachingTask = nil
     }
 
-    if self.processing == .cache {
+    if self.processing == .cacheFile {
       self.processing = .none
     }
   }

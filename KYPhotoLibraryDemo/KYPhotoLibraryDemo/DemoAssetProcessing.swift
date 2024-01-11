@@ -12,16 +12,15 @@ enum DemoAssetProcessing: Int {
 
   case none = 0
   case load
-  case request
-  case cache
-  case deleteCache
-  case deleteFile
+  case cacheFile
+  case deleteCachedFile
+  case deleteFileFromLibrary
 
   var actionText: String {
     switch self {
-    case .cache: return "Cache to App"
-    case .deleteCache: return "Delete Cached File"
-    case .deleteFile: return "Delete File"
+    case .cacheFile: return "Cache to App"
+    case .deleteCachedFile: return "Delete Cached File"
+    case .deleteFileFromLibrary: return "Delete File from Library"
     default:
       return ""
     }
@@ -29,9 +28,9 @@ enum DemoAssetProcessing: Int {
 
   var iconName: String {
     switch self {
-    case .cache: return "arrow.down.to.line.circle"
-    case .deleteCache: return "trash"
-    case .deleteFile: return "trash"
+    case .cacheFile: return "arrow.down.to.line.circle"
+    case .deleteCachedFile: return "trash"
+    case .deleteFileFromLibrary: return "trash"
     default:
       return ""
     }
@@ -40,9 +39,8 @@ enum DemoAssetProcessing: Int {
   var inProcessingText: String {
     switch self {
     case .load: return "Loading..."
-    case .request: return "Requesting..."
-    case .cache: return "Caching..."
-    case .deleteCache, .deleteFile: return "Deleting..."
+    case .cacheFile: return "Caching..."
+    case .deleteCachedFile, .deleteFileFromLibrary: return "Deleting..."
     default:
       return ""
     }

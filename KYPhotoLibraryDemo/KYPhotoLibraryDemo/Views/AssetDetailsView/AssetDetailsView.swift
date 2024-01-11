@@ -29,9 +29,9 @@ struct AssetDetailsView: View {
       }
 
       if
-        self.viewModel.processing == .cache ||
-        self.viewModel.processing == .deleteCache ||
-        self.viewModel.processing == .deleteCache
+        self.viewModel.processing == .cacheFile ||
+        self.viewModel.processing == .deleteCachedFile ||
+        self.viewModel.processing == .deleteFileFromLibrary
       {
         Color.black.opacity(0.8).ignoresSafeArea()
         _processingView()
@@ -44,7 +44,7 @@ struct AssetDetailsView: View {
             Button {
               self.viewModel.cacheAsset()
             } label: {
-              _navigationBarMenuOptionLabel(for: .cache)
+              _navigationBarMenuOptionLabel(for: .cacheFile)
             }
 
             Divider()
