@@ -60,7 +60,7 @@ extension KYPhotoLibrary {
   public static func exportVideoFromPhotoLibrary(
     with assetIdentifier: String,
     requestOptions: PHVideoRequestOptions? = nil,
-    exportOptions: KYPhotoLibraryVideoExportOptions
+    exportOptions: KYPhotoLibraryAssetExportOptions
   ) async throws -> URL? {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .video) else {
@@ -140,7 +140,7 @@ private actor VideoExportSessionRequestActor {
   func requestSession(
     asset: PHAsset,
     requestOptions: PHVideoRequestOptions?,
-    exportOptions: KYPhotoLibraryVideoExportOptions
+    exportOptions: KYPhotoLibraryAssetExportOptions
   ) async throws -> AVAssetExportSession {
 
     return try await withCheckedThrowingContinuation { continuation in

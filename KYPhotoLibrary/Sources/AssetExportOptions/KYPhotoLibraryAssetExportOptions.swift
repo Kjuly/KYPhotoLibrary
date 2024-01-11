@@ -1,5 +1,5 @@
 //
-//  KYPhotoLibraryVideoExportOptions.swift
+//  KYPhotoLibraryAssetExportOptions.swift
 //  KYPhotoLibrary
 //
 //  Created by Kjuly on 7/1/2024.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class KYPhotoLibraryVideoExportOptions {
+public class KYPhotoLibraryAssetExportOptions {
 
   /// The URL of the destination folder.
   public let folderURL: URL
@@ -18,16 +18,42 @@ public class KYPhotoLibraryVideoExportOptions {
   public internal(set) var filename: String = ""
   public internal(set) var fileExtension: String = ""
 
-  /// Preset to export video from Photo Library, default: AVAssetExportPresetPassthrough.
+  /// **Video Export Only** - Preset to export video from Photo Library, default: AVAssetExportPresetPassthrough.
   public let exportPreset: String
 
-  /// File type for exporting videos from Photo Library, its generation depends on the filename extension.
+  /// **Video Export Only** - File type for exporting videos from Photo Library, its generation depends on the filename extension.
   public internal(set) var outputFileType: AVFileType = .mp4
 
   /// Whether duplicate files should be removed before saving.
   public let shouldRemoveDuplicates: Bool
 
   // MARK: - Init
+
+  /// Initialize image export options.
+  ///
+  /// For the `filename`, if you don't provide a file extension or the file extension is invalid,
+  ///   we will use the extension of the original file.
+  ///
+  /// - Parameters:
+  ///   - folderURL: The URL of the destination folder.
+  ///   - filename: Preferred filename with extension, default: nil (use the same filename in the Photo Library).
+  ///   - shouldRemoveDuplicates: Whether duplicate files should be removed before saving; if not, a unique filename
+  ///     with an index will be created if duplicated.
+  ///
+  public init(
+    folderURL: URL,
+    filename: String? = nil,
+    shouldRemoveDuplicates: Bool = false
+  ) {
+    self.folderURL = folderURL
+    self.shouldRemoveDuplicates = shouldRemoveDuplicates
+
+    if let filename {
+      self.filename = filename
+    }
+
+    self.exportPreset = ""
+  }
 
   /// Initialize video export options.
   ///

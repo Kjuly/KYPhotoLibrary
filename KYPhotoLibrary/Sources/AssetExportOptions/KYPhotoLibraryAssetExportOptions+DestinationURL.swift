@@ -1,5 +1,5 @@
 //
-//  KYPhotoLibraryVideoExportOptions+DestinationURL.swift
+//  KYPhotoLibraryAssetExportOptions+DestinationURL.swift
 //  KYPhotoLibrary
 //
 //  Created by Kjuly on 10/1/2024.
@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import Photos
 
-extension KYPhotoLibraryVideoExportOptions {
+extension KYPhotoLibraryAssetExportOptions {
 
   // MARK: - Get Unique Destination URL
 
