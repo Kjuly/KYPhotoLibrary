@@ -26,7 +26,13 @@ extension KYPhotoLibrary {
   /// - Returns: Saved video's localIdentifier.
   ///
   public static func saveVideo(with videoURL: URL, toAlbum albumName: String) async throws -> String {
-    return try await asset_save(image: nil, videoURL: videoURL, toAlbum: albumName)
+    return try await asset_save(image: nil, imageURL: nil, videoURL: videoURL, toAlbum: albumName)
+  }
+
+  // MARK: - Public - Delete Video from Photo Library
+
+  public static func deleteVideo(with assetIdentifier: String) async throws {
+    try await asset_delete(for: .video, with: assetIdentifier)
   }
 
   // MARK: - Public - Load Video from Photo Library

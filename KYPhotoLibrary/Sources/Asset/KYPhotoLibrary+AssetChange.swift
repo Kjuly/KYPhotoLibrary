@@ -1,5 +1,5 @@
 //
-//  KYPhotoLibrary+AssetCreation.swift
+//  KYPhotoLibrary+AssetChange.swift
 //  KYPhotoLibrary
 //
 //  Created by Kjuly on 11/1/2024.
@@ -15,14 +15,15 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - image: The image to save.
+  ///   - imageURL: The URL of the image to save.
   ///   - videoURL: The URL of the video to save.
   ///   - albumName: Custom album name.
   ///   - completion: The block to execute on completion.
   ///
   /// - Returns: Saved asset's localIdentifier.
   ///
-  static func asset_save(image: UIImage?, videoURL: URL?, toAlbum albumName: String) async throws -> String {
-    if image == nil && videoURL == nil {
+  static func asset_save(image: UIImage?, imageURL: URL?, videoURL: URL?, toAlbum albumName: String) async throws -> String {
+    if image == nil && imageURL == nil && videoURL == nil {
       throw CommonError.noAssetProvided
     } else if albumName.isEmpty {
       throw CommonError.invalidAlbumName(albumName)
@@ -35,6 +36,8 @@ extension KYPhotoLibrary {
         var createAssetRequest: PHAssetChangeRequest?
         if let image {
           createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+        } else if let imageURL {
+          createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: imageURL)
         } else if let videoURL {
           createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL)
         }
@@ -59,5 +62,22 @@ extension KYPhotoLibrary {
       }
     }
     return saveAssetIdentifier
+  }
+
+  /// **[PKG Internal Usage Only]** Delete an asset from Photo Library.
+  ///
+  /// - Parameters:
+  ///   - mediaType: The expected media type of the asset.
+  ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
+  ///
+  static func asset_delete(for mediaType: PHAssetMediaType, with assetIdentifier: String) async throws {
+    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: mediaType) else {
+      throw CommonError.assetNotFound(assetIdentifier)
+    }
+
+    try await PHPhotoLibrary.shared().performChanges {
+      PHAssetChangeRequest.deleteAssets([asset] as NSFastEnumeration)
+    }
+    KYPhotoLibraryLog("Delete asset succeeded.")
   }
 }

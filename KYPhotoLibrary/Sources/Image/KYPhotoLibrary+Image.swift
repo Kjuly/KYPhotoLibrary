@@ -23,7 +23,13 @@ extension KYPhotoLibrary {
   /// - Returns: Saved image's localIdentifier; nil if failed to save.
   ///
   public static func saveImage(_ image: UIImage, toAlbum albumName: String) async throws -> String {
-    return try await asset_save(image: image, videoURL: nil, toAlbum: albumName)
+    return try await asset_save(image: image, imageURL: nil, videoURL: nil, toAlbum: albumName)
+  }
+
+  // MARK: - Public - Delete Image from Photo Library
+
+  public static func deleteImage(with assetIdentifier: String) async throws {
+    try await asset_delete(for: .image, with: assetIdentifier)
   }
 
   // MARK: - Public - Load Image from Photo Library
