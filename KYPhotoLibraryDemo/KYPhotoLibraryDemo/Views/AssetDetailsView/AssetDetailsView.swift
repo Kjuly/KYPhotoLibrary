@@ -11,6 +11,7 @@ import AVKit
 
 struct AssetDetailsView: View {
 
+  @Binding var selectedAssetIdentifier: String?
   @ObservedObject var viewModel: AssetDetailsViewModel
 
   var body: some View {
@@ -31,7 +32,7 @@ struct AssetDetailsView: View {
       if
         self.viewModel.processing == .cacheFile ||
         self.viewModel.processing == .deleteCachedFile ||
-        self.viewModel.processing == .deleteFileFromLibrary
+        self.viewModel.processing == .deleteFileFromPhotoLibrary
       {
         Color.black.opacity(0.8).ignoresSafeArea()
         _processingView()
@@ -39,30 +40,9 @@ struct AssetDetailsView: View {
     }
     .toolbar {
       ToolbarItemGroup(placement: .topBarTrailing) {
-        if self.viewModel.type == .video && self.viewModel.processing != .load {
-          Menu {
-            Button {
-              self.viewModel.cacheAsset()
-            } label: {
-              _navigationBarMenuOptionLabel(for: .cacheFile)
-            }
-
-            Divider()
-
-            Button(role: .destructive) {
-              self.viewModel.deleteCachedFiledAsset()
-            } label: {
-              _navigationBarMenuOptionLabel(for: .deleteCachedFile)
-            }
-
-            Button(role: .destructive) {
-              self.viewModel.deleteAssetFromPhotoLibrary()
-            } label: { 
-              _navigationBarMenuOptionLabel(for: .deleteFileFromLibrary)
-            }
-          } label: {
-            Image(systemName: "ellipsis")
-          }
+        if self.viewModel.processing != .load {
+          if self.viewModel.type == .archive { _archivesNavigationBarMoreMenu() }
+          else { _photoLibraryAssetsNavigationBarMoreMenu() }
         }
       }
     }
@@ -90,6 +70,28 @@ struct AssetDetailsView: View {
       .task {
         await self.viewModel.startAssetLoading()
       }
+  }
+
+  @ViewBuilder
+  private func _archivesNavigationBarMoreMenu() -> some View {
+    Menu {
+      Button(action: event_saveAssetToAlbum) { _navigationBarMenuOptionLabel(for: .saveAssetToAlbum) }
+      Divider()
+      Button(role: .destructive, action: event_deleteCachedAsset) { _navigationBarMenuOptionLabel(for: .deleteCachedFile) }
+    } label: {
+      Image(systemName: "ellipsis")
+    }
+  }
+
+  @ViewBuilder
+  private func _photoLibraryAssetsNavigationBarMoreMenu() -> some View {
+    Menu {
+      Button(action: event_cacheAsset) { _navigationBarMenuOptionLabel(for: .cacheFile) }
+      Divider()
+      Button(role: .destructive, action: event_deleteAssetFromPhotoLibrary) { _navigationBarMenuOptionLabel(for: .deleteFileFromPhotoLibrary) }
+    } label: {
+      Image(systemName: "ellipsis")
+    }
   }
 
   @ViewBuilder

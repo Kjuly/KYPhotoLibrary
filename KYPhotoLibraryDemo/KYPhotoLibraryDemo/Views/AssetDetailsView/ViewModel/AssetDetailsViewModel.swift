@@ -16,11 +16,14 @@ class AssetDetailsViewModel: ObservableObject {
   let type: DemoAssetType
   let assetIdentifier: String
 
+  var cachedAssetFileURL: URL {
+    return KYPhotoLibraryDemoApp.archivesFolderURL.appendingPathComponent(self.assetIdentifier)
+  }
+
+  var assetCachingTask: Task<Void, Error>?
+
   @Published var processing: DemoAssetProcessing = .load
   @Published var loadedAsset: AnyObject?
-
-  private var assetCachingTask: Task<Void, Error>?
-
   @Published var error: AssetDetailsViewModelError?
 
   // MARK: - Init
@@ -36,7 +39,7 @@ class AssetDetailsViewModel: ObservableObject {
     var loadedAsset: AnyObject?
 
     if self.type == .archive {
-      let fileURL: URL = KYPhotoLibraryDemoApp.archivesFolderURL.appendingPathComponent(self.assetIdentifier)
+      let fileURL: URL = self.cachedAssetFileURL
       if let fileType = UTType.ky_fromFile(with: fileURL) {
         if fileType.ky_isPhotoFileType() {
           loadedAsset = UIImage(contentsOfFile: fileURL.path)
@@ -73,74 +76,5 @@ class AssetDetailsViewModel: ObservableObject {
   private func _didFinishAssetLoading(with loadedAsset: AnyObject?) async {
     self.loadedAsset = loadedAsset
     self.processing = .none
-  }
-
-  // MARK: - Processing
-
-  @MainActor
-  func cacheAsset() {
-    guard
-      self.type == .video,
-      self.assetCachingTask == nil
-    else {
-      return
-    }
-    self.processing = .cacheFile
-
-    let exportOptions = KYPhotoLibraryVideoExportOptions(
-      folderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
-      filename: nil,
-      shouldRemoveDuplicates: false)
-
-    self.assetCachingTask = Task {
-      defer {
-        self.assetCachingTask = nil
-      }
-
-      do {
-        let cachedAssetURL: URL? =
-        try await KYPhotoLibrary.exportVideoFromPhotoLibrary(
-          with: self.assetIdentifier,
-          requestOptions: nil,
-          exportOptions: exportOptions)
-
-        if let cachedAssetURL {
-          NSLog("Cached asset at \(cachedAssetURL)")
-        } else {
-          NSLog("Failed to Cached asset")
-        }
-
-      } catch {
-        NSLog("Failed to Cached asset, error: \(error.localizedDescription)")
-      }
-
-      await MainActor.run {
-        self.processing = .none
-      }
-    }
-  }
-
-  @MainActor
-  func deleteCachedFiledAsset() {
-
-  }
-
-  @MainActor
-  func deleteAssetFromPhotoLibrary() {
-
-  }
-
-  // MARK: - Terminate Processing
-
-  @MainActor
-  func terminateCurrentProcessing() {
-    if self.assetCachingTask != nil {
-      self.assetCachingTask?.cancel()
-      self.assetCachingTask = nil
-    }
-
-    if self.processing == .cacheFile {
-      self.processing = .none
-    }
   }
 }

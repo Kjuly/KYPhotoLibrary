@@ -14,7 +14,8 @@ struct AssetsView: View {
   private let type: DemoAssetType
 
   @StateObject private var viewModel = AssetsViewModel()
-  @State private var isPresntingImagePicker = false
+  @State private var selectedAssetIdentifier: String? = nil
+  @State private var isPresentingImagePicker: Bool = false
 
   // MARK: - Init
 
@@ -37,12 +38,12 @@ struct AssetsView: View {
     .task {
       await self.viewModel.loadFilesFromCustomPhotoAlbum(for: self.type)
     }
-    .fullScreenCover(isPresented: $isPresntingImagePicker) {
+    .fullScreenCover(isPresented: $isPresentingImagePicker) {
       DemoImagePicker(for: self.type) { image, videoURL in
         Task {
           await self.viewModel.didFinishPicking(with: image, or: videoURL)
         }
-        self.isPresntingImagePicker = false
+        self.isPresentingImagePicker = false
       }
     }
     .alert(
@@ -92,9 +93,13 @@ struct AssetsView: View {
     List {
       Section(self.type.tabText) {
         ForEach(self.viewModel.assetIdentifiers, id: \.self) { assetIdentifier in
-          NavigationLink {
-            AssetDetailsView(viewModel: .init(for: self.type, with: assetIdentifier))
-          } label: {
+          NavigationLink(
+            destination: AssetDetailsView(
+              selectedAssetIdentifier: $selectedAssetIdentifier,
+              viewModel: .init(for: self.type, with: assetIdentifier)),
+            tag: assetIdentifier,
+            selection: $selectedAssetIdentifier
+          ) {
             Text(assetIdentifier)
           }
         }
@@ -117,7 +122,7 @@ struct AssetsView: View {
   private func _pickMedia() {
     self.viewModel.reqeustCameraAuthorization { authorized in
       if authorized {
-        self.isPresntingImagePicker = true
+        self.isPresentingImagePicker = true
       }
     }
   }

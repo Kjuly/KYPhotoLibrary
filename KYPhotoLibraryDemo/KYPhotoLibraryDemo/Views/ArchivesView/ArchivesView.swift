@@ -13,6 +13,7 @@ struct ArchivesView: View {
   private let type: DemoAssetType = .archive
 
   @StateObject private var viewModel = ArchivesViewModel()
+  @State private var selectedAssetIdentifier: String? = nil
   @State private var isPresentingDeletionDialog: Bool = false
 
   // MARK: - View Body
@@ -26,11 +27,9 @@ struct ArchivesView: View {
     }
     .navigationTitle("KYPhotoLibrary Demo")
     .navigationBarTitleDisplayMode(.inline)
-    .onAppear(perform: {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-        self.viewModel.loadCachedFiles()
-      }
-    })
+    .task {
+      self.viewModel.loadCachedFiles()
+    }
     .toolbar {
       ToolbarItemGroup(placement: .confirmationAction) {
         if !self.viewModel.assetFilenames.isEmpty {
@@ -97,9 +96,13 @@ struct ArchivesView: View {
     List {
       Section("Cached Files") {
         ForEach(self.viewModel.assetFilenames, id: \.self) { filename in
-          NavigationLink {
-            AssetDetailsView(viewModel: .init(for: self.type, with: filename))
-          } label: {
+          NavigationLink(
+            destination: AssetDetailsView(
+              selectedAssetIdentifier: $selectedAssetIdentifier,
+              viewModel: .init(for: self.type, with: filename)),
+            tag: filename,
+            selection: $selectedAssetIdentifier
+          ) {
             Text(filename)
           }
         }
