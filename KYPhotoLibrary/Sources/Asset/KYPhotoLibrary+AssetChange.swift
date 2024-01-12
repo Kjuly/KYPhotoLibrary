@@ -11,6 +11,26 @@ import Photos
 
 extension KYPhotoLibrary {
 
+  // MARK: - Public - Save Asset to Photo Library
+
+  /// Save an asset with a URL to Photo Library album.
+  ///
+  /// - Parameters:
+  ///   - imageURL: The URL of the asset to save.
+  ///   - albumName: Custom album name.
+  ///
+  /// - Returns: Saved asset's localIdentifier.
+  ///
+  public static func saveAsset(for mediaType: PHAssetMediaType, with assetURL: URL, toAlbum albumName: String) async throws -> String {
+    if mediaType == .image {
+      return try await asset_save(image: nil, imageURL: assetURL, videoURL: nil, toAlbum: albumName)
+    } else if mediaType == .video {
+      return try await asset_save(image: nil, imageURL: nil, videoURL: assetURL, toAlbum: albumName)
+    } else {
+      throw AssetError.unsupportedMediaType(mediaType.rawValue)
+    }
+  }
+
   // MARK: - Internal
 
   /// **[PKG Internal Usage Only]** Save an image or video to custom album.

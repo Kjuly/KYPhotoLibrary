@@ -33,6 +33,9 @@ public class KYPhotoLibrary {
   // MARK: - Asset Error
 
   public enum AssetError: Error, LocalizedError {
+    /// Unsupported media type.
+    case unsupportedMediaType(Int)
+
     /// No asset provided.
     case noAssetProvided
 
@@ -51,6 +54,8 @@ public class KYPhotoLibrary {
     /// Error description.
     public var errorDescription: String? {
       switch self {
+      case .unsupportedMediaType(let type):
+        return "Unsupported media type: \(type)."
       case .noAssetProvided:
         return "No asset provided."
       case .assetNotFound(let assetIdentifier):

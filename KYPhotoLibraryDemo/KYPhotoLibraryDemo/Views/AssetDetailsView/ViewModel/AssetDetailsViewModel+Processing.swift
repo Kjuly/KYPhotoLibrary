@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 import KYPhotoLibrary
 
 extension AssetDetailsViewModel {
@@ -126,11 +127,18 @@ extension AssetDetailsViewModel {
       return
     }
 
+    var mediaType: PHAssetMediaType
     if self.loadedAsset is UIImage {
-      _ = try await KYPhotoLibrary.saveImage(with: fileURL, toAlbum: KYPhotoLibraryDemoApp.customPhotoAlbumName)
+      mediaType = .image
     } else {
-      _ = try await KYPhotoLibrary.saveVideo(with: fileURL, toAlbum: KYPhotoLibraryDemoApp.customPhotoAlbumName)
+      mediaType = .video
     }
+    // Save asset to Photo Library album.
+    //
+    // Alternatively, you can use `static KYPhotoLibrary.saveImage(with:toAlbum:)`
+    //   and `static KYPhotoLibrary.saveVideo(with:toAlbum:)`.
+    //
+    _ = try await KYPhotoLibrary.saveAsset(for: mediaType, with: fileURL, toAlbum: KYPhotoLibraryDemoApp.customPhotoAlbumName)
   }
 
   // MARK: - Delete Asset from Photo Library
