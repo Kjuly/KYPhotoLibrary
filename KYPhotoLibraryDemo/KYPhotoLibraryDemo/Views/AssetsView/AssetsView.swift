@@ -14,7 +14,7 @@ struct AssetsView: View {
   private let type: DemoAssetType
 
   @StateObject private var viewModel = AssetsViewModel()
-  @State private var selectedAssetIdentifier: String? = nil
+  @State private var selectedAssetIdentifier: String?
   @State private var isPresentingImagePicker: Bool = false
 
   // MARK: - Init

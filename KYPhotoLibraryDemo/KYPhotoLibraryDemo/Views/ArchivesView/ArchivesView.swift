@@ -13,7 +13,7 @@ struct ArchivesView: View {
   private let type: DemoAssetType = .archive
 
   @StateObject private var viewModel = ArchivesViewModel()
-  @State private var selectedAssetIdentifier: String? = nil
+  @State private var selectedAssetIdentifier: String?
   @State private var isPresentingDeletionDialog: Bool = false
 
   // MARK: - View Body
