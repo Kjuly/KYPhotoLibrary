@@ -19,10 +19,22 @@ extension KYPhotoLibrary {
   ///   - image: The image to save.
   ///   - albumName: Custom album name.
   ///
-  /// - Returns: Saved image's localIdentifier; nil if failed to save.
+  /// - Returns: Saved image's localIdentifier.
   ///
   public static func saveImage(_ image: UIImage, toAlbum albumName: String) async throws -> String {
     return try await asset_save(image: image, imageURL: nil, videoURL: nil, toAlbum: albumName)
+  }
+
+  /// Save an image with a URL to custom album.
+  ///
+  /// - Parameters:
+  ///   - imageURL: The URL of the image to save.
+  ///   - albumName: Custom album name.
+  ///
+  /// - Returns: Saved image's localIdentifier.
+  ///
+  public static func saveImage(with imageURL: URL, toAlbum albumName: String) async throws -> String {
+    return try await asset_save(image: nil, imageURL: imageURL, videoURL: nil, toAlbum: albumName)
   }
 
   // MARK: - Public - Delete Image from Photo Library
