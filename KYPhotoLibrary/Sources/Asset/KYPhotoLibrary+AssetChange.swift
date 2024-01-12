@@ -25,9 +25,9 @@ extension KYPhotoLibrary {
   ///
   static func asset_save(image: UIImage?, imageURL: URL?, videoURL: URL?, toAlbum albumName: String) async throws -> String {
     if image == nil && imageURL == nil && videoURL == nil {
-      throw CommonError.noAssetProvided
+      throw AssetError.noAssetProvided
     } else if albumName.isEmpty {
-      throw CommonError.invalidAlbumName(albumName)
+      throw AlbumError.invalidName(albumName)
     }
 
     let assetCollection: PHAssetCollection = try await getAlbum(with: albumName)
@@ -47,14 +47,14 @@ extension KYPhotoLibrary {
           let createAssetRequest,
           let placeholderForCreatedAsset: PHObjectPlaceholder = createAssetRequest.placeholderForCreatedAsset
         else {
-          continuation.resume(throwing: CommonError.failedToSaveAsset)
+          continuation.resume(throwing: AssetError.failedToSaveAssetToPhotoLibrary)
           return
         }
         KYPhotoLibraryLog("Save asset succeeded.")
 
         // Also, try to add the saved asset to the custom album.
         guard let collectionChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection) else {
-          continuation.resume(throwing: CommonError.failedToAddSavedAssetToAlbum(albumName))
+          continuation.resume(throwing: AssetError.failedToAddSavedAssetToAlbum(albumName))
           return
         }
         collectionChangeRequest.addAssets([placeholderForCreatedAsset] as NSFastEnumeration)
@@ -73,7 +73,7 @@ extension KYPhotoLibrary {
   ///
   static func asset_delete(for mediaType: PHAssetMediaType, with assetIdentifier: String) async throws {
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: mediaType) else {
-      throw CommonError.assetNotFound(assetIdentifier)
+      throw AssetError.assetNotFound(assetIdentifier)
     }
 
     try await PHPhotoLibrary.shared().performChanges {

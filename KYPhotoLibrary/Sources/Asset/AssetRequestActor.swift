@@ -35,7 +35,7 @@ actor AssetRequestActor {
         if let result {
           continuation.resume(returning: result)
         } else {
-          continuation.resume(throwing: KYPhotoLibrary.CommonError.failedToLoadAsset)
+          continuation.resume(throwing: KYPhotoLibrary.AssetError.failedToLoadAsset)
         }
       }
     }
@@ -53,7 +53,7 @@ actor AssetRequestActor {
         if let asset {
           continuation.resume(returning: asset)
         } else {
-          continuation.resume(throwing: KYPhotoLibrary.CommonError.failedToLoadAsset)
+          continuation.resume(throwing: KYPhotoLibrary.AssetError.failedToLoadAsset)
         }
       }
     }

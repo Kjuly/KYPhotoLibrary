@@ -29,7 +29,7 @@ extension KYPhotoLibrary {
   ) async throws -> PHFetchResult<PHAsset> {
 
     if albumName.isEmpty {
-      throw CommonError.invalidAlbumName(albumName)
+      throw AlbumError.invalidName(albumName)
     }
 
     let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
@@ -72,7 +72,7 @@ extension KYPhotoLibrary {
   ) async throws -> [String] {
 
     if albumName.isEmpty {
-      throw CommonError.invalidAlbumName(albumName)
+      throw AlbumError.invalidName(albumName)
     }
 
     let assets: PHFetchResult<PHAsset> = try await loadAssets(of: mediaType, fromAlbum: albumName, limit: limit)

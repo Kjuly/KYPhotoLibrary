@@ -61,7 +61,7 @@ extension KYPhotoLibrary {
       withLocalIdentifiers: [albumPlaceholder.localIdentifier],
       options: nil
     ).firstObject else {
-      throw CommonError.assetBelongedAlbumNotFound(albumPlaceholder.localIdentifier)
+      throw AlbumError.albumNotFoundForAsset(albumPlaceholder.localIdentifier)
     }
     return assetCollection
   }

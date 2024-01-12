@@ -10,32 +10,53 @@ import Foundation
 
 public class KYPhotoLibrary {
 
-  // MARK: - Error
+  // MARK: - Album Error
 
-  public enum CommonError: Error, LocalizedError {
-    case invalidAlbumName(String)
-    case albumNotFound(String)
-    case assetBelongedAlbumNotFound(String)
-    case noAssetProvided
-    case assetNotFound(String)
-    case failedToSaveAsset
-    case failedToAddSavedAssetToAlbum(String)
-    case failedToLoadAsset
+  public enum AlbumError: Error, LocalizedError {
+    /// Invalid album "`name`".
+    case invalidName(String)
 
+    /// No album found for asset with "`assetIdentifier`".
+    case albumNotFoundForAsset(String)
+
+    /// Error description.
     public var errorDescription: String? {
       switch self {
-      case .invalidAlbumName(let name):
+      case .invalidName(let name):
         return "Invalid album name: \"\(name)\"."
-      case .albumNotFound(let name):
-        return "Album named \"\(name)\" not found."
-      case .assetBelongedAlbumNotFound(let assetIdentifier):
-        return "Album not found for the asset with identifier: \(assetIdentifier)."
+      case .albumNotFoundForAsset(let assetIdentifier):
+        return "Album not found for asset with identifier: \(assetIdentifier)."
+      }
+    }
+  }
+
+  // MARK: - Asset Error
+
+  public enum AssetError: Error, LocalizedError {
+    /// No asset provided.
+    case noAssetProvided
+
+    /// Asset not found with the "`assetIdentifier`".
+    case assetNotFound(String)
+
+    /// Failed to save asset to Photo Library.
+    case failedToSaveAssetToPhotoLibrary
+
+    /// Failed to add saved asset to album named "`name`".
+    case failedToAddSavedAssetToAlbum(String)
+
+    /// Failed to load asset from Photo Library.
+    case failedToLoadAsset
+
+    /// Error description.
+    public var errorDescription: String? {
+      switch self {
       case .noAssetProvided:
         return "No asset provided."
       case .assetNotFound(let assetIdentifier):
         return "Asset with identifier: \"\(assetIdentifier)\" not found."
-      case .failedToSaveAsset:
-        return "Failed to save asset."
+      case .failedToSaveAssetToPhotoLibrary:
+        return "Failed to save asset to Photo Library."
       case .failedToAddSavedAssetToAlbum(let name):
         return "Failed to add saved asset to album: \(name)."
       case .failedToLoadAsset:

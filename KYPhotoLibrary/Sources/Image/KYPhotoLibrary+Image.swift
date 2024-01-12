@@ -68,7 +68,7 @@ extension KYPhotoLibrary {
   ) async throws -> UIImage {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
-      throw CommonError.assetNotFound(assetIdentifier)
+      throw AssetError.assetNotFound(assetIdentifier)
     }
 
     let options = PHImageRequestOptions()
@@ -94,7 +94,7 @@ extension KYPhotoLibrary {
   ) async throws -> UIImage {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
-      throw CommonError.assetNotFound(assetIdentifier)
+      throw AssetError.assetNotFound(assetIdentifier)
     }
     return try await _loadImageForAsset(asset, expectedSize: expectedSize, options: requestOptions)
   }
@@ -121,7 +121,7 @@ extension KYPhotoLibrary {
   ) async throws -> [UIImage] {
 
     if albumName.isEmpty {
-      throw CommonError.invalidAlbumName(albumName)
+      throw AlbumError.invalidName(albumName)
     }
 
     let assets: PHFetchResult<PHAsset> = try await loadAssets(of: .image, fromAlbum: albumName, limit: limit)

@@ -67,7 +67,7 @@ extension KYPhotoLibrary {
   ) async throws -> URL {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
-      throw CommonError.assetNotFound(assetIdentifier)
+      throw AssetError.assetNotFound(assetIdentifier)
     }
 
     let outputURL: URL = await exportOptions.prepareUniqueOutputURL(for: asset)
