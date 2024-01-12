@@ -16,8 +16,6 @@ extension KYPhotoLibrary {
 
   /// Save a video to custom album.
   ///
-  /// If you need to update the UI in the completion block, you'd better to perform the relevant tasks in the main thread.
-  ///
   /// - Parameters:
   ///   - videoURL: The URL of the video to save.
   ///   - albumName: Custom album name.
@@ -52,12 +50,12 @@ extension KYPhotoLibrary {
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .video) else {
       throw CommonError.assetNotFound(assetIdentifier)
     }
-    return try await _loadVideo(asset, options: options)
+    return try await _loadVideoForAsset(asset, options: options)
   }
 
   // MARK: - Private - Load Video from Photo Library
 
-  private static func _loadVideo(_ asset: PHAsset, options: PHVideoRequestOptions?) async throws -> AVAsset {
+  private static func _loadVideoForAsset(_ asset: PHAsset, options: PHVideoRequestOptions?) async throws -> AVAsset {
     let assetRequestActor = AssetRequestActor()
 
     return try await withTaskCancellationHandler {
