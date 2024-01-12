@@ -29,6 +29,7 @@
 		7F88302E2B4952FF00FA03FB /* DemoImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */; };
 		7F8830302B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */; };
 		7F88303C2B497AB600FA03FB /* AssetsViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88303B2B497AB600FA03FB /* AssetsViewModelError.swift */; };
+		7F91C75F2B512A480095811C /* AssetsListRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F91C75E2B512A480095811C /* AssetsListRowModel.swift */; };
 		7F94BB0A2B4A8E7A0055FD76 /* DemoAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BB092B4A8E7A0055FD76 /* DemoAssetType.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		7F88302D2B4952FF00FA03FB /* DemoImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoImagePicker.swift; sourceTree = "<group>"; };
 		7F88302F2B495DE500FA03FB /* KYPhotoLibraryDemo.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = KYPhotoLibraryDemo.xcconfig; sourceTree = "<group>"; };
 		7F88303B2B497AB600FA03FB /* AssetsViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewModelError.swift; sourceTree = "<group>"; };
+		7F91C75E2B512A480095811C /* AssetsListRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListRowModel.swift; sourceTree = "<group>"; };
 		7F94BB092B4A8E7A0055FD76 /* DemoAssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAssetType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 				7F882FA62B4949A800FA03FB /* AssetsView.swift */,
 				7F8830252B494CFF00FA03FB /* AssetsViewModel.swift */,
 				7F88303B2B497AB600FA03FB /* AssetsViewModelError.swift */,
+				7F91C75E2B512A480095811C /* AssetsListRowModel.swift */,
 			);
 			path = AssetsView;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F91C75F2B512A480095811C /* AssetsListRowModel.swift in Sources */,
 				7F723AB22B4B8A61000C92E3 /* AssetDetailsViewModel.swift in Sources */,
 				7F88302E2B4952FF00FA03FB /* DemoImagePicker.swift in Sources */,
 				7F723AB82B4B8CC6000C92E3 /* DemoAssetProcessing.swift in Sources */,

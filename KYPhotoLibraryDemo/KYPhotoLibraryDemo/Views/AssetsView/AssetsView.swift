@@ -75,7 +75,7 @@ struct AssetsView: View {
       }
       .redacted(reason: .placeholder)
 
-    } else if self.viewModel.assetIdentifiers.isEmpty {
+    } else if self.viewModel.assetItems.isEmpty {
       VStack(alignment: .center) {
         Text(self.type.noMediaText)
           .font(.title)
@@ -92,18 +92,28 @@ struct AssetsView: View {
   private func _assetIdentifiersList() -> some View {
     List {
       Section(self.type.tabText) {
-        ForEach(self.viewModel.assetIdentifiers, id: \.self) { assetIdentifier in
+        ForEach(self.viewModel.assetItems, id: \.identifier) { assetItem in
           NavigationLink(
             destination: AssetDetailsView(
               selectedAssetIdentifier: $selectedAssetIdentifier,
-              viewModel: .init(for: self.type, with: assetIdentifier)),
-            tag: assetIdentifier,
+              viewModel: .init(for: self.type, with: assetItem.identifier)),
+            tag: assetItem.identifier,
             selection: $selectedAssetIdentifier
           ) {
-            Text(assetIdentifier)
+            _listCell(for: assetItem)
           }
         }
       }
+    }
+  }
+
+  @ViewBuilder
+  private func _listCell(for assetItem: AssetsListRowModel) -> some View {
+    VStack(alignment: .leading) {
+      Text(assetItem.filename)
+      Text(assetItem.identifier)
+        .font(.footnote)
+        .foregroundColor(.secondary)
     }
   }
 

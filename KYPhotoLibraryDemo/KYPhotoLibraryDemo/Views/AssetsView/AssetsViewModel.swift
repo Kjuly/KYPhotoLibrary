@@ -19,7 +19,7 @@ class AssetsViewModel: ObservableObject {
   }
 
   @Published var isLoading: Bool = true
-  @Published var assetIdentifiers: [String] = []
+  @Published var assetItems: [AssetsListRowModel] = []
 
   @Published var error: AssetsViewModelError?
 
@@ -27,13 +27,20 @@ class AssetsViewModel: ObservableObject {
 
   func loadFilesFromCustomPhotoAlbum(for type: DemoAssetType) async {
     do {
-      self.assetIdentifiers = try await KYPhotoLibrary.loadAssetIdentifiers(
+      let fetchResult: PHFetchResult<PHAsset> = try await KYPhotoLibrary.loadAssets(
         of: (type == .video ? .video : .image),
         fromAlbum: self.customPhotoAlbumName,
         limit: 0)
+
+      var assetItems: [AssetsListRowModel] = []
+      fetchResult.enumerateObjects { asset, _, _ in
+        assetItems.append(AssetsListRowModel(from: asset))
+      }
+      self.assetItems = assetItems.sorted { $0.filename < $1.filename }
+
     } catch {
       NSLog("Faield to load assets of \(type.tabText), error: \(error.localizedDescription)")
-      self.assetIdentifiers = []
+      self.assetItems = []
     }
     self.isLoading = false
   }
@@ -66,15 +73,21 @@ class AssetsViewModel: ObservableObject {
 
   func didFinishPicking(with image: UIImage?, or videoURL: URL?) async {
     do {
+      var mediaType: PHAssetMediaType = .image
       var localIdentifier: String?
       if let image {
+        mediaType = .image
         localIdentifier = try await KYPhotoLibrary.saveImage(image, toAlbum: self.customPhotoAlbumName)
       } else if let videoURL {
+        mediaType = .video
         localIdentifier = try await KYPhotoLibrary.saveVideo(with: videoURL, toAlbum: self.customPhotoAlbumName)
       }
 
-      if let localIdentifier {
-        self.assetIdentifiers.append(localIdentifier)
+      if
+        let localIdentifier,
+        let asset: PHAsset = await KYPhotoLibrary.assetFromIdentifier(localIdentifier, for: mediaType)
+      {
+        self.assetItems.append(AssetsListRowModel(from: asset))
       }
 
     } catch {
