@@ -10,8 +10,16 @@ import Foundation
 
 extension AssetDetailsView {
 
-  func event_cacheAsset() {
-    self.viewModel.cacheAsset()
+  func event_cachePhotoCopy() {
+    self.viewModel.cacheImage(original: false)
+  }
+
+  func event_cacheOriginalPhotoFromPhotoLibrary() {
+    self.viewModel.cacheImage(original: true)
+  }
+
+  func event_cacheVideo() {
+    self.viewModel.cacheVideo()
   }
 
   func event_deleteCachedAsset() {

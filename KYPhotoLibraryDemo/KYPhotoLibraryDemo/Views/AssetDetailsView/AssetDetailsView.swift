@@ -41,8 +41,11 @@ struct AssetDetailsView: View {
     .toolbar {
       ToolbarItemGroup(placement: .topBarTrailing) {
         if self.viewModel.processing != .load {
-          if self.viewModel.type == .archive { _archivesNavigationBarMoreMenu() }
-          else { _photoLibraryAssetsNavigationBarMoreMenu() }
+          if self.viewModel.type == .archive {
+            _archivesNavigationBarMoreMenu()
+          } else {
+            _photoLibraryAssetsNavigationBarMoreMenu()
+          }
         }
       }
     }
@@ -86,7 +89,12 @@ struct AssetDetailsView: View {
   @ViewBuilder
   private func _photoLibraryAssetsNavigationBarMoreMenu() -> some View {
     Menu {
-      Button(action: event_cacheAsset) { _navigationBarMenuOptionLabel(for: .cacheFile) }
+      if self.viewModel.type == .photo {
+        Button(action: event_cachePhotoCopy) { _navigationBarMenuOptionLabel(for: .cachePhotoCopy) }
+        Button(action: event_cacheOriginalPhotoFromPhotoLibrary) { _navigationBarMenuOptionLabel(for: .cacheFile) }
+      } else {
+        Button(action: event_cacheVideo) { _navigationBarMenuOptionLabel(for: .cacheFile) }
+      }
       Divider()
       Button(role: .destructive, action: event_deleteAssetFromPhotoLibrary) { _navigationBarMenuOptionLabel(for: .deleteFileFromPhotoLibrary) }
     } label: {

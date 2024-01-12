@@ -10,20 +10,62 @@ import UIKit
 import KYPhotoLibrary
 
 extension AssetDetailsViewModel {
-  
+
   // MARK: - Cache Asset
 
   @MainActor
-  func cacheAsset() {
-    guard
-      self.type == .video,
-      self.assetCachingTask == nil
-    else {
+  func cacheImage(original: Bool) {
+    self.processing = .cacheFile
+
+    let exportOptions = KYPhotoLibraryAssetExportOptions(
+      folderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
+      filename: nil,
+      shouldRemoveDuplicates: false)
+
+    self.assetCachingTask = Task {
+      defer {
+        self.assetCachingTask = nil
+      }
+
+      do {
+        var outputURL: URL?
+
+        if original {
+          outputURL = try await KYPhotoLibrary.exportImageFromPhotoLibrary(
+            with: self.assetIdentifier,
+            requestOptions: nil,
+            exportOptions: exportOptions)
+
+        } else if let image = self.loadedAsset as? UIImage {
+          outputURL = try await KYPhotoLibrary.exportImage(
+            image,
+            exportOptions: exportOptions)
+        }
+
+        if let outputURL {
+          NSLog("Cached asset at \(outputURL)")
+        } else {
+          NSLog("Failed to Cached asset")
+        }
+
+      } catch {
+        NSLog("Failed to Cached asset, error: \(error.localizedDescription)")
+      }
+
+      await MainActor.run {
+        self.processing = .none
+      }
+    }
+  }
+
+  @MainActor
+  func cacheVideo() {
+    guard self.assetCachingTask == nil else {
       return
     }
     self.processing = .cacheFile
 
-    let exportOptions = KYPhotoLibraryVideoExportOptions(
+    let exportOptions = KYPhotoLibraryAssetExportOptions(
       folderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
       filename: nil,
       shouldRemoveDuplicates: false)
