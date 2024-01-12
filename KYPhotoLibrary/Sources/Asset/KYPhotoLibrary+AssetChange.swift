@@ -11,23 +11,6 @@ import Photos
 
 extension KYPhotoLibrary {
 
-  // MARK: - Public - Save Asset
-
-  /// **[PKG Internal Usage Only]** Save an image or video to custom album.
-  ///
-  /// - Parameters:
-  ///   - image: The image to save.
-  ///   - imageURL: The URL of the image to save.
-  ///   - videoURL: The URL of the video to save.
-  ///   - albumName: Custom album name.
-  ///   - completion: The block to execute on completion.
-  ///
-  /// - Returns: Saved asset's localIdentifier.
-  ///
-  /*static func saveAsset(for mediaType: PHAssetMediaType, with assetURL: URL?, toAlbum albumName: String) async throws -> String {
-
-  }*/
-
   // MARK: - Internal
 
   /// **[PKG Internal Usage Only]** Save an image or video to custom album.
@@ -37,7 +20,6 @@ extension KYPhotoLibrary {
   ///   - imageURL: The URL of the image to save.
   ///   - videoURL: The URL of the video to save.
   ///   - albumName: Custom album name.
-  ///   - completion: The block to execute on completion.
   ///
   /// - Returns: Saved asset's localIdentifier.
   ///

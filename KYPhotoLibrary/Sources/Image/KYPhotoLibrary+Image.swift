@@ -18,7 +18,6 @@ extension KYPhotoLibrary {
   /// - Parameters:
   ///   - image: The image to save.
   ///   - albumName: Custom album name.
-  ///   - completion: The block to execute on completion.
   ///
   /// - Returns: Saved image's localIdentifier; nil if failed to save.
   ///
@@ -38,10 +37,9 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
-  ///   - expectedSize: The expected size of the image to be returned, default: zero.
+  ///   - expectedSize: The expected size of the image to be returned, default: zero (original size).
   ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
-  ///   - completion: The block to execute on completion.
   ///
   /// - Returns: A matched image, nil if not found.
   ///
@@ -55,24 +53,44 @@ extension KYPhotoLibrary {
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
       throw CommonError.assetNotFound(assetIdentifier)
     }
-    try Task.checkCancellation()
 
     let options = PHImageRequestOptions()
     options.deliveryMode = deliveryMode
     options.resizeMode = resizeMode
-    return try await _loadImage(asset, expectedSize: expectedSize, options: options)
+    return try await _loadImageForAsset(asset, expectedSize: expectedSize, options: options)
+  }
+
+  /// Load an image with a specific asset local identifier.
+  ///
+  /// - Parameters:
+  ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
+  ///   - expectedSize: The expected size of the image to be returned, default: zero (original size).
+  ///   - requestOptions: Options specifying how Photos should handle the request, format the requested image,
+  ///     and notify your app of progress or errors.
+  ///
+  /// - Returns: A matched image, nil if not found.
+  ///
+  public static func loadImage(
+    with assetIdentifier: String,
+    expectedSize: CGSize = .zero,
+    requestOptions: PHImageRequestOptions?
+  ) async throws -> UIImage {
+
+    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
+      throw CommonError.assetNotFound(assetIdentifier)
+    }
+    return try await _loadImageForAsset(asset, expectedSize: expectedSize, options: requestOptions)
   }
 
   /// Load multiple images from an album.
   ///
   /// - Parameters:
   ///   - albumName: Custom album name.
-  ///   - expectedSize: The expected size of the image to be returned, default: zero.
+  ///   - expectedSize: The expected size of the image to be returned, default: zero (original size).
   ///   - deliveryMode: The requested image quality and delivery priority, default: highQualityFormat.
   ///   - resizeMode: The mode that specifies how to resize the requested image, default: exact.
   ///   - limit: The maximum number of images to fetch at one time.
   ///   - terminateOnError: Whether to terminate whenever an error occurs with an image, default: false.
-  ///   - completion: The block to execute on completion.
   ///
   /// - Returns: An array of matched image, or an empty array if no images match the request.
   ///
@@ -103,7 +121,7 @@ extension KYPhotoLibrary {
     return try await withThrowingTaskGroup(of: UIImage.self, returning: [UIImage].self) { taskGroup in
       for i in 0..<assets.count {
         let isTaskAdded = taskGroup.addTaskUnlessCancelled {
-          try await _loadImage(assets.object(at: i), expectedSize: expectedSize, options: options)
+          try await _loadImageForAsset(assets.object(at: i), expectedSize: expectedSize, options: options)
         }
         if !isTaskAdded {
           break
@@ -131,7 +149,22 @@ extension KYPhotoLibrary {
 
   // MARK: - Private - Load Image from Photo Library
 
-  private static func _loadImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions) async throws -> UIImage {
+  /// **[PKG Internal Usage Only]** Load an image for a specific asset..
+  ///
+  /// - Parameters:
+  ///   - asset: The asset's unique identifier used in the Photo Library.
+  ///   - expectedSize: The expected size of the image to be returned, default: zero (original size).
+  ///   - requestOptions: Options specifying how Photos should handle the request, format the requested image,
+  ///     and notify your app of progress or errors.
+  ///
+  /// - Returns: A matched image.
+  ///
+  private static func _loadImageForAsset(
+    _ asset: PHAsset,
+    expectedSize: CGSize,
+    options: PHImageRequestOptions?
+  ) async throws -> UIImage {
+
     let assetRequestActor = AssetRequestActor()
 
     return try await withTaskCancellationHandler {

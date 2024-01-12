@@ -1,27 +1,29 @@
 //
-//  KYPhotoLibraryAssetExportOptions+DestinationURL.swift
+//  KYPhotoLibraryAssetExportOptions+OutputURL.swift
 //  KYPhotoLibrary
 //
 //  Created by Kjuly on 10/1/2024.
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import AVFoundation
 import Photos
 
 extension KYPhotoLibraryAssetExportOptions {
 
-  // MARK: - Get Unique Destination URL
+  // MARK: - Get Unique Destination URL - PHAsset
 
-  /// **[PKG Internal Usage Only]** Prepare a unique destination URL based on `folderURL` to cache the asset.
+  /// **[PKG Internal Usage Only]** Prepare a unique output URL based on `folderURL` to cache the asset.
   ///
   /// If `shouldRemoveDuplicates = true`, the duplicated file will be removed; otherwise,
   ///   a unique filename with an index will be created if duplicated.
   ///
+  /// - Parameter asset: PHAsset object from Photo Library (optional).
+  ///
   /// - Returns: A full URL including folder path and filename with extension.
   ///
-  func prepareUniqueDestinationURL(for asset: PHAsset) async -> URL {
+  func prepareUniqueOutputURL(for asset: PHAsset?) async -> URL {
     await _createFolderIfNeeded()
 
     KYPhotoLibraryLog("Current filename: \(self.filename)")
@@ -55,8 +57,6 @@ extension KYPhotoLibraryAssetExportOptions {
     return url
   }
 
-  // MARK: - Private
-
   private func _createFolderIfNeeded() async {
     if FileManager.default.fileExists(atPath: self.folderURL.path) {
       return
@@ -69,9 +69,9 @@ extension KYPhotoLibraryAssetExportOptions {
     }
   }
 
-  private func _prepareFilename(with asset: PHAsset) async {
+  private func _prepareFilename(with asset: PHAsset?) async {
     if self.filename.isEmpty {
-      if let assetResource: PHAssetResource = KYPhotoLibrary.assetResource(for: asset) {
+      if let asset, let assetResource: PHAssetResource = KYPhotoLibrary.assetResource(for: asset) {
         self.filename = assetResource.originalFilename
         self.fileExtension = (self.filename as NSString).pathExtension
         self.outputFileType = AVFileType(assetResource.uniformTypeIdentifier)
@@ -82,7 +82,7 @@ extension KYPhotoLibraryAssetExportOptions {
     } else {
       let fileExtension: String = (self.filename as NSString).pathExtension
       if fileExtension.isEmpty {
-        if let assetResource: PHAssetResource = KYPhotoLibrary.assetResource(for: asset) {
+        if let asset, let assetResource: PHAssetResource = KYPhotoLibrary.assetResource(for: asset) {
           self.fileExtension = (assetResource.originalFilename as NSString).pathExtension
           self.filename = self.filename + "." + self.fileExtension
           self.outputFileType = AVFileType(assetResource.uniformTypeIdentifier)
@@ -110,8 +110,15 @@ Updated:
   }
 
   private func _resetFileToDefault(with filename: String? = nil) {
-    self.filename = (filename ?? "Unknown") + ".mp4"
-    self.fileExtension = "mp4"
-    self.outputFileType = .mp4
+    if self.assetMediaType == .video {
+      self.filename = (filename ?? "Untitled") + ".mp4"
+      self.fileExtension = "mp4"
+      self.outputFileType = .mp4
+
+    } else {
+      self.filename = (filename ?? "Untitled") + ".jpg"
+      self.fileExtension = "jpg"
+      self.outputFileType = .jpg
+    }
   }
 }

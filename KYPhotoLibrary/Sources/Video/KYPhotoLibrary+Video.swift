@@ -21,7 +21,6 @@ extension KYPhotoLibrary {
   /// - Parameters:
   ///   - videoURL: The URL of the video to save.
   ///   - albumName: Custom album name.
-  ///   - completion: The block to execute on completion.
   ///
   /// - Returns: Saved video's localIdentifier.
   ///
@@ -53,7 +52,6 @@ extension KYPhotoLibrary {
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .video) else {
       throw CommonError.assetNotFound(assetIdentifier)
     }
-    try Task.checkCancellation()
     return try await _loadVideo(asset, options: options)
   }
 

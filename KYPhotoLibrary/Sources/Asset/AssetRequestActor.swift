@@ -15,7 +15,7 @@ actor AssetRequestActor {
   var requestID: PHImageRequestID?
 
   /// Request image asset from Photo Library.
-  func requestImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions) async throws -> UIImage {
+  func requestImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions?) async throws -> UIImage {
     let targetSize = (CGSizeEqualToSize(expectedSize, .zero)
                       ? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
                       : expectedSize)

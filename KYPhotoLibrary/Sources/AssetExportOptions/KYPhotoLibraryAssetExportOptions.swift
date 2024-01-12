@@ -8,8 +8,11 @@
 
 import Foundation
 import AVFoundation
+import Photos
 
 public class KYPhotoLibraryAssetExportOptions {
+
+  public let assetMediaType: PHAssetMediaType
 
   /// The URL of the destination folder.
   public let folderURL: URL
@@ -45,6 +48,8 @@ public class KYPhotoLibraryAssetExportOptions {
     filename: String? = nil,
     shouldRemoveDuplicates: Bool = false
   ) {
+    self.assetMediaType = .image
+
     self.folderURL = folderURL
     self.shouldRemoveDuplicates = shouldRemoveDuplicates
 
@@ -73,6 +78,8 @@ public class KYPhotoLibraryAssetExportOptions {
     exportPreset: String = AVAssetExportPresetPassthrough,
     shouldRemoveDuplicates: Bool = false
   ) {
+    self.assetMediaType = .video
+
     self.folderURL = folderURL
     self.exportPreset = exportPreset
     self.shouldRemoveDuplicates = shouldRemoveDuplicates

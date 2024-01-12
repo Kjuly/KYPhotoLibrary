@@ -36,12 +36,12 @@ extension KYPhotoLibrary {
   /// ```swift
   /// let task = Task {
   ///   do {
-  ///     let cachedAssetURL: URL? =
+  ///     let outputURL: URL? =
   ///     try await KYPhotoLibrary.exportVideoFromPhotoLibrary(
   ///       with: assetIdentifier,
   ///       requestOptions: nil,
   ///       exportOptions: exportOptions)
-  ///     // ... deal with `cachedAssetURL` if needed.
+  ///     // ... deal with `outputURL` if needed.
   ///   } catch {
   ///     // ... handle `error` here.
   ///   }
@@ -55,7 +55,7 @@ extension KYPhotoLibrary {
   ///   - requestOptions: Options specifying how Photos should handle the request and notify your app of progress or errors.
   ///   - exportOptions: Options specifying how and where to export the video.
   ///
-  /// - Returns: A cached video URL; nil if failed.
+  /// - Returns: The exported video URL; nil if failed.
   ///
   public static func exportVideoFromPhotoLibrary(
     with assetIdentifier: String,
@@ -89,9 +89,8 @@ extension KYPhotoLibrary {
     // Export video w/ the session prepared.
     try Task.checkCancellation()
     session.outputFileType = exportOptions.outputFileType
-    session.outputURL = await exportOptions.prepareUniqueDestinationURL(for: asset)
+    session.outputURL = await exportOptions.prepareUniqueOutputURL(for: asset)
 
-    try Task.checkCancellation()
     return try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session...")
       return try await _exportVideo(with: session)
@@ -135,7 +134,7 @@ extension KYPhotoLibrary {
 
 private actor VideoExportSessionRequestActor {
 
-  var requestID: PHImageRequestID?
+  private var requestID: PHImageRequestID?
 
   func requestSession(
     asset: PHAsset,
@@ -152,8 +151,6 @@ private actor VideoExportSessionRequestActor {
 #if DEBUG
         KYPhotoLibraryDebug.simulateWaiting(.assetExport)
 #endif
-        self.requestID = nil
-
         if let exportSession {
           continuation.resume(returning: exportSession)
         } else {
