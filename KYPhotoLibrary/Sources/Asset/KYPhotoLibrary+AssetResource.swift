@@ -18,18 +18,18 @@ extension KYPhotoLibrary {
   /// PHAssetResource is an underlying data resource associated with a photo, video, or Live Photo
   ///   asset in the Photos library.
   ///
-  public static func assetResource(for assetItem: PHAsset) -> PHAssetResource? {
-    let assetResources: [PHAssetResource] = PHAssetResource.assetResources(for: assetItem)
+  public static func assetResource(for asset: PHAsset) -> PHAssetResource? {
+    let assetResources: [PHAssetResource] = PHAssetResource.assetResources(for: asset)
 
     var appropriateAssetResource: PHAssetResource?
-    if assetItem.mediaType == .image {
+    if asset.mediaType == .image {
       appropriateAssetResource = assetResources.first {
         $0.type == .photo ||
         $0.type == .alternatePhoto ||
         $0.type == .fullSizePhoto ||
         $0.type == .adjustmentBasePhoto
       }
-    } else if assetItem.mediaType == .video {
+    } else if asset.mediaType == .video {
       appropriateAssetResource = assetResources.first {
         $0.type == .video ||
         $0.type == .fullSizeVideo ||
@@ -43,7 +43,7 @@ extension KYPhotoLibrary {
   }
 
   /// Get the original filename of the PHAsset instance.
-  public static func originalFilename(for assetItem: PHAsset) -> String? {
-    return assetResource(for: assetItem)?.originalFilename
+  public static func originalFilename(for asset: PHAsset) -> String? {
+    return assetResource(for: asset)?.originalFilename
   }
 }
