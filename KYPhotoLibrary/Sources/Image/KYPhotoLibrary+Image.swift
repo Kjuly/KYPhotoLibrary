@@ -39,6 +39,11 @@ extension KYPhotoLibrary {
 
   // MARK: - Public - Delete Image from Photo Library
 
+  /// Delete an image with a specific asset local identifier from Photo Library.
+  ///
+  /// - Parameters:
+  ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
+  ///
   public static func deleteImage(with assetIdentifier: String) async throws {
     try await asset_delete(for: .image, with: assetIdentifier)
   }

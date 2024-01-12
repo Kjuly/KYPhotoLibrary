@@ -28,6 +28,11 @@ extension KYPhotoLibrary {
 
   // MARK: - Public - Delete Video from Photo Library
 
+  /// Delete a video with a specific asset local identifier from Photo Library.
+  ///
+  /// - Parameters:
+  ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
+  ///
   public static func deleteVideo(with assetIdentifier: String) async throws {
     try await asset_delete(for: .video, with: assetIdentifier)
   }
