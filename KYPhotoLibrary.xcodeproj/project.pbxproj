@@ -34,20 +34,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7F1E16F52B4D539C00B05FF4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7FCAC7962B4D4AFA00C72C5E;
-			remoteInfo = KYUnitTestResourceManager;
-		};
-		7F1E16F72B4D539C00B05FF4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7FCAC79E2B4D4AFA00C72C5E;
-			remoteInfo = KYUnitTestResourceManagerTests;
-		};
 		7F1FF0722B343E2500B50B81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F1FF05F2B343E2500B50B81 /* Project object */;
@@ -58,8 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KYUnitTestResourceManager.xcodeproj; path = ../../KYUnitTestResourceManager/KYUnitTestResourceManager.xcodeproj; sourceTree = "<group>"; };
-		7F1E16F92B4D53A800B05FF4 /* KYUnitTestResourceManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KYUnitTestResourceManager; path = ../../KYUnitTestResourceManager; sourceTree = "<group>"; };
 		7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL_KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
 		7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+KYPhotoLibrary.swift"; sourceTree = "<group>"; };
 		7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryAssetExportOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryAssetExportOptions.swift; sourceTree = "<group>"; };
@@ -110,19 +94,8 @@
 		7F1E16EF2B4D534500B05FF4 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */,
-				7F1E16F92B4D53A800B05FF4 /* KYUnitTestResourceManager */,
 			);
 			path = Libs;
-			sourceTree = "<group>";
-		};
-		7F1E16F12B4D539C00B05FF4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7F1E16F62B4D539C00B05FF4 /* KYUnitTestResourceManager.framework */,
-				7F1E16F82B4D539C00B05FF4 /* KYUnitTestResourceManagerTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7F1E17302B4ED09A00B05FF4 /* Image */ = {
@@ -333,12 +306,6 @@
 			);
 			productRefGroup = 7F1FF0692B343E2500B50B81 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7F1E16F12B4D539C00B05FF4 /* Products */;
-					ProjectRef = 7F1E16F02B4D539C00B05FF4 /* KYUnitTestResourceManager.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7F1FF0672B343E2500B50B81 /* KYPhotoLibrary */,
@@ -346,23 +313,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7F1E16F62B4D539C00B05FF4 /* KYUnitTestResourceManager.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = KYUnitTestResourceManager.framework;
-			remoteRef = 7F1E16F52B4D539C00B05FF4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F1E16F82B4D539C00B05FF4 /* KYUnitTestResourceManagerTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = KYUnitTestResourceManagerTests.xctest;
-			remoteRef = 7F1E16F72B4D539C00B05FF4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7F1FF0662B343E2500B50B81 /* Resources */ = {
