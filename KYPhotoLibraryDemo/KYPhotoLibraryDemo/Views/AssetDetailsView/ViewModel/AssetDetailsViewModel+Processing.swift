@@ -126,8 +126,8 @@ extension AssetDetailsViewModel {
       return
     }
 
-    if let image = self.loadedAsset as? UIImage {
-      _ = try await KYPhotoLibrary.saveImage(image, toAlbum: KYPhotoLibraryDemoApp.customPhotoAlbumName)
+    if self.loadedAsset is UIImage {
+      _ = try await KYPhotoLibrary.saveImage(with: fileURL, toAlbum: KYPhotoLibraryDemoApp.customPhotoAlbumName)
     } else {
       _ = try await KYPhotoLibrary.saveVideo(with: fileURL, toAlbum: KYPhotoLibraryDemoApp.customPhotoAlbumName)
     }
