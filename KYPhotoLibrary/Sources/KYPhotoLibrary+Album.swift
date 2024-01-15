@@ -49,20 +49,14 @@ extension KYPhotoLibrary {
   /// - Returns: Asset collection for the created album.
   ///
   public static func createAlbum(with albumName: String) async throws -> PHAssetCollection {
-    let albumPlaceholder: PHObjectPlaceholder = try await withCheckedThrowingContinuation { continuation in
-      PHPhotoLibrary.shared().performChanges {
-        let collectionChangeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
-        continuation.resume(returning: collectionChangeRequest.placeholderForCreatedAssetCollection)
-      }
+    try await PHPhotoLibrary.shared().performChanges {
+      _ = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
     }
     KYPhotoLibraryLog("Create album \"\(albumName)\" succeeded.")
 
-    guard let assetCollection: PHAssetCollection = PHAssetCollection.fetchAssetCollections(
-      withLocalIdentifiers: [albumPlaceholder.localIdentifier],
-      options: nil
-    ).firstObject else {
-      throw AlbumError.albumNotFoundForAsset(albumPlaceholder.localIdentifier)
+    guard let albumAssetCollection: PHAssetCollection = try await getAlbum(with: albumName, createIfNotFound: false) else {
+      throw AlbumError.albumNotFound(albumName)
     }
-    return assetCollection
+    return albumAssetCollection
   }
 }
