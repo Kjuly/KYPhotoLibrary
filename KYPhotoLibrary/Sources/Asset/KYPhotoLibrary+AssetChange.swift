@@ -54,7 +54,7 @@ extension KYPhotoLibrary {
       throw AlbumError.albumNotFound(albumName)
     }
 
-    let saveAssetIdentifier: String = try await withCheckedThrowingContinuation { continuation in
+    let savedAssetIdentifier: String = try await withCheckedThrowingContinuation { continuation in
       PHPhotoLibrary.shared().performChanges {
         // Save asset
         var createAssetRequest: PHAssetChangeRequest?
@@ -85,7 +85,7 @@ extension KYPhotoLibrary {
         continuation.resume(returning: placeholderForCreatedAsset.localIdentifier)
       }
     }
-    return saveAssetIdentifier
+    return savedAssetIdentifier
   }
 
   /// **[PKG Internal Usage Only]** Delete an asset from Photo Library.
