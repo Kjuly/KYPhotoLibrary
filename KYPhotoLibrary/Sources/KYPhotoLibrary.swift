@@ -16,6 +16,9 @@ public class KYPhotoLibrary {
     /// Invalid album "`name`".
     case invalidName(String)
 
+    /// No album named "`name`" found.
+    case albumNotFound(String)
+
     /// No album found for asset with "`assetIdentifier`".
     case albumNotFoundForAsset(String)
 
@@ -24,6 +27,8 @@ public class KYPhotoLibrary {
       switch self {
       case .invalidName(let name):
         return "Invalid album name: \"\(name)\"."
+      case .albumNotFound(let name):
+        return "No album named \"\(name)\" found."
       case .albumNotFoundForAsset(let assetIdentifier):
         return "Album not found for asset with identifier: \(assetIdentifier)."
       }

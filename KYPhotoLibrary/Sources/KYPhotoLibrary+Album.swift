@@ -19,9 +19,9 @@ extension KYPhotoLibrary {
   ///   - albumName: The album name
   ///   - createIfNotFound: Whether need to create the album if it's not found, default: true.
   ///
-  /// - Returns: Asset collection for the found album.
+  /// - Returns: Asset collection for the found album; nil if not found.
   ///
-  public static func getAlbum(with albumName: String, createIfNotFound: Bool = true) async throws -> PHAssetCollection {
+  public static func getAlbum(with albumName: String, createIfNotFound: Bool = true) async throws -> PHAssetCollection? {
     let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
     var matchedAssetCollection: PHAssetCollection?
     KYPhotoLibraryLog("Looking for Album: \"\(albumName)\"...")
@@ -35,10 +35,10 @@ extension KYPhotoLibrary {
       stop.pointee = true
     }
 
-    if let matchedAssetCollection {
-      return matchedAssetCollection
-    } else {
+    if createIfNotFound && matchedAssetCollection == nil {
       return try await createAlbum(with: albumName)
+    } else {
+      return matchedAssetCollection
     }
   }
 

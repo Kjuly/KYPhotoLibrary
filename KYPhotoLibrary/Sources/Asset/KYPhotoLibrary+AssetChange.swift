@@ -50,7 +50,10 @@ extension KYPhotoLibrary {
       throw AlbumError.invalidName(albumName)
     }
 
-    let assetCollection: PHAssetCollection = try await getAlbum(with: albumName)
+    guard let albumAssetCollection: PHAssetCollection = try await getAlbum(with: albumName) else {
+      throw AlbumError.albumNotFound(albumName)
+    }
+
     let saveAssetIdentifier: String = try await withCheckedThrowingContinuation { continuation in
       PHPhotoLibrary.shared().performChanges {
         // Save asset
@@ -73,7 +76,7 @@ extension KYPhotoLibrary {
         KYPhotoLibraryLog("Save asset succeeded.")
 
         // Also, try to add the saved asset to the custom album.
-        guard let collectionChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection) else {
+        guard let collectionChangeRequest = PHAssetCollectionChangeRequest(for: albumAssetCollection) else {
           continuation.resume(throwing: AssetError.failedToAddSavedAssetToAlbum(albumName))
           return
         }
