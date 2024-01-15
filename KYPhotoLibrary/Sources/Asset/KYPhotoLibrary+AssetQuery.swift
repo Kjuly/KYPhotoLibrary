@@ -32,28 +32,18 @@ extension KYPhotoLibrary {
       throw AlbumError.invalidName(albumName)
     }
 
-    let albums: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
-    let predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
-
-    var assets: PHFetchResult<PHAsset>?
-
-    albums.enumerateObjects { (albumCollection, _, stop) in
-      guard albumCollection.localizedTitle == albumName else {
-        return
-      }
-
-      let fetchOptions = PHFetchOptions()
-      fetchOptions.wantsIncrementalChangeDetails = true
-      fetchOptions.predicate = predicate
-      if limit != 0 {
-        fetchOptions.fetchLimit = limit
-      }
-      assets = PHAsset.fetchAssets(in: albumCollection, options: fetchOptions)
-
-      stop.pointee = true
+    guard let albumAssetCollection: PHAssetCollection = try await getAlbum(with: albumName, createIfNotFound: false) else {
+      KYPhotoLibraryLog("Album not found, return empty.")
+      return PHFetchResult<PHAsset>()
     }
 
-    return assets ?? PHFetchResult<PHAsset>()
+    let fetchOptions = PHFetchOptions()
+    fetchOptions.wantsIncrementalChangeDetails = true
+    fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
+    if limit != 0 {
+      fetchOptions.fetchLimit = limit
+    }
+    return PHAsset.fetchAssets(in: albumAssetCollection, options: fetchOptions)
   }
 
   /// Load asset identifiers of a type from an album.
