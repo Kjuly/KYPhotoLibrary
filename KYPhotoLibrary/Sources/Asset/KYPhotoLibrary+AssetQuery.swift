@@ -77,16 +77,6 @@ extension KYPhotoLibrary {
     return assetIdentifiers
   }
 
-  /// Cancels an asynchronous asset request.
-  ///
-  /// - Parameter requestID: The numeric identifier of the request to be canceled.
-  ///
-  public static func cancelAssetRequest(_ requestID: PHImageRequestID?) {
-    if let requestID {
-      PHCachingImageManager.default().cancelImageRequest(requestID)
-    }
-  }
-
   // MARK: - PHAsset from Asset Identifier
 
   /// Get PHAsset instance from an asset identifier.
