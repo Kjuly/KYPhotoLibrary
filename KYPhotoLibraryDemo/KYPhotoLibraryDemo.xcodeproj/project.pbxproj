@@ -643,7 +643,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "KYPhotoLibraryDemo uses camera to take photo.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KYPhotoLibraryDemo uses Microphone during the video recording.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KYPhotoLibraryDemo uses Photos Library to list and save photos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KYPhotoLibraryDemo uses Photo Library to list and save photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -675,7 +675,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "KYPhotoLibraryDemo uses camera to take photo.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KYPhotoLibraryDemo uses Microphone during the video recording.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KYPhotoLibraryDemo uses Photos Library to list and save photos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KYPhotoLibraryDemo uses Photo Library to list and save photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
