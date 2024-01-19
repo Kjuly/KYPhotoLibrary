@@ -13,7 +13,7 @@ extension KYPhotoLibrary {
 
   // MARK: - PHAssetResource from PHAsset
 
-  /// Get the asset resource of the PHAsset instance.
+  /// Get the asset resource of the PHAsset object.
   ///
   /// PHAssetResource is an underlying data resource associated with a photo, video, or Live Photo
   ///   asset in the Photos library.
@@ -42,7 +42,7 @@ extension KYPhotoLibrary {
     return appropriateAssetResource ?? assetResources.first
   }
 
-  /// Get the original filename of the PHAsset instance.
+  /// Get the original filename of the PHAsset object.
   public static func originalFilename(for asset: PHAsset) -> String? {
     return assetResource(for: asset)?.originalFilename
   }

@@ -38,6 +38,10 @@ public class KYPhotoLibrary {
   // MARK: - Asset Error
 
   public enum AssetError: Error, LocalizedError {
+
+    /// Unknown file type.
+    case unknownFileType
+
     /// Unsupported media type.
     case unsupportedMediaType(Int)
 
@@ -46,6 +50,9 @@ public class KYPhotoLibrary {
 
     /// Asset not found with the "`assetIdentifier`".
     case assetNotFound(String)
+
+    /// Asset file not found at "`url`".
+    case fileNotFound(URL)
 
     /// Failed to save asset to Photo Library.
     case failedToSaveAssetToPhotoLibrary
@@ -59,12 +66,16 @@ public class KYPhotoLibrary {
     /// Error description.
     public var errorDescription: String? {
       switch self {
+      case .unknownFileType:
+        return "Unknown file type."
       case .unsupportedMediaType(let type):
         return "Unsupported media type: \(type)."
       case .noAssetProvided:
         return "No asset provided."
       case .assetNotFound(let assetIdentifier):
         return "Asset with identifier: \"\(assetIdentifier)\" not found."
+      case .fileNotFound(let url):
+        return "Asset file not found at URL: \"\(url)\"."
       case .failedToSaveAssetToPhotoLibrary:
         return "Failed to save asset to Photo Library."
       case .failedToAddSavedAssetToAlbum(let name):
