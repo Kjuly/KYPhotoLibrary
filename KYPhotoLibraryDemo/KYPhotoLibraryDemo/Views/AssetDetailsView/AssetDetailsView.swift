@@ -83,6 +83,8 @@ struct AssetDetailsView: View {
       Button(role: .destructive, action: event_deleteCachedAsset) { _navigationBarMenuOptionLabel(for: .deleteCachedFile) }
     } label: {
       Image(systemName: "ellipsis")
+        .padding()
+        .contentShape(Rectangle())
     }
   }
 
@@ -99,6 +101,8 @@ struct AssetDetailsView: View {
       Button(role: .destructive, action: event_deleteAssetFromPhotoLibrary) { _navigationBarMenuOptionLabel(for: .deleteFileFromPhotoLibrary) }
     } label: {
       Image(systemName: "ellipsis")
+        .padding()
+        .contentShape(Rectangle())
     }
   }
 
