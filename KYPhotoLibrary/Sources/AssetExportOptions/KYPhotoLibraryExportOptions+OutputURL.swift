@@ -42,17 +42,17 @@ extension KYPhotoLibraryExportOptions {
       }
 
     } else {
-      let filenameWithoutExt: String = (self.filename as NSString).deletingPathExtension
-      var adjustedUniqueFilename: String = self.filename
+      let title: String = (self.filename as NSString).deletingPathExtension
+      var uniqueFilename: String = self.filename
       var index: Int = 0
       repeat {
         index += 1
-        adjustedUniqueFilename = "\(filenameWithoutExt) - \(index).\(self.fileExtension)"
-        url = self.destinationFolderURL.appendingPathComponent(adjustedUniqueFilename)
+        uniqueFilename = "\(title) - \(index).\(self.fileExtension)"
+        url = self.destinationFolderURL.appendingPathComponent(uniqueFilename)
       } while FileManager.default.fileExists(atPath: url.path)
 
-      self.filename = adjustedUniqueFilename
-      KYPhotoLibraryLog("Adjusted unique filename: \(adjustedUniqueFilename)")
+      self.filename = uniqueFilename
+      KYPhotoLibraryLog("Prepared unique filename: \(uniqueFilename)")
     }
     return url
   }
