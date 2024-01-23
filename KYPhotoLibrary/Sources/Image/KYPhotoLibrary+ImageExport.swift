@@ -70,8 +70,6 @@ extension KYPhotoLibrary {
       throw AssetError.assetNotFound(assetIdentifier)
     }
 
-    let outputURL: URL = await exportOptions.prepareUniqueOutputURL(for: asset)
-
     // Request original image data.
     let imageDataRequestActor = ImageDataRequestActor()
     let imageData: Data = try await withTaskCancellationHandler {
@@ -83,8 +81,11 @@ extension KYPhotoLibrary {
         await imageDataRequestActor.cancelRequst()
       }
     }
-    // Output image.
+
     try Task.checkCancellation()
+
+    // Output image.
+    let outputURL: URL = try await exportOptions.prepareUniqueOutputURL(for: asset)
     try imageData.write(to: outputURL, options: .atomic)
     KYPhotoLibraryLog("Exported image to \(outputURL).")
     return outputURL
@@ -103,8 +104,6 @@ extension KYPhotoLibrary {
     exportOptions: KYPhotoLibraryExportOptions
   ) async throws -> URL {
 
-    let outputURL: URL = await exportOptions.prepareUniqueOutputURL(for: nil)
-
     // Request image data for type.
     let imageDataRequestActor = ImageDataRequestActor()
     let imageData: Data = try await withTaskCancellationHandler {
@@ -119,8 +118,11 @@ extension KYPhotoLibrary {
         await imageDataRequestActor.cancelRequst()
       }
     }
-    // Output image.
+
     try Task.checkCancellation()
+
+    // Output image.
+    let outputURL: URL = try await exportOptions.prepareUniqueOutputURL(for: nil)
     try imageData.write(to: outputURL, options: .atomic)
     KYPhotoLibraryLog("Exported image to \(outputURL).")
     return outputURL

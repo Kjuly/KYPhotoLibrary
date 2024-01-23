@@ -85,11 +85,12 @@ extension KYPhotoLibrary {
 #if DEBUG
     KYPhotoLibraryDebug.simulateWaiting(.assetExport)
 #endif
+    try Task.checkCancellation()
+
     //
     // Export video w/ the session prepared.
-    try Task.checkCancellation()
     session.outputFileType = exportOptions.outputFileType
-    session.outputURL = await exportOptions.prepareUniqueOutputURL(for: asset)
+    session.outputURL = try await exportOptions.prepareUniqueOutputURL(for: asset)
 
     return try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session...")

@@ -14,7 +14,7 @@ extension KYPhotoLibraryExportOptions {
 
   // MARK: - Get Unique Destination URL - PHAsset
 
-  /// **[PKG Internal Usage Only]** Prepare a unique output URL based on `folderURL` to cache the asset.
+  /// **[PKG Internal Usage Only]** Prepare a unique output URL based on `destinationFolderURL` to cache the asset.
   ///
   /// If `shouldRemoveDuplicates = true`, the duplicated file will be removed; otherwise,
   ///   a unique filename with an index will be created if duplicated.
@@ -23,13 +23,13 @@ extension KYPhotoLibraryExportOptions {
   ///
   /// - Returns: A full URL including folder path and filename with extension.
   ///
-  func prepareUniqueOutputURL(for asset: PHAsset?) async -> URL {
-    await _createFolderIfNeeded()
+  func prepareUniqueOutputURL(for asset: PHAsset?) async throws -> URL {
+    try _createFolderIfNeeded()
 
     KYPhotoLibraryLog("Current filename: \(self.filename)")
     await _prepareFilename(with: asset)
 
-    var url: URL = self.folderURL.appendingPathComponent(self.filename)
+    var url: URL = self.destinationFolderURL.appendingPathComponent(self.filename)
     if !FileManager.default.fileExists(atPath: url.path) {
       return url
     }
@@ -48,7 +48,7 @@ extension KYPhotoLibraryExportOptions {
       repeat {
         index += 1
         adjustedUniqueFilename = "\(filenameWithoutExt) - \(index).\(self.fileExtension)"
-        url = self.folderURL.appendingPathComponent(adjustedUniqueFilename)
+        url = self.destinationFolderURL.appendingPathComponent(adjustedUniqueFilename)
       } while FileManager.default.fileExists(atPath: url.path)
 
       self.filename = adjustedUniqueFilename
@@ -57,16 +57,11 @@ extension KYPhotoLibraryExportOptions {
     return url
   }
 
-  private func _createFolderIfNeeded() async {
-    if FileManager.default.fileExists(atPath: self.folderURL.path) {
+  private func _createFolderIfNeeded() throws {
+    if FileManager.default.fileExists(atPath: self.destinationFolderURL.path) {
       return
     }
-
-    do {
-      try FileManager.default.createDirectory(at: self.folderURL, withIntermediateDirectories: true)
-    } catch {
-      KYPhotoLibraryLog("Failed to create folder at \(self.folderURL)")
-    }
+    try FileManager.default.createDirectory(at: self.destinationFolderURL, withIntermediateDirectories: true)
   }
 
   private func _prepareFilename(with asset: PHAsset?) async {

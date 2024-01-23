@@ -15,7 +15,7 @@ public class KYPhotoLibraryExportOptions {
   public let assetMediaType: PHAssetMediaType
 
   /// The URL of the destination folder.
-  public let folderURL: URL
+  public let destinationFolderURL: URL
 
   /// Filename with extension.
   public internal(set) var filename: String = ""
@@ -42,19 +42,19 @@ public class KYPhotoLibraryExportOptions {
   ///   we will use the extension of the original file.
   ///
   /// - Parameters:
-  ///   - folderURL: The URL of the destination folder.
+  ///   - destinationFolderURL: The URL of the destination folder.
   ///   - filename: Preferred filename with extension, default: nil (use the same filename in the Photo Library).
   ///   - shouldRemoveDuplicates: Whether duplicate files should be removed before saving; if not, a unique filename
   ///     with an index will be created if duplicated.
   ///
   public init(
-    folderURL: URL,
+    destinationFolderURL: URL,
     filename: String? = nil,
     shouldRemoveDuplicates: Bool = false
   ) {
     self.assetMediaType = .image
 
-    self.folderURL = folderURL
+    self.destinationFolderURL = destinationFolderURL
     self.shouldRemoveDuplicates = shouldRemoveDuplicates
 
     if let filename {
@@ -70,21 +70,21 @@ public class KYPhotoLibraryExportOptions {
   ///   we will use the extension of the original file in the Photo Library.
   ///
   /// - Parameters:
-  ///   - folderURL: The URL of the destination folder.
+  ///   - destinationFolderURL: The URL of the destination folder.
   ///   - filename: Preferred filename with extension, default: nil (use the same filename in the Photo Library).
   ///   - exportPreset: Preset to export video from Photo Library, default: AVAssetExportPresetPassthrough.
   ///   - shouldRemoveDuplicates: Whether duplicate files should be removed before saving; if not, a unique filename
   ///     with an index will be created if duplicated.
   ///
   public init(
-    folderURL: URL,
+    destinationFolderURL: URL,
     filename: String? = nil,
     exportPreset: String = AVAssetExportPresetPassthrough,
     shouldRemoveDuplicates: Bool = false
   ) {
     self.assetMediaType = .video
 
-    self.folderURL = folderURL
+    self.destinationFolderURL = destinationFolderURL
     self.exportPreset = exportPreset
     self.shouldRemoveDuplicates = shouldRemoveDuplicates
 

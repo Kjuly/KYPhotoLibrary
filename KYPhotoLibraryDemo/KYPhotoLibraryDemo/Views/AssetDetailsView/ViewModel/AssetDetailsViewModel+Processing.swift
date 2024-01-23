@@ -19,7 +19,7 @@ extension AssetDetailsViewModel {
     self.processing = .cacheFile
 
     let exportOptions = KYPhotoLibraryExportOptions(
-      folderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
+      destinationFolderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
       filename: nil,
       shouldRemoveDuplicates: false)
 
@@ -67,7 +67,7 @@ extension AssetDetailsViewModel {
     self.processing = .cacheFile
 
     let exportOptions = KYPhotoLibraryExportOptions(
-      folderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
+      destinationFolderURL: KYPhotoLibraryDemoApp.archivesFolderURL,
       filename: nil,
       shouldRemoveDuplicates: false)
 
