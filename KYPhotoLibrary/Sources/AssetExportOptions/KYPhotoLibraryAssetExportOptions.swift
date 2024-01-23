@@ -21,11 +21,15 @@ public class KYPhotoLibraryAssetExportOptions {
   public internal(set) var filename: String = ""
   public internal(set) var fileExtension: String = ""
 
-  /// **Video Export Only** - Preset to export video from Photo Library, default: AVAssetExportPresetPassthrough.
-  public let exportPreset: String
-
   /// **Video Export Only** - File type for exporting videos from Photo Library, its generation depends on the filename extension.
   public internal(set) var outputFileType: AVFileType = .mp4
+
+  /// **Video Export Only** - Preset to export video from Photo Library, default: AVAssetExportPresetPassthrough.
+  ///
+  /// This option will cause the output media to be resized based on the value provided.
+  /// For further details, see the `presetName` of `AVAssetExportSession`.
+  ///
+  public let exportPreset: String
 
   /// Whether duplicate files should be removed before saving.
   public let shouldRemoveDuplicates: Bool
