@@ -85,7 +85,7 @@ extension KYPhotoLibrary {
     try Task.checkCancellation()
 
     // Output image.
-    let outputURL: URL = try await exportOptions.prepareUniqueOutputURL(for: asset)
+    let outputURL: URL = try await exportOptions.prepareOutputURL(for: asset)
     try imageData.write(to: outputURL, options: .atomic)
     KYPhotoLibraryLog("Exported image to \(outputURL).")
     return outputURL
@@ -122,7 +122,7 @@ extension KYPhotoLibrary {
     try Task.checkCancellation()
 
     // Output image.
-    let outputURL: URL = try await exportOptions.prepareUniqueOutputURL(for: nil)
+    let outputURL: URL = try await exportOptions.prepareOutputURL(for: nil)
     try imageData.write(to: outputURL, options: .atomic)
     KYPhotoLibraryLog("Exported image to \(outputURL).")
     return outputURL

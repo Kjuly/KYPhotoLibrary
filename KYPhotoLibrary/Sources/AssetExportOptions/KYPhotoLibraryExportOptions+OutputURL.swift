@@ -14,7 +14,7 @@ extension KYPhotoLibraryExportOptions {
 
   // MARK: - Get Unique Destination URL - PHAsset
 
-  /// **[PKG Internal Usage Only]** Prepare a unique output URL based on `destinationFolderURL` to cache the asset.
+  /// **[PKG Internal Usage Only]** Prepare an output URL based on `destinationFolderURL` to cache the asset.
   ///
   /// If `shouldRemoveDuplicates = true`, the duplicated file will be removed; otherwise,
   ///   a unique filename with an index will be created if duplicated.
@@ -23,7 +23,7 @@ extension KYPhotoLibraryExportOptions {
   ///
   /// - Returns: A full URL including folder path and filename with extension.
   ///
-  func prepareUniqueOutputURL(for asset: PHAsset?) async throws -> URL {
+  func prepareOutputURL(for asset: PHAsset?) async throws -> URL {
     try _createFolderIfNeeded()
 
     KYPhotoLibraryLog("Current filename: \(self.filename)")

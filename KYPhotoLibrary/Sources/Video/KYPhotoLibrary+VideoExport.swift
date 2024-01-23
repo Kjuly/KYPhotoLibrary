@@ -90,7 +90,7 @@ extension KYPhotoLibrary {
     //
     // Export video w/ the session prepared.
     session.outputFileType = exportOptions.outputFileType
-    session.outputURL = try await exportOptions.prepareUniqueOutputURL(for: asset)
+    session.outputURL = try await exportOptions.prepareOutputURL(for: asset)
 
     return try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session...")
