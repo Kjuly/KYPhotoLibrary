@@ -31,6 +31,12 @@ public class KYPhotoLibraryExportOptions {
   ///
   public let exportPreset: String
 
+  /// **Video Export Only** - Specify a time range to be exported from the source, default: nil (the entire media will be exported).
+  ///
+  /// For further details, see the `timeRange` of `AVAssetExportSession`.
+  ///
+  public var timeRange: CMTimeRange?
+
   /// Whether duplicate files should be removed before saving.
   public let shouldRemoveDuplicates: Bool
 

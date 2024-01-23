@@ -92,6 +92,11 @@ extension KYPhotoLibrary {
     session.outputFileType = exportOptions.outputFileType
     session.outputURL = try await exportOptions.prepareOutputURL(for: asset)
 
+    // Clip the media if the time range is provided.
+    if let timeRange: CMTimeRange = exportOptions.timeRange, timeRange != .invalid {
+      session.timeRange = timeRange
+    }
+
     return try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session...")
       return try await _exportVideo(with: session)
