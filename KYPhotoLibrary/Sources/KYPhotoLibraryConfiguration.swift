@@ -6,9 +6,10 @@
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-// MARK: - Thumbnail Defaults
+#if os(iOS)
+import UIKit
 
 public struct KYPhotoLibraryThumbnailDefaults {
 
@@ -30,3 +31,16 @@ public struct KYPhotoLibraryThumbnailDefaults {
     return CGSize(width: maxSideLengthForWideDevice, height: maxSideLengthForWideDevice)
   }
 }
+
+#else
+public struct KYPhotoLibraryThumbnailDefaults {
+
+  public static let maxSideLengthForWideDevice: CGFloat = 512
+
+  /// Maximum thumbnail size.
+  public static var maxSize: CGSize {
+    return CGSize(width: maxSideLengthForWideDevice, height: maxSideLengthForWideDevice)
+  }
+}
+
+#endif

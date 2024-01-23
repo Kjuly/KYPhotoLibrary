@@ -6,9 +6,13 @@
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import AVFoundation
 import Photos
+
+#if os(iOS)
+import UIKit
+#endif
 
 extension KYPhotoLibraryExportOptions {
 

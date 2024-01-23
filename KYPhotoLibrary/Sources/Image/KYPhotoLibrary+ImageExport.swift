@@ -6,9 +6,13 @@
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import AVFoundation
 import Photos
+
+#if os(iOS)
+import UIKit
+#endif
 
 extension KYPhotoLibrary {
 
@@ -100,7 +104,7 @@ extension KYPhotoLibrary {
   /// - Returns: The exported image URL.
   ///
   public static func exportImage(
-    _ image: UIImage,
+    _ image: KYPhotoLibraryImage,
     exportOptions: KYPhotoLibraryExportOptions
   ) async throws -> URL {
 
@@ -154,7 +158,7 @@ private actor ImageDataRequestActor {
     }
   }
 
-  func requestImageData(forTpye typeIdentifier: String, image: UIImage) async throws -> Data {
+  func requestImageData(forTpye typeIdentifier: String, image: KYPhotoLibraryImage) async throws -> Data {
     return try await withCheckedThrowingContinuation { continuation in
       self.progress = image.loadData(withTypeIdentifier: typeIdentifier) { data, error in
 #if DEBUG

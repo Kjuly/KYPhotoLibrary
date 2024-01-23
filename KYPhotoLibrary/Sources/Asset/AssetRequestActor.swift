@@ -6,8 +6,12 @@
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Photos
+
+#if os(iOS)
+import UIKit
+#endif
 
 /// **[PKG Internal Usage Only]** Photo library asset request actor.
 actor AssetRequestActor {
@@ -15,7 +19,7 @@ actor AssetRequestActor {
   var requestID: PHImageRequestID?
 
   /// Request image asset from Photo Library.
-  func requestImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions?) async throws -> UIImage {
+  func requestImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions?) async throws -> KYPhotoLibraryImage {
     let targetSize = (CGSizeEqualToSize(expectedSize, .zero)
                       ? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
                       : expectedSize)

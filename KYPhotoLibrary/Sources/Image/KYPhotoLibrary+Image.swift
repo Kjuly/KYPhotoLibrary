@@ -6,8 +6,17 @@
 //  Copyright © 2016 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Photos
+
+#if os(iOS)
+import UIKit
+public typealias KYPhotoLibraryImage = UIImage
+#else
+import AppKit
+public typealias KYPhotoLibraryImage = NSImage
+extension NSImage: @unchecked Sendable {}
+#endif
 
 extension KYPhotoLibrary {
 
@@ -21,7 +30,7 @@ extension KYPhotoLibrary {
   ///
   /// - Returns: Saved image's localIdentifier.
   ///
-  public static func saveImage(_ image: UIImage, toAlbum albumName: String) async throws -> String {
+  public static func saveImage(_ image: KYPhotoLibraryImage, toAlbum albumName: String) async throws -> String {
     return try await asset_save(image: image, imageURL: nil, videoURL: nil, toAlbum: albumName)
   }
 
@@ -65,7 +74,7 @@ extension KYPhotoLibrary {
     expectedSize: CGSize = .zero,
     deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
     resizeMode: PHImageRequestOptionsResizeMode = .exact
-  ) async throws -> UIImage {
+  ) async throws -> KYPhotoLibraryImage {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
       throw AssetError.assetNotFound(assetIdentifier)
@@ -91,7 +100,7 @@ extension KYPhotoLibrary {
     with assetIdentifier: String,
     expectedSize: CGSize = .zero,
     requestOptions: PHImageRequestOptions?
-  ) async throws -> UIImage {
+  ) async throws -> KYPhotoLibraryImage {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
       throw AssetError.assetNotFound(assetIdentifier)
@@ -118,7 +127,7 @@ extension KYPhotoLibrary {
     resizeMode: PHImageRequestOptionsResizeMode = .exact,
     limit: Int,
     terminateOnError: Bool = false
-  ) async throws -> [UIImage] {
+  ) async throws -> [KYPhotoLibraryImage] {
 
     if albumName.isEmpty {
       throw AlbumError.invalidName(albumName)
@@ -135,7 +144,7 @@ extension KYPhotoLibrary {
     options.deliveryMode = deliveryMode
     options.resizeMode = resizeMode
 
-    return try await withThrowingTaskGroup(of: UIImage.self, returning: [UIImage].self) { taskGroup in
+    return try await withThrowingTaskGroup(of: KYPhotoLibraryImage.self, returning: [KYPhotoLibraryImage].self) { taskGroup in
       for i in 0..<assets.count {
         let isTaskAdded = taskGroup.addTaskUnlessCancelled {
           try await _loadImageForAsset(assets.object(at: i), expectedSize: expectedSize, options: options)
@@ -146,7 +155,7 @@ extension KYPhotoLibrary {
       }
 
       if terminateOnError {
-        var images: [UIImage] = []
+        var images: [KYPhotoLibraryImage] = []
         // Fails the task group if a child task throws an error.
         while let loadedImage = try await taskGroup.next() {
           images.append(loadedImage)
@@ -157,7 +166,7 @@ extension KYPhotoLibrary {
         // var images = [UIImage]()
         // for await result in taskGroup { images.append(result) }
         // return images
-        return try await taskGroup.reduce(into: [UIImage]()) { partialResult, image in
+        return try await taskGroup.reduce(into: [KYPhotoLibraryImage]()) { partialResult, image in
           partialResult.append(image)
         }
       }
@@ -180,7 +189,7 @@ extension KYPhotoLibrary {
     _ asset: PHAsset,
     expectedSize: CGSize,
     options: PHImageRequestOptions?
-  ) async throws -> UIImage {
+  ) async throws -> KYPhotoLibraryImage {
 
     let assetRequestActor = AssetRequestActor()
 

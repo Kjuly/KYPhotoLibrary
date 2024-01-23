@@ -6,8 +6,11 @@
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
+
+#if os(iOS)
 import Photos
+import UIKit
 
 extension KYPhotoLibrary {
 
@@ -17,12 +20,12 @@ extension KYPhotoLibrary {
   ///   - asset: A PHAsset object representing the asset in Photo Library.
   ///   - boundingSize: Maximum thumbnail size.
   ///
-  /// - Returns: A UIImage object representing a thumbnail.
+  /// - Returns: A thumbnail image.
   ///
   public static func loadThumbnail(
     for asset: PHAsset,
     boundingSize: CGSize = KYPhotoLibraryThumbnailDefaults.maxSize
-  ) async throws -> UIImage {
+  ) async throws -> KYPhotoLibraryImage {
 
     let options = PHImageRequestOptions()
     options.isSynchronous = true
@@ -47,12 +50,12 @@ extension KYPhotoLibrary {
   ///   - fileURL: The URL of the asset.
   ///   - boundingSize: Maximum thumbnail size.
   ///
-  /// - Returns: A UIImage object representing a thumbnail.
+  /// - Returns: A thumbnail image.
   ///
   public static func loadThumbnail(
     with fileURL: URL,
     boundingSize: CGSize = KYPhotoLibraryThumbnailDefaults.maxSize
-  ) async throws -> UIImage {
+  ) async throws -> KYPhotoLibraryImage {
 
     guard FileManager.default.fileExists(atPath: fileURL.path) else {
       throw KYPhotoLibrary.AssetError.fileNotFound(fileURL)
@@ -63,7 +66,7 @@ extension KYPhotoLibrary {
     }
 
     if fileType.ky_isPhotoFileType() {
-      if let posterImage = UIImage(contentsOfFile: fileURL.path) {
+      if let posterImage = KYPhotoLibraryImage(contentsOfFile: fileURL.path) {
         return getThumbnail(from: posterImage, boundingSize: boundingSize)
       } else {
         throw KYPhotoLibrary.AssetError.fileNotFound(fileURL)
@@ -71,7 +74,7 @@ extension KYPhotoLibrary {
 
     } else {
       let asset = AVAsset(url: fileURL)
-      let image: UIImage = try await generateImage(from: asset, timestamp: 0, scale: 1)
+      let image: KYPhotoLibraryImage = try await generateImage(from: asset, timestamp: 0)
       return getThumbnail(from: image, boundingSize: boundingSize)
     }
   }
@@ -81,18 +84,20 @@ extension KYPhotoLibrary {
   /// - Parameters:
   ///   - asset: An AVAsset object to generate the image.
   ///   - timestamp: The specific timestamp of the asset.
-  ///   - scale: Image scale ratio.
   ///
   /// - Returns: An image.
   ///
   public static func generateImage(
     from asset: AVAsset,
-    timestamp: TimeInterval,
-    scale: CGFloat
-  ) async throws -> UIImage {
+    timestamp: TimeInterval
+  ) async throws -> KYPhotoLibraryImage {
     let assetImageGenerator = AVAssetImageGenerator(asset: asset)
     let imageRef: CGImage = try assetImageGenerator.copyCGImage(at: timestamp.ky_toCMTime, actualTime: nil)
-    let image = UIImage(cgImage: imageRef, scale: scale, orientation: .up)
+#if os(macOS)
+    let image = KYPhotoLibraryImage(cgImage: imageRef, size: .zero)
+#else
+    let image = KYPhotoLibraryImage(cgImage: imageRef, scale: 1, orientation: .up)
+#endif
     return image
   }
 
@@ -104,12 +109,12 @@ extension KYPhotoLibrary {
   ///   - image: The original image.
   ///   - boundingSize: Maximum thumbnail size.
   ///
-  /// - Returns: A UIImage object representing a thumbnail.
+  /// - Returns: A thumbnail image.
   ///
   public static func getThumbnail(
-    from image: UIImage,
+    from image: KYPhotoLibraryImage,
     boundingSize: CGSize = KYPhotoLibraryThumbnailDefaults.maxSize
-  ) -> UIImage {
+  ) -> KYPhotoLibraryImage {
 
     let imageSize = image.size
     let thumbnailSize = CGSize(width: boundingSize.width, height: boundingSize.width * imageSize.height / imageSize.width)
@@ -128,3 +133,4 @@ extension KYPhotoLibrary {
     }
   }
 }
+#endif

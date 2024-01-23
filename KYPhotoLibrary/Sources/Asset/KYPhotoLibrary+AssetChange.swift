@@ -6,8 +6,12 @@
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Photos
+
+#if os(iOS)
+import UIKit
+#endif
 
 extension KYPhotoLibrary {
 
@@ -43,7 +47,7 @@ extension KYPhotoLibrary {
   ///
   /// - Returns: Saved asset's localIdentifier.
   ///
-  static func asset_save(image: UIImage?, imageURL: URL?, videoURL: URL?, toAlbum albumName: String) async throws -> String {
+  static func asset_save(image: KYPhotoLibraryImage?, imageURL: URL?, videoURL: URL?, toAlbum albumName: String) async throws -> String {
     if image == nil && imageURL == nil && videoURL == nil {
       throw AssetError.noAssetProvided
     } else if albumName.isEmpty {
