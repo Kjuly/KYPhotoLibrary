@@ -1,5 +1,5 @@
 //
-//  KYPhotoLibraryAssetExportOptions+OutputURL.swift
+//  KYPhotoLibraryExportOptions+OutputURL.swift
 //  KYPhotoLibrary
 //
 //  Created by Kjuly on 10/1/2024.
@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-extension KYPhotoLibraryAssetExportOptions {
+extension KYPhotoLibraryExportOptions {
 
   // MARK: - Get Unique Destination URL - PHAsset
 

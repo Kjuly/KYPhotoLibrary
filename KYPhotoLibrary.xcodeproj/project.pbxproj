@@ -10,9 +10,9 @@
 		7F1E16E12B4D522500B05FF4 /* KYUnitTestResourceManager in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E16E02B4D522500B05FF4 /* KYUnitTestResourceManager */; };
 		7F1E16FE2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */; };
 		7F1E17002B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */; };
-		7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryAssetExportOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryAssetExportOptions.swift */; };
+		7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryExportOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryExportOptions.swift */; };
 		7F1E17282B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E17272B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift */; };
-		7F1E17352B4ED4F500B05FF4 /* KYPhotoLibraryAssetExportOptions+OutputURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E17342B4ED4F500B05FF4 /* KYPhotoLibraryAssetExportOptions+OutputURL.swift */; };
+		7F1E17352B4ED4F500B05FF4 /* KYPhotoLibraryExportOptions+OutputURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E17342B4ED4F500B05FF4 /* KYPhotoLibraryExportOptions+OutputURL.swift */; };
 		7F1E173F2B4EDF4200B05FF4 /* KYPhotoLibrary+AssetResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E173C2B4EDF4100B05FF4 /* KYPhotoLibrary+AssetResource.swift */; };
 		7F1E17402B4EDF4200B05FF4 /* KYPhotoLibrary+AssetQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E173D2B4EDF4100B05FF4 /* KYPhotoLibrary+AssetQuery.swift */; };
 		7F1E17412B4EDF4200B05FF4 /* KYPhotoLibrary+Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E173E2B4EDF4100B05FF4 /* KYPhotoLibrary+Album.swift */; };
@@ -50,9 +50,9 @@
 /* Begin PBXFileReference section */
 		7F1E16FD2B4D540C00B05FF4 /* URL_KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL_KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
 		7F1E16FF2B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+KYPhotoLibrary.swift"; sourceTree = "<group>"; };
-		7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryAssetExportOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryAssetExportOptions.swift; sourceTree = "<group>"; };
+		7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryExportOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYPhotoLibraryExportOptions.swift; sourceTree = "<group>"; };
 		7F1E17272B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+VideoExport.swift"; sourceTree = "<group>"; };
-		7F1E17342B4ED4F500B05FF4 /* KYPhotoLibraryAssetExportOptions+OutputURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibraryAssetExportOptions+OutputURL.swift"; sourceTree = "<group>"; };
+		7F1E17342B4ED4F500B05FF4 /* KYPhotoLibraryExportOptions+OutputURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibraryExportOptions+OutputURL.swift"; sourceTree = "<group>"; };
 		7F1E173C2B4EDF4100B05FF4 /* KYPhotoLibrary+AssetResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+AssetResource.swift"; sourceTree = "<group>"; };
 		7F1E173D2B4EDF4100B05FF4 /* KYPhotoLibrary+AssetQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+AssetQuery.swift"; sourceTree = "<group>"; };
 		7F1E173E2B4EDF4100B05FF4 /* KYPhotoLibrary+Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Album.swift"; sourceTree = "<group>"; };
@@ -139,8 +139,8 @@
 		7F1E17542B5040A100B05FF4 /* AssetExportOptions */ = {
 			isa = PBXGroup;
 			children = (
-				7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryAssetExportOptions.swift */,
-				7F1E17342B4ED4F500B05FF4 /* KYPhotoLibraryAssetExportOptions+OutputURL.swift */,
+				7F1E17032B4D5BDF00B05FF4 /* KYPhotoLibraryExportOptions.swift */,
+				7F1E17342B4ED4F500B05FF4 /* KYPhotoLibraryExportOptions+OutputURL.swift */,
 			);
 			path = AssetExportOptions;
 			sourceTree = "<group>";
@@ -373,12 +373,12 @@
 				7F1E17412B4EDF4200B05FF4 /* KYPhotoLibrary+Album.swift in Sources */,
 				7F1E17282B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift in Sources */,
 				7F723AE32B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift in Sources */,
-				7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryAssetExportOptions.swift in Sources */,
+				7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryExportOptions.swift in Sources */,
 				7F1E17402B4EDF4200B05FF4 /* KYPhotoLibrary+AssetQuery.swift in Sources */,
 				7F1E17482B4F7E8400B05FF4 /* AssetRequestActor.swift in Sources */,
 				7F1FF0842B3441B700B50B81 /* KYPhotoLibrary+Image.swift in Sources */,
 				7F1E17002B4D541C00B05FF4 /* URL+KYPhotoLibrary.swift in Sources */,
-				7F1E17352B4ED4F500B05FF4 /* KYPhotoLibraryAssetExportOptions+OutputURL.swift in Sources */,
+				7F1E17352B4ED4F500B05FF4 /* KYPhotoLibraryExportOptions+OutputURL.swift in Sources */,
 				7FAEE0F92B5A6C2300FF9703 /* KYPhotoLibraryConfiguration.swift in Sources */,
 				7F1E173F2B4EDF4200B05FF4 /* KYPhotoLibrary+AssetResource.swift in Sources */,
 				7F1FF0832B3441B700B50B81 /* KYPhotoLibrary.swift in Sources */,

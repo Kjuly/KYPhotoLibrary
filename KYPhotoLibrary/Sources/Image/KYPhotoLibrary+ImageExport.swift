@@ -63,7 +63,7 @@ extension KYPhotoLibrary {
   public static func exportImageFromPhotoLibrary(
     with assetIdentifier: String,
     requestOptions: PHImageRequestOptions?,
-    exportOptions: KYPhotoLibraryAssetExportOptions
+    exportOptions: KYPhotoLibraryExportOptions
   ) async throws -> URL {
 
     guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
@@ -100,7 +100,7 @@ extension KYPhotoLibrary {
   ///
   public static func exportImage(
     _ image: UIImage,
-    exportOptions: KYPhotoLibraryAssetExportOptions
+    exportOptions: KYPhotoLibraryExportOptions
   ) async throws -> URL {
 
     let outputURL: URL = await exportOptions.prepareUniqueOutputURL(for: nil)

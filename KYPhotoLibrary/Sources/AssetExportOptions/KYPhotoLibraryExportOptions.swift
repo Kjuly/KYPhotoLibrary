@@ -1,5 +1,5 @@
 //
-//  KYPhotoLibraryAssetExportOptions.swift
+//  KYPhotoLibraryExportOptions.swift
 //  KYPhotoLibrary
 //
 //  Created by Kjuly on 7/1/2024.
@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import Photos
 
-public class KYPhotoLibraryAssetExportOptions {
+public class KYPhotoLibraryExportOptions {
 
   public let assetMediaType: PHAssetMediaType
 
