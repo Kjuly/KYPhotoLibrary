@@ -30,7 +30,7 @@ extension KYPhotoLibrary {
   ///
   /// - Returns: Saved image's localIdentifier.
   ///
-  public static func saveImage(_ image: KYPhotoLibraryImage, toAlbum albumName: String) async throws -> String {
+  public static func saveImage(_ image: KYPhotoLibraryImage, toAlbum albumName: String?) async throws -> String {
     return try await asset_save(image: image, imageURL: nil, videoURL: nil, toAlbum: albumName)
   }
 
@@ -42,7 +42,7 @@ extension KYPhotoLibrary {
   ///
   /// - Returns: Saved image's localIdentifier.
   ///
-  public static func saveImage(with imageURL: URL, toAlbum albumName: String) async throws -> String {
+  public static func saveImage(with imageURL: URL, toAlbum albumName: String?) async throws -> String {
     return try await asset_save(image: nil, imageURL: imageURL, videoURL: nil, toAlbum: albumName)
   }
 
@@ -121,17 +121,13 @@ extension KYPhotoLibrary {
   /// - Returns: An array of matched image, or an empty array if no images match the request.
   ///
   public static func loadImages(
-    fromAlbum albumName: String,
+    fromAlbum albumName: String?,
     expectedSize: CGSize = .zero,
     deliveryMode: PHImageRequestOptionsDeliveryMode = .highQualityFormat,
     resizeMode: PHImageRequestOptionsResizeMode = .exact,
     limit: Int,
     terminateOnError: Bool = false
   ) async throws -> [KYPhotoLibraryImage] {
-
-    if albumName.isEmpty {
-      throw AlbumError.invalidName(albumName)
-    }
 
     let assets: PHFetchResult<PHAsset> = try await loadAssets(of: .image, fromAlbum: albumName, limit: limit)
     guard assets.firstObject != nil else {

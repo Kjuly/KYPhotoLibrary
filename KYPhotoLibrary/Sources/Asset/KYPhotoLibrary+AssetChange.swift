@@ -47,15 +47,17 @@ extension KYPhotoLibrary {
   ///
   /// - Returns: Saved asset's localIdentifier.
   ///
-  static func asset_save(image: KYPhotoLibraryImage?, imageURL: URL?, videoURL: URL?, toAlbum albumName: String) async throws -> String {
+  static func asset_save(image: KYPhotoLibraryImage?, imageURL: URL?, videoURL: URL?, toAlbum albumName: String?) async throws -> String {
     if image == nil && imageURL == nil && videoURL == nil {
       throw AssetError.noAssetProvided
-    } else if albumName.isEmpty {
-      throw AlbumError.invalidName(albumName)
     }
 
-    guard let albumAssetCollection: PHAssetCollection = try await getAlbum(with: albumName) else {
-      throw AlbumError.albumNotFound(albumName)
+    var albumAssetCollection: PHAssetCollection?
+    if let albumName {
+      albumAssetCollection = try await getAlbum(with: albumName)
+      if albumAssetCollection == nil {
+        throw AlbumError.albumNotFound(albumName)
+      }
     }
 
     let savedAssetIdentifier: String = try await withCheckedThrowingContinuation { continuation in
@@ -80,8 +82,11 @@ extension KYPhotoLibrary {
         KYPhotoLibraryLog("Save asset succeeded.")
 
         // Also, try to add the saved asset to the custom album.
-        guard let collectionChangeRequest = PHAssetCollectionChangeRequest(for: albumAssetCollection) else {
-          continuation.resume(throwing: AssetError.failedToAddSavedAssetToAlbum(albumName))
+        guard
+          let albumAssetCollection,
+          let collectionChangeRequest = PHAssetCollectionChangeRequest(for: albumAssetCollection)
+        else {
+          continuation.resume(throwing: AssetError.failedToAddSavedAssetToAlbum(albumName ?? ""))
           return
         }
         collectionChangeRequest.addAssets([placeholderForCreatedAsset] as NSFastEnumeration)

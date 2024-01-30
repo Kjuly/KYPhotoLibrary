@@ -17,25 +17,16 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - mediaType: The expected media type of the assets.
-  ///   - albumName: The album name.
+  ///   - albumName: Custom album name.
   ///   - limit: The maximum number of assets to fetch at one time.
   ///
   /// - Returns: A fetch result that contains the requested PHAsset objects, or empty if no objects match the request.
   ///
   public static func loadAssets(
     of mediaType: PHAssetMediaType,
-    fromAlbum albumName: String,
+    fromAlbum albumName: String?,
     limit: Int
   ) async throws -> PHFetchResult<PHAsset> {
-
-    if albumName.isEmpty {
-      throw AlbumError.invalidName(albumName)
-    }
-
-    guard let albumAssetCollection: PHAssetCollection = try await getAlbum(with: albumName, createIfNotFound: false) else {
-      KYPhotoLibraryLog("Album not found, return empty.")
-      return PHFetchResult<PHAsset>()
-    }
 
     let fetchOptions = PHFetchOptions()
     fetchOptions.wantsIncrementalChangeDetails = true
@@ -43,27 +34,32 @@ extension KYPhotoLibrary {
     if limit != 0 {
       fetchOptions.fetchLimit = limit
     }
-    return PHAsset.fetchAssets(in: albumAssetCollection, options: fetchOptions)
+
+    if let albumName {
+      guard let albumAssetCollection: PHAssetCollection = try await getAlbum(with: albumName, createIfNotFound: false) else {
+        KYPhotoLibraryLog("Album not found, return empty.")
+        return PHFetchResult<PHAsset>()
+      }
+      return PHAsset.fetchAssets(in: albumAssetCollection, options: fetchOptions)
+    } else {
+      return PHAsset.fetchAssets(with: fetchOptions)
+    }
   }
 
   /// Load asset identifiers of a type from an album.
   ///
   /// - Parameters:
   ///   - mediaType: The expected media type of the assets.
-  ///   - albumName: The album name.
+  ///   - albumName: Custom album name.
   ///   - limit: The maximum number of assets to fetch at one time.
   ///
   /// - Returns: An array of asset identifiers, or an empty array if no assets match the request.
   ///
   public static func loadAssetIdentifiers(
     of mediaType: PHAssetMediaType,
-    fromAlbum albumName: String,
+    fromAlbum albumName: String?,
     limit: Int
   ) async throws -> [String] {
-
-    if albumName.isEmpty {
-      throw AlbumError.invalidName(albumName)
-    }
 
     let assets: PHFetchResult<PHAsset> = try await loadAssets(of: mediaType, fromAlbum: albumName, limit: limit)
     guard assets.firstObject != nil else {

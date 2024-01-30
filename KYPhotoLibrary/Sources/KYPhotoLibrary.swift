@@ -13,8 +13,6 @@ public class KYPhotoLibrary {
   // MARK: - Album Error
 
   public enum AlbumError: Error, LocalizedError {
-    /// Invalid album "`name`".
-    case invalidName(String)
 
     /// No album named "`name`" found.
     case albumNotFound(String)
@@ -25,8 +23,6 @@ public class KYPhotoLibrary {
     /// Error description.
     public var errorDescription: String? {
       switch self {
-      case .invalidName(let name):
-        return "Invalid album name: \"\(name)\"."
       case .albumNotFound(let name):
         return "No album named \"\(name)\" found."
       case .albumNotFoundForAsset(let assetIdentifier):
