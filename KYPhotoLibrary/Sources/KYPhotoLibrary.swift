@@ -10,6 +10,15 @@ import Foundation
 
 public class KYPhotoLibrary {
 
+  // MARK: - URL Scheme Type
+
+  public enum URLScheme: Int {
+    /// Photo Library scheme: "assets-library://".
+    case library = 0
+    /// File scheme "file://".
+    case file
+  }
+
   // MARK: - Album Error
 
   public enum AlbumError: Error, LocalizedError {
@@ -35,6 +44,9 @@ public class KYPhotoLibrary {
 
   public enum AssetError: Error, LocalizedError {
 
+    /// Invalid file path (`path`).
+    case invalidFilePath(String)
+
     /// Unknown file type.
     case unknownFileType
 
@@ -59,9 +71,14 @@ public class KYPhotoLibrary {
     /// Failed to load asset from Photo Library.
     case failedToLoadAsset
 
+    /// Failed to get asset URL from Photo Library.
+    case failedToGetAssetURL
+
     /// Error description.
     public var errorDescription: String? {
       switch self {
+      case .invalidFilePath(let path):
+        return "Invalid file path: \(path)."
       case .unknownFileType:
         return "Unknown file type."
       case .unsupportedMediaType(let type):
@@ -78,6 +95,8 @@ public class KYPhotoLibrary {
         return "Failed to add saved asset to album: \(name)."
       case .failedToLoadAsset:
         return "Failed to load asset."
+      case .failedToGetAssetURL:
+        return "Failed to get asset URL."
       }
     }
   }

@@ -17,6 +17,9 @@ import UIKit
 actor AssetRequestActor {
 
   var requestID: PHImageRequestID?
+  var contentEditingInputRequestID: PHContentEditingInputRequestID?
+
+  // MARK: - Image
 
   /// Request image asset from Photo Library.
   func requestImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions?) async throws -> KYPhotoLibraryImage {
@@ -45,6 +48,25 @@ actor AssetRequestActor {
     }
   }
 
+  /// Request image URL from Photo Library.
+  func requestImageURL(_ asset: PHAsset, options: PHContentEditingInputRequestOptions?) async throws -> URL {
+    return try await withCheckedThrowingContinuation { continuation in
+      self.contentEditingInputRequestID = asset.requestContentEditingInput(with: options) { contentEditingInput, _ in
+        self.contentEditingInputRequestID = nil
+        if
+          let contentEditingInput,
+          let imageURL: URL = contentEditingInput.fullSizeImageURL
+        {
+          continuation.resume(returning: imageURL)
+        } else {
+          continuation.resume(throwing: KYPhotoLibrary.AssetError.failedToGetAssetURL)
+        }
+      }
+    }
+  }
+
+  // MARK: - Video
+
   /// Request video asset from Photo Library.
   func requestVideo(_ asset: PHAsset, options: PHVideoRequestOptions?) async throws -> AVAsset {
     return try await withCheckedThrowingContinuation { continuation in
@@ -63,12 +85,39 @@ actor AssetRequestActor {
     }
   }
 
-  /// Cancel the asset request.
-  func cancelRequst() async {
-    guard let requestID = self.requestID else {
-      return
+  /// Request video URL from Photo Library.
+  func requestVideoURL(_ asset: PHAsset, options: PHVideoRequestOptions?) async throws -> URL {
+    return try await withCheckedThrowingContinuation { continuation in
+      self.requestID = PHCachingImageManager.default().requestAVAsset(forVideo: asset, options: options) { asset, _, _ in
+#if DEBUG
+        KYPhotoLibraryDebug.simulateWaiting(.assetQuery)
+#endif
+        self.requestID = nil
+
+        if let urlAsset = asset as? AVURLAsset {
+          continuation.resume(returning: urlAsset.url)
+        } else {
+          continuation.resume(throwing: KYPhotoLibrary.AssetError.failedToGetAssetURL)
+        }
+      }
     }
-    PHImageManager.default().cancelImageRequest(requestID)
-    self.requestID = nil
+  }
+
+  // MARK: - Cancellation
+
+  /// Cancel the asset request.
+  func cancelRequst(_ asset: PHAsset? = nil) async {
+    if let requestID = self.requestID {
+      PHImageManager.default().cancelImageRequest(requestID)
+      self.requestID = nil
+    }
+
+    if
+      let requestID = self.contentEditingInputRequestID,
+      let asset
+    {
+      asset.cancelContentEditingInputRequest(requestID)
+      self.contentEditingInputRequestID = nil
+    }
   }
 }

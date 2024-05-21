@@ -29,6 +29,7 @@
 		7F723AE32B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F723AE02B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift */; };
 		7F723AE72B4BE456000C92E3 /* UTType_KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F723AE52B4BE456000C92E3 /* UTType_KYPhotoLibraryTests.swift */; };
 		7F723AE82B4BE456000C92E3 /* AVFileType_KYPhotoLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F723AE62B4BE456000C92E3 /* AVFileType_KYPhotoLibraryTests.swift */; };
+		7F8E9ADA2BFC9B7900BB3A65 /* KYPhotoLibrary+AssetURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E9AD92BFC9B7900BB3A65 /* KYPhotoLibrary+AssetURL.swift */; };
 		7F91C75D2B511F140095811C /* KYPhotoLibrary+ImageExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F91C75C2B511F140095811C /* KYPhotoLibrary+ImageExport.swift */; };
 		7F94BAFE2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */; };
 		7FAEE0F72B5A6BD600FF9703 /* KYPhotoLibrary+Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE0F62B5A6BD600FF9703 /* KYPhotoLibrary+Thumbnail.swift */; };
@@ -71,6 +72,7 @@
 		7F723AE02B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UTType+KYPhotoLibrary.swift"; sourceTree = "<group>"; };
 		7F723AE52B4BE456000C92E3 /* UTType_KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTType_KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
 		7F723AE62B4BE456000C92E3 /* AVFileType_KYPhotoLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFileType_KYPhotoLibraryTests.swift; sourceTree = "<group>"; };
+		7F8E9AD92BFC9B7900BB3A65 /* KYPhotoLibrary+AssetURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+AssetURL.swift"; sourceTree = "<group>"; };
 		7F91C75C2B511F140095811C /* KYPhotoLibrary+ImageExport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+ImageExport.swift"; sourceTree = "<group>"; };
 		7F94BAFD2B4A44E10055FD76 /* KYPhotoLibrary+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Video.swift"; sourceTree = "<group>"; };
 		7FAEE0F62B5A6BD600FF9703 /* KYPhotoLibrary+Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KYPhotoLibrary+Thumbnail.swift"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				7F1E17452B4F780D00B05FF4 /* KYPhotoLibrary+AssetChange.swift */,
 				7F1E173D2B4EDF4100B05FF4 /* KYPhotoLibrary+AssetQuery.swift */,
 				7F1E173C2B4EDF4100B05FF4 /* KYPhotoLibrary+AssetResource.swift */,
+				7F8E9AD92BFC9B7900BB3A65 /* KYPhotoLibrary+AssetURL.swift */,
 				7FAEE0F62B5A6BD600FF9703 /* KYPhotoLibrary+Thumbnail.swift */,
 				7F1E17472B4F7E8400B05FF4 /* AssetRequestActor.swift */,
 			);
@@ -372,6 +375,7 @@
 				7FAEE0FB2B5A6C4E00FF9703 /* UIDevice+KYPhotoLibrary.swift in Sources */,
 				7F1E17412B4EDF4200B05FF4 /* KYPhotoLibrary+Album.swift in Sources */,
 				7F1E17282B4E985600B05FF4 /* KYPhotoLibrary+VideoExport.swift in Sources */,
+				7F8E9ADA2BFC9B7900BB3A65 /* KYPhotoLibrary+AssetURL.swift in Sources */,
 				7F723AE32B4BE44D000C92E3 /* UTType+KYPhotoLibrary.swift in Sources */,
 				7F1E17042B4D5BDF00B05FF4 /* KYPhotoLibraryExportOptions.swift in Sources */,
 				7F1E17402B4EDF4200B05FF4 /* KYPhotoLibrary+AssetQuery.swift in Sources */,
