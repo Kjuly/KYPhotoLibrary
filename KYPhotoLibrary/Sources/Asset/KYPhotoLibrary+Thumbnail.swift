@@ -14,7 +14,7 @@ import UIKit
 
 extension KYPhotoLibrary {
 
-  /// Load the thumbnail of an MPMediaItem object.
+  /// Load the thumbnail of a PHAsset object.
   ///
   /// - Parameters:
   ///   - asset: A PHAsset object representing the asset in Photo Library.
