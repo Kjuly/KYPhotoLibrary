@@ -12,6 +12,53 @@ import KYPhotoLibrary
 
 extension AssetDetailsViewModel {
 
+  // MARK: - Print Asset URL
+
+  @MainActor
+  func printAssetURL() async throws {
+    self.processing = .printAssetURL
+
+    let mediaType: PHAssetMediaType = (self.type == .photo ? .image : .video)
+
+    // Get file scheme URL.
+    let assetFileSchemeURL: URL = try await KYPhotoLibrary.assetURL(
+      with: self.assetIdentifier,
+      for: mediaType,
+      scheme: .file)
+    let isAssetFileSchemeURLResourceReachable: Bool? = try? assetFileSchemeURL.checkResourceIsReachable()
+    let assetOne = AVURLAsset(url: assetFileSchemeURL)
+    let isAssetOnePlayable: Bool? = try? await assetOne.load(.isPlayable)
+
+    // Get Photo Library scheme URL.
+    let assetLibrarySchemeURL: URL = try await KYPhotoLibrary.assetURL(
+      with: self.assetIdentifier,
+      for: mediaType,
+      scheme: .library)
+    let isAssetLibrarySchemeURLResourceReachable: Bool? = try? assetLibrarySchemeURL.checkResourceIsReachable()
+    let assetTwo = AVURLAsset(url: assetLibrarySchemeURL)
+    let isAssetTwoPlayable: Bool? = try? await assetTwo.load(.isPlayable)
+
+    print("""
+
+    ### File Scheme URL:
+      - \(assetFileSchemeURL)
+      - Reachable: \(isAssetFileSchemeURLResourceReachable ?? false)
+      - Playable: \(isAssetOnePlayable ?? false)
+      - Asset: \(assetOne)
+
+    ### Library Scheme URL:
+      - \(assetLibrarySchemeURL)
+      - Reachable: \(isAssetLibrarySchemeURLResourceReachable ?? false)
+      - Playable: \(isAssetTwoPlayable ?? false)
+      - Asset: \(assetTwo)
+
+    """)
+
+    await MainActor.run {
+      self.processing = .none
+    }
+  }
+
   // MARK: - Cache Asset
 
   @MainActor

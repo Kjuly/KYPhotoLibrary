@@ -10,6 +10,16 @@ import Foundation
 
 extension AssetDetailsView {
 
+  func event_printAssetURL() {
+    Task {
+      do {
+        try await self.viewModel.printAssetURL()
+      } catch {
+        self.viewModel.error = AssetDetailsViewModelError.failedToGetAssetURL(error.localizedDescription)
+      }
+    }
+  }
+
   func event_cachePhotoCopy() {
     self.viewModel.cacheImage(original: false)
   }
@@ -36,7 +46,7 @@ extension AssetDetailsView {
       do {
         try await self.viewModel.saveAssetToAlbum()
       } catch {
-        self.viewModel.error = AssetDetailsViewModelError.failedTosaveAssetToAlbum(error.localizedDescription)
+        self.viewModel.error = AssetDetailsViewModelError.failedToSaveAssetToAlbum(error.localizedDescription)
       }
     }
   }

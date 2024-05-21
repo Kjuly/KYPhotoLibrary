@@ -91,6 +91,9 @@ struct AssetDetailsView: View {
   @ViewBuilder
   private func _photoLibraryAssetsNavigationBarMoreMenu() -> some View {
     Menu {
+      Button(action: event_printAssetURL) { _navigationBarMenuOptionLabel(for: .printAssetURL) }
+      Divider()
+
       if self.viewModel.type == .photo {
         Button(action: event_cachePhotoCopy) { _navigationBarMenuOptionLabel(for: .cachePhotoCopy) }
         Button(action: event_cacheOriginalPhotoFromPhotoLibrary) { _navigationBarMenuOptionLabel(for: .cacheFile) }

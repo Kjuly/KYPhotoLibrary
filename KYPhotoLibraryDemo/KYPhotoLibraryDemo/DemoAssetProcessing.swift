@@ -12,6 +12,7 @@ enum DemoAssetProcessing: Int {
 
   case none = 0
   case load
+  case printAssetURL
   case cacheFile
   case cachePhotoCopy
   case deleteCachedFile
@@ -20,6 +21,7 @@ enum DemoAssetProcessing: Int {
 
   var actionText: String {
     switch self {
+    case .printAssetURL: return "Print Asset URL"
     case .cacheFile: return "Cache to App"
     case .cachePhotoCopy: return "Cache Photo Copy to App"
     case .deleteCachedFile: return "Delete Cached File"
@@ -32,6 +34,7 @@ enum DemoAssetProcessing: Int {
 
   var iconName: String {
     switch self {
+    case .printAssetURL: return "link"
     case .cacheFile, .cachePhotoCopy: return "arrow.down.to.line.circle"
     case .saveAssetToAlbum: return "photo"
     case .deleteCachedFile, .deleteFileFromPhotoLibrary: return "trash"
