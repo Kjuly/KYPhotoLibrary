@@ -22,7 +22,6 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
-  ///   - mediaType: The expected media type of the asset.
   ///   - scheme: URL scheme, default: KYPhotoLibrary.URLScheme.library.
   ///   - useOriginalFilename: Whether use the original filename in the URL when the "`scheme = .library`",
   ///     default: false (will use "asset" as the file title); this option will be ignored when "`scheme = .file`".
@@ -31,17 +30,16 @@ extension KYPhotoLibrary {
   ///
   public static func assetURL(
     with assetIdentifier: String,
-    for mediaType: PHAssetMediaType,
     scheme: KYPhotoLibrary.URLScheme = .library,
     useOriginalFilename: Bool = false
   ) async throws -> URL {
 
-    guard let asset: PHAsset = await asset(with: assetIdentifier, for: mediaType) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier) else {
       throw AssetError.assetNotFound(assetIdentifier)
     }
 
     if scheme == .file {
-      if mediaType == .image {
+      if asset.mediaType == .image {
         return try await _imageURL(of: asset)
       } else {
         return try await _videoURL(of: asset)
@@ -63,7 +61,7 @@ extension KYPhotoLibrary {
                   ?? assetResource.originalFilename)
     } else {
       guard let fileExtension: String = UTType.ky_getFileExtensionFromUniformTypeIdentifier(assetResource.uniformTypeIdentifier) else {
-        throw AssetError.unsupportedMediaType(mediaType.rawValue)
+        throw AssetError.unsupportedMediaType(asset.mediaType.rawValue)
       }
       filename = "asset.\(fileExtension)"
     }

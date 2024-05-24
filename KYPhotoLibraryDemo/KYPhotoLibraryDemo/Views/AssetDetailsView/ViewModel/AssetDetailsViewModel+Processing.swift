@@ -18,22 +18,14 @@ extension AssetDetailsViewModel {
   func printAssetURL() async throws {
     self.processing = .printAssetURL
 
-    let mediaType: PHAssetMediaType = (self.type == .photo ? .image : .video)
-
     // Get file scheme URL.
-    let assetFileSchemeURL: URL = try await KYPhotoLibrary.assetURL(
-      with: self.assetIdentifier,
-      for: mediaType,
-      scheme: .file)
+    let assetFileSchemeURL: URL = try await KYPhotoLibrary.assetURL(with: self.assetIdentifier, scheme: .file)
     let isAssetFileSchemeURLResourceReachable: Bool? = try? assetFileSchemeURL.checkResourceIsReachable()
     let assetOne = AVURLAsset(url: assetFileSchemeURL)
     let isAssetOnePlayable: Bool? = try? await assetOne.load(.isPlayable)
 
     // Get Photo Library scheme URL.
-    let assetLibrarySchemeURL: URL = try await KYPhotoLibrary.assetURL(
-      with: self.assetIdentifier,
-      for: mediaType,
-      scheme: .library)
+    let assetLibrarySchemeURL: URL = try await KYPhotoLibrary.assetURL(with: self.assetIdentifier, scheme: .library)
     let isAssetLibrarySchemeURLResourceReachable: Bool? = try? assetLibrarySchemeURL.checkResourceIsReachable()
     let assetTwo = AVURLAsset(url: assetLibrarySchemeURL)
     let isAssetTwoPlayable: Bool? = try? await assetTwo.load(.isPlayable)
