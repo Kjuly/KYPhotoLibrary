@@ -79,11 +79,13 @@ extension KYPhotoLibrary {
   ///
   /// - Parameters:
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
-  ///   - mediaType: The expected media type of the asset.
+  ///   - mediaType: The expected media type of the asset, default: .unknown (will return the first one matching the identifier).
   ///
-  public static func asset(with assetIdentifier: String, for mediaType: PHAssetMediaType) async -> PHAsset? {
+  public static func asset(with assetIdentifier: String, for mediaType: PHAssetMediaType = .unknown) async -> PHAsset? {
     let fetchOptions = PHFetchOptions()
-    fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
+    if mediaType != .unknown {
+      fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
+    }
     fetchOptions.fetchLimit = 1
     return PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: fetchOptions).firstObject
   }
