@@ -81,7 +81,7 @@ extension KYPhotoLibrary {
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
   ///   - mediaType: The expected media type of the asset.
   ///
-  public static func assetFromIdentifier(_ assetIdentifier: String, for mediaType: PHAssetMediaType) async -> PHAsset? {
+  public static func asset(with assetIdentifier: String, for mediaType: PHAssetMediaType) async -> PHAsset? {
     let fetchOptions = PHFetchOptions()
     fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
     fetchOptions.fetchLimit = 1
@@ -94,7 +94,7 @@ extension KYPhotoLibrary {
   ///   - assetIdentifiers: An array of the asset's unique identifier used in the Photo Library.
   ///   - mediaType: The expected media type of the asset.
   ///
-  public static func assetsFromIdentifier(_ assetIdentifiers: [String], for mediaType: PHAssetMediaType) async -> PHFetchResult<PHAsset> {
+  public static func assets(with assetIdentifiers: [String], for mediaType: PHAssetMediaType) async -> PHFetchResult<PHAsset> {
     let fetchOptions = PHFetchOptions()
     fetchOptions.predicate = NSPredicate(format: "mediaType = %ld", mediaType.rawValue)
     return PHAsset.fetchAssets(withLocalIdentifiers: assetIdentifiers, options: fetchOptions)

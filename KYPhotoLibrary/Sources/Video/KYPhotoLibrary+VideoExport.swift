@@ -63,7 +63,7 @@ extension KYPhotoLibrary {
     exportOptions: KYPhotoLibraryExportOptions
   ) async throws -> URL? {
 
-    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .video) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier, for: .video) else {
       throw VideoExportError.assetNotFound(assetIdentifier)
     }
     //

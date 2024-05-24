@@ -104,7 +104,7 @@ extension KYPhotoLibrary {
   ///   - assetIdentifier: The asset's unique identifier used in the Photo Library.
   ///
   static func asset_delete(for mediaType: PHAssetMediaType, with assetIdentifier: String) async throws {
-    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: mediaType) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier, for: mediaType) else {
       throw AssetError.assetNotFound(assetIdentifier)
     }
 

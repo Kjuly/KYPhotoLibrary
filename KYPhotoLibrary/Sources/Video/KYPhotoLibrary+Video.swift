@@ -52,7 +52,7 @@ extension KYPhotoLibrary {
     options: PHVideoRequestOptions? = nil
   ) async throws -> AVAsset {
 
-    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .video) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier, for: .video) else {
       throw AssetError.assetNotFound(assetIdentifier)
     }
     return try await _loadVideoForAsset(asset, options: options)

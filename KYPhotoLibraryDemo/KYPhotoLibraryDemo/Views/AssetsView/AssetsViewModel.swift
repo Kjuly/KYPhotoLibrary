@@ -85,7 +85,7 @@ class AssetsViewModel: ObservableObject {
 
       if
         let localIdentifier,
-        let asset: PHAsset = await KYPhotoLibrary.assetFromIdentifier(localIdentifier, for: mediaType)
+        let asset: PHAsset = await KYPhotoLibrary.asset(with: localIdentifier, for: mediaType)
       {
         self.assetItems.append(AssetsListRowModel(from: asset))
       }

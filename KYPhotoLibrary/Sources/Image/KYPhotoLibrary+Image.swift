@@ -76,7 +76,7 @@ extension KYPhotoLibrary {
     resizeMode: PHImageRequestOptionsResizeMode = .exact
   ) async throws -> KYPhotoLibraryImage {
 
-    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier, for: .image) else {
       throw AssetError.assetNotFound(assetIdentifier)
     }
 
@@ -102,7 +102,7 @@ extension KYPhotoLibrary {
     requestOptions: PHImageRequestOptions?
   ) async throws -> KYPhotoLibraryImage {
 
-    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: .image) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier, for: .image) else {
       throw AssetError.assetNotFound(assetIdentifier)
     }
     return try await _loadImageForAsset(asset, expectedSize: expectedSize, options: requestOptions)

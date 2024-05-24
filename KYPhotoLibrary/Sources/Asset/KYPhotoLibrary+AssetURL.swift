@@ -36,7 +36,7 @@ extension KYPhotoLibrary {
     useOriginalFilename: Bool = false
   ) async throws -> URL {
 
-    guard let asset: PHAsset = await assetFromIdentifier(assetIdentifier, for: mediaType) else {
+    guard let asset: PHAsset = await asset(with: assetIdentifier, for: mediaType) else {
       throw AssetError.assetNotFound(assetIdentifier)
     }
 
