@@ -88,7 +88,6 @@ struct AssetsView: View {
     }
   }
 
-  @ViewBuilder
   private func _assetIdentifiersList() -> some View {
     List {
       Section(self.type.tabText) {
@@ -107,7 +106,6 @@ struct AssetsView: View {
     }
   }
 
-  @ViewBuilder
   private func _listCell(for assetItem: AssetsListRowModel) -> some View {
     VStack(alignment: .leading) {
       Text(assetItem.filename)
@@ -117,7 +115,6 @@ struct AssetsView: View {
     }
   }
 
-  @ViewBuilder
   private func _pickMediaButton() -> some View {
     Button(action: _pickMedia) {
       Text(self.type.pickMediaText)

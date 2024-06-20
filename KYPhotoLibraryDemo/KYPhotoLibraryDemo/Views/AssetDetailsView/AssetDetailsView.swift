@@ -66,7 +66,6 @@ struct AssetDetailsView: View {
 
   // MARK: - Private
 
-  @ViewBuilder
   private func _loadingView() -> some View {
     Text(DemoAssetProcessing.load.inProcessingText)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -75,7 +74,6 @@ struct AssetDetailsView: View {
       }
   }
 
-  @ViewBuilder
   private func _archivesNavigationBarMoreMenu() -> some View {
     Menu {
       Button(action: event_saveAssetToAlbum) { _navigationBarMenuOptionLabel(for: .saveAssetToAlbum) }
@@ -88,7 +86,6 @@ struct AssetDetailsView: View {
     }
   }
 
-  @ViewBuilder
   private func _photoLibraryAssetsNavigationBarMoreMenu() -> some View {
     Menu {
       Button(action: event_printAssetURL) { _navigationBarMenuOptionLabel(for: .printAssetURL) }
@@ -109,7 +106,6 @@ struct AssetDetailsView: View {
     }
   }
 
-  @ViewBuilder
   private func _navigationBarMenuOptionLabel(for processing: DemoAssetProcessing) -> some View {
     Label {
       Text(processing.actionText)
@@ -118,7 +114,6 @@ struct AssetDetailsView: View {
     }
   }
 
-  @ViewBuilder
   private func _processingView() -> some View {
     VStack(alignment: .center) {
       Text(self.viewModel.processing.inProcessingText)
@@ -139,7 +134,6 @@ struct AssetDetailsView: View {
     }
   }
 
-  @ViewBuilder
   private func _notFoundView() -> some View {
     Text(self.viewModel.type.mediaNotFoundText)
       .font(.title)

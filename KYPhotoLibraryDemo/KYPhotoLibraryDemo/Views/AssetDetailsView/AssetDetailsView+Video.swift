@@ -11,7 +11,6 @@ import AVKit
 
 extension AssetDetailsView {
 
-  @ViewBuilder
   func videoView(with asset: AVAsset) -> some View {
     VideoPlayer(player: AVPlayer(playerItem: AVPlayerItem(asset: asset)))
   }

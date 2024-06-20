@@ -91,7 +91,6 @@ struct ArchivesView: View {
     }
   }
 
-  @ViewBuilder
   private func _assetFilenamesList() -> some View {
     List {
       Section("Cached Files") {

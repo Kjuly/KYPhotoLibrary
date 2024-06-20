@@ -34,7 +34,6 @@ struct KYPhotoLibraryDemoApp: App {
     }
   }
 
-  @ViewBuilder
   private func _view(for type: DemoAssetType) -> some View {
     NavigationView {
       if type == .archive {

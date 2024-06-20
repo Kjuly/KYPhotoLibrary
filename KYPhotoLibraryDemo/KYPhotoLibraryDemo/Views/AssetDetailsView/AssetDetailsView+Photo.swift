@@ -10,7 +10,6 @@ import SwiftUI
 
 extension AssetDetailsView {
 
-  @ViewBuilder
   func photoView(with image: UIImage) -> some View {
     Image(uiImage: image)
       .resizable()
