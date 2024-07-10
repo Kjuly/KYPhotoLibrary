@@ -92,6 +92,7 @@ extension KYPhotoLibrary {
     timestamp: TimeInterval
   ) async throws -> KYPhotoLibraryImage {
     let assetImageGenerator = AVAssetImageGenerator(asset: asset)
+    assetImageGenerator.appliesPreferredTrackTransform = true
     let imageRef: CGImage = try assetImageGenerator.copyCGImage(at: timestamp.ky_toCMTime, actualTime: nil)
 #if os(macOS)
     let image = KYPhotoLibraryImage(cgImage: imageRef, size: .zero)
