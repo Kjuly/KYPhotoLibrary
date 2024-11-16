@@ -1,0 +1,19 @@
+
+name: Unit Tests
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths-ignore:
+      - 'README.md'
+
+  pull_request:
+
+jobs:
+  call-reusable-workflow-to-test:
+    uses: Kjuly/swift-ci/.github/workflows/unit-tests.yml@main
+    with:
+      use_xcodebuild: true
+      platforms: 'iOS'
+
