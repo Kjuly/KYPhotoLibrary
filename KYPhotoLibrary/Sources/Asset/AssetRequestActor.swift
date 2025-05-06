@@ -22,16 +22,18 @@ actor AssetRequestActor {
   // MARK: - Image
 
   /// Request image asset from Photo Library.
-  func requestImage(_ asset: PHAsset, expectedSize: CGSize, options: PHImageRequestOptions?) async throws -> KYPhotoLibraryImage {
-    let targetSize = (CGSizeEqualToSize(expectedSize, .zero)
-                      ? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
-                      : expectedSize)
+  func requestImage(
+    _ asset: PHAsset,
+    targetSize: CGSize,
+    contentMode: PHImageContentMode,
+    options: PHImageRequestOptions?
+  ) async throws -> KYPhotoLibraryImage {
 
     return try await withCheckedThrowingContinuation { continuation in
       self.requestID = PHCachingImageManager.default().requestImage(
         for: asset,
         targetSize: targetSize,
-        contentMode: .aspectFit,
+        contentMode: contentMode,
         options: options
       ) { result, _ in
 #if DEBUG

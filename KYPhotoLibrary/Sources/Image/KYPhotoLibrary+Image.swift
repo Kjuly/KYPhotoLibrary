@@ -191,7 +191,12 @@ extension KYPhotoLibrary {
 
     return try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Image Request...")
-      return try await assetRequestActor.requestImage(asset, expectedSize: expectedSize, options: options)
+      return try await assetRequestActor.requestImage(
+        asset,
+        targetSize: expectedSize,
+        contentMode: .aspectFit,
+        options: options)
+
     } onCancel: {
       Task {
         KYPhotoLibraryLog("Cancel Image Request...")
