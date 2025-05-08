@@ -21,7 +21,7 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:KYPhotoLibrary.xcodeproj",
         "identifier" : "7F1FF06F2B343E2500B50B81",
