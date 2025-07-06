@@ -101,11 +101,11 @@ extension KYPhotoLibraryExportOptions {
       }
     }
     KYPhotoLibraryLog("""
-Updated:
-- filename: \(self.filename)
-- fileExtension: \(self.fileExtension)
-- outputFileType: \(self.outputFileType)
-""")
+      Updated:
+      - filename: \(self.filename)
+      - fileExtension: \(self.fileExtension)
+      - outputFileType: \(self.outputFileType)
+      """)
   }
 
   private func _resetFileToDefault(with filename: String? = nil) {
