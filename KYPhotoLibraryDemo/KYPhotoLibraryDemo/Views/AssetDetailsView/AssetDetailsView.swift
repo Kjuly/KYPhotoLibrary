@@ -39,8 +39,8 @@ struct AssetDetailsView: View {
       }
     }
     .toolbar {
-      ToolbarItemGroup(placement: .topBarTrailing) {
-        if self.viewModel.processing != .load {
+      if self.viewModel.processing != .load {
+        ToolbarItem(placement: .topBarTrailing) {
           if self.viewModel.type == .archive {
             _archivesNavigationBarMoreMenu()
           } else {

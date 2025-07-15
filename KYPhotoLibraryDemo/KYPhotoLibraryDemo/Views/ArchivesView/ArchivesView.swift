@@ -31,8 +31,8 @@ struct ArchivesView: View {
       self.viewModel.loadCachedFiles()
     }
     .toolbar {
-      ToolbarItemGroup(placement: .confirmationAction) {
-        if !self.viewModel.assetFilenames.isEmpty {
+      if !self.viewModel.assetFilenames.isEmpty {
+        ToolbarItem(placement: .confirmationAction) {
           Button(role: .destructive) {
             self.isPresentingDeletionDialog = true
           } label: {
