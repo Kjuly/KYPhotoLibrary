@@ -66,15 +66,17 @@ extension KYPhotoLibrary {
     guard let asset: PHAsset = await asset(with: assetIdentifier, for: .video) else {
       throw VideoExportError.assetNotFound(assetIdentifier)
     }
-    //
+
     // Request a video export session.
+    //
     let exportSessionRequestActor = VideoExportSessionRequestActor()
     let session: AVAssetExportSession = try await withTaskCancellationHandler {
       KYPhotoLibraryLog("Start Export Session Request...")
       return try await exportSessionRequestActor.requestSession(
         asset: asset,
         requestOptions: requestOptions,
-        exportOptions: exportOptions)
+        exportOptions: exportOptions
+      )
     } onCancel: {
       Task {
         KYPhotoLibraryLog("Cancel Export Session Request...")
@@ -87,52 +89,21 @@ extension KYPhotoLibrary {
 #endif
     try Task.checkCancellation()
 
-    //
     // Export video w/ the session prepared.
-    session.outputFileType = exportOptions.outputFileType
-    session.outputURL = try await exportOptions.prepareOutputURL(for: asset)
-
+    //
     // Clip the media if the time range is provided.
     if let timeRange: CMTimeRange = exportOptions.timeRange, timeRange != .invalid {
       session.timeRange = timeRange
     }
 
-    return try await withTaskCancellationHandler {
-      KYPhotoLibraryLog("Start Export Session...")
-      return try await _exportVideo(with: session)
-    } onCancel: {
-      KYPhotoLibraryLog("Cancel Export Session...")
-      session.cancelExport()
-    }
-  }
+    let outputFileType: AVFileType = exportOptions.outputFileType
+    let outputURL: URL = try await exportOptions.prepareOutputURL(for: asset)
 
-  // MARK: - Private
+    try Task.checkCancellation()
+    try await session.export(to: outputURL, as: outputFileType)
 
-  /// Export video with the session prepared.
-  private static func _exportVideo(with session: AVAssetExportSession) async throws -> URL? {
-    await session.export()
-
-    switch session.status {
-    case .completed:
-      KYPhotoLibraryLog("Export Session Completed")
-      return session.outputURL
-
-    case .failed:
-      KYPhotoLibraryLog("Export Session Failed: \(String(describing: session.error))")
-      if let error = session.error {
-        throw error
-      } else {
-        return nil
-      }
-
-    case .cancelled:
-      KYPhotoLibraryLog("Export Session Cancelled")
-      return nil
-
-    default:
-      KYPhotoLibraryLog("Export Session - Other Status: \(session.status)")
-      return nil
-    }
+    KYPhotoLibraryLog("Export Session Completed")
+    return outputURL
   }
 }
 
