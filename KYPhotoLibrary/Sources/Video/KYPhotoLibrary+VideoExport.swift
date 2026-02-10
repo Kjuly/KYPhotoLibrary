@@ -100,7 +100,14 @@ extension KYPhotoLibrary {
     let outputURL: URL = try await exportOptions.prepareOutputURL(for: asset)
 
     try Task.checkCancellation()
-    try await session.export(to: outputURL, as: outputFileType)
+
+    if #available(iOS 18, *) {
+      try await session.export(to: outputURL, as: outputFileType)
+    } else {
+      session.outputURL = outputURL
+      session.outputFileType = outputFileType
+      await session.export()
+    }
 
     KYPhotoLibraryLog("Export Session Completed")
     return outputURL
