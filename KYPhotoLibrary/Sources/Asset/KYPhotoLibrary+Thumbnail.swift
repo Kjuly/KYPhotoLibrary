@@ -39,9 +39,9 @@ extension KYPhotoLibrary {
       KYPhotoLibraryLog("Start thumbnail image request...")
 
       let imageScale: CGFloat = (scale > 0 ? scale : await UIScreen.main.scale)
-      let targetSize = CGSizeMake(
-        boundingSize.width  > 0 ? boundingSize.width  * imageScale : CGFloat(asset.pixelWidth),
-        boundingSize.height > 0 ? boundingSize.height * imageScale : CGFloat(asset.pixelHeight)
+      let targetSize = CGSize(
+        width: boundingSize.width > 0 ? boundingSize.width * imageScale : CGFloat(asset.pixelWidth),
+        height: boundingSize.height > 0 ? boundingSize.height * imageScale : CGFloat(asset.pixelHeight)
       )
 
       let options = PHImageRequestOptions()
