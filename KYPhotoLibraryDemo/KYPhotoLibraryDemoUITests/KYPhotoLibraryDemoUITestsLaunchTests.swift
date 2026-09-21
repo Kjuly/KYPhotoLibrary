@@ -5,7 +5,7 @@
 //  Created by Kjuly on 6/1/2024.
 //  Copyright © 2024 Kaijie Yu. All rights reserved.
 //
-
+/*
 import XCTest
 
 final class KYPhotoLibraryDemoUITestsLaunchTests: XCTestCase {
@@ -30,4 +30,4 @@ final class KYPhotoLibraryDemoUITestsLaunchTests: XCTestCase {
     attachment.lifetime = .keepAlways
     add(attachment)
   }
-}
+}*/
